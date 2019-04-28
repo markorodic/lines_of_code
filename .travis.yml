@@ -1,0 +1,9 @@
+language: node_js
+cache:
+  directories:
+    - node_modules
+branches:
+  only:
+    master
+notifactions:
+  email: false
