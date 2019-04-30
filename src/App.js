@@ -1,20 +1,23 @@
 import React, { Component } from "react";
-import "./App.css";
 import { Provider } from "react-redux";
 import { store } from "./provider/Store";
+import Interface from "./interface/Interface";
+import { setCSSCustomProperty } from "./utils";
+import { preventRefreshOnMobile } from "./utils";
+import "./App.css";
 
 class App extends Component {
+  componentWillMount() {
+    setCSSCustomProperty();
+    preventRefreshOnMobile();
+  }
   render() {
-    return <Entry />;
+    return (
+      <Provider store={store}>
+        <Interface />
+      </Provider>
+    );
   }
 }
-
-const Entry = () => (
-  <Provider store={store}>
-    <Interface />
-  </Provider>
-);
-
-const Interface = () => <div>Hello</div>;
 
 export default App;
