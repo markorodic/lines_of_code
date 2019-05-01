@@ -11,6 +11,8 @@ class CodeEditor extends Component {
   state = {
     value: "123"
   };
+  instance;
+  componentDidMount() {}
   render() {
     return (
       <div className="code">
@@ -24,6 +26,9 @@ class CodeEditor extends Component {
           }}
           onChange={(editor, value) => {
             console.log("controlled", { value });
+          }}
+          editorDidMount={editor => {
+            this.instance = editor;
           }}
         />
       </div>
