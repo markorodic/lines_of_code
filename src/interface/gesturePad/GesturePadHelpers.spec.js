@@ -1,24 +1,22 @@
-import { pointerPosition, gridPosition } from "./GesturePadHelpers";
+import {
+  getUserPosition,
+  getGridPosition,
+  gridPosition
+} from "./GesturePadHelpers";
 import cases from "jest-in-case";
 
-describe("pointerPosition", () => {
+describe("getUserPosition", () => {
   cases(
     "should get the relative mouse position",
     opts => {
       expect(
-        pointerPosition(
-          opts.augpositionx,
-          opts.augpositiony,
-          opts.augparentx,
-          opts.augparenty
-        )
+        getUserPosition(opts.augpositionuser, opts.augparentx, opts.augparenty)
       ).toEqual(opts.result);
     },
     [
       {
         name: "when container is larger",
-        augpositionx: 540,
-        augpositiony: 590,
+        augpositionuser: { x: 540, y: 590 },
         augparentx: 500,
         augparenty: 500,
         result: { x: 40, y: 90 }
@@ -27,11 +25,34 @@ describe("pointerPosition", () => {
     [
       {
         name: "when container is smaller",
-        augpositionx: 140,
-        augpositiony: 90,
+        augpositionuser: { x: 540, y: 590 },
         augparentx: 0,
         augparenty: 0,
         result: { x: 140, y: 90 }
+      }
+    ]
+  );
+});
+
+describe("getGridPosition", () => {
+  cases(
+    "should get the box position within the grid",
+    opts => {
+      expect(getGridPosition(opts.augposition, opts.augcontainer)).toEqual(
+        opts.result
+      );
+    },
+    [
+      {
+        name: "{0, 0}",
+        augposition: { x: 251, y: 253 },
+        augcontainer: {
+          containerX: 250,
+          containerY: 250,
+          containerWidth: 500,
+          containerHeight: 500
+        },
+        result: { x: 0, y: 0 }
       }
     ]
   );
@@ -42,15 +63,19 @@ describe("gridPosition", () => {
     "should get the box position within the grid",
     opts => {
       expect(
-        gridPosition(opts.position, opts.augwidth, opts.augheight)
+        gridPosition(
+          opts.augposition,
+          opts.containerWidth,
+          opts.containerHeight
+        )
       ).toEqual(opts.result);
     },
     [
       {
         name: "{0, 0}",
-        position: { x: 6, y: 9 },
-        augwidth: 500,
-        augheight: 500,
+        augposition: { x: 6, y: 5 },
+        containerWidth: 500,
+        containerHeight: 500,
         result: { x: 0, y: 0 }
       }
     ]

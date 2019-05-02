@@ -1,62 +1,56 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NEW_POSITION } from "./GesturePad.actions";
-import {
-  pointerPosition,
-  pointerGridPosition,
-  getElementPosition
-} from "./GesturePadHelpers";
+import { getGridPosition, getElementPosition } from "./GesturePadHelpers";
 
 class GesturePad extends Component {
   state = {
-    x: null,
-    y: null,
-    width: null,
-    height: null
+    containerX: null,
+    containerY: null,
+    containerWidth: null,
+    containerHeight: null
   };
   gesturePadElement = React.createRef();
 
   componentDidMount() {
-    const { x, y, width, height } = getElementPosition(this.gesturePadElement);
+    const {
+      x: containerX,
+      y: containerY,
+      width: containerWidth,
+      height: containerHeight
+    } = getElementPosition(this.gesturePadElement);
 
     this.setState(currentState => ({
-      x,
-      y,
-      width,
-      height
+      containerX,
+      containerY,
+      containerWidth,
+      containerHeight
     }));
   }
 
   onMouseMove = e => {
     e.preventDefault();
-    const { x, y, width, height } = this.state;
-    const xPosition = e.clientX;
-    const yPosition = e.clientY;
+    const documentPosition = { x: e.clientX, y: e.clientY };
+    const containerProperties = this.state;
+    const gridPosition = getGridPosition(documentPosition, containerProperties);
 
-    // abstract this inside currentGridPosition
-    const mousePosition = pointerPosition(xPosition, yPosition, x, y);
-
-    const position = pointerGridPosition(mousePosition, width, height);
-    console.log(position);
-    this.props.saveNewPosition(position);
-
-    // test the onMouseMove and onTouchMove functions
-
-    // connect component to the store
-
-    // if grid position is new
-    // dispatch action to save the position to the store
+    if (gridPosition != this.props.state.currentPosition) {
+      this.props.saveNewPosition(gridPosition);
+    }
   };
 
   onTouchMove = e => {
     e.preventDefault();
-    const { width, height } = this.state;
-    const xPosition = e.changedTouches[0].clientX;
-    const yPosition = e.changedTouches[0].clientY;
+    const documentPosition = {
+      x: e.changedTouches[0].clientX,
+      y: e.changedTouches[0].clientY
+    };
+    const containerProperties = this.state;
+    const gridPosition = getGridPosition(documentPosition, containerProperties);
 
-    const touchPosition = pointerPosition(xPosition, yPosition, width, height);
-
-    pointerGridPosition(touchPosition, width, height);
+    if (gridPosition != this.props.state.currentPosition) {
+      this.props.saveNewPosition(gridPosition);
+    }
   };
 
   render() {
