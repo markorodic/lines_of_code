@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { NEW_POSITION } from "./GesturePad.actions";
 import {
   pointerPosition,
   pointerGridPosition,
@@ -27,19 +29,23 @@ class GesturePad extends Component {
 
   onMouseMove = e => {
     e.preventDefault();
-    const { width, height } = this.state;
+    const { x, y, width, height } = this.state;
     const xPosition = e.clientX;
     const yPosition = e.clientY;
 
-    // get the grid position
-    // if new
-    // dispatch an action with new position
-    // else
-    // do nothing
+    // abstract this inside currentGridPosition
+    const mousePosition = pointerPosition(xPosition, yPosition, x, y);
 
-    const mousePosition = pointerPosition(xPosition, yPosition, width, height);
+    const position = pointerGridPosition(mousePosition, width, height);
+    console.log(position);
+    this.props.saveNewPosition(position);
 
-    pointerGridPosition(mousePosition, width, height);
+    // test the onMouseMove and onTouchMove functions
+
+    // connect component to the store
+
+    // if grid position is new
+    // dispatch action to save the position to the store
   };
 
   onTouchMove = e => {
@@ -67,4 +73,17 @@ class GesturePad extends Component {
   }
 }
 
-export default GesturePad;
+function mapStateToProps(state) {
+  return {
+    state: state
+  };
+}
+
+const mapDispatchToProps = dispatch => ({
+  saveNewPosition: position => dispatch({ type: NEW_POSITION, position })
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GesturePad);
