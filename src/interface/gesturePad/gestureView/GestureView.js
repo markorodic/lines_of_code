@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NUMBER_OF_BOXES } from "./../CONSTANTS";
+import { INCREMENT_COUNT } from "./../GesturePad.actions";
 
 class GestureView extends Component {
   state = {
@@ -22,14 +23,15 @@ class GestureView extends Component {
 
   renderView = () => {
     const { canvas, ctx } = this.state;
-    let { currentPosition, count } = this.props.state;
+    const { currentPosition, count, deathQueue } = this.props.state;
     const { containerWidth } = this.props;
     const boxWidth = containerWidth / NUMBER_OF_BOXES.X;
-    count += 1;
+    this.props.incrementCount();
     canvas.width = containerWidth;
     canvas.height = containerWidth;
     ctx.clearRect(0, 0, containerWidth, containerWidth);
-    drawBox(ctx, currentPosition, boxWidth);
+    renderBox(ctx, currentPosition, boxWidth);
+    renderDeathQueue(ctx, boxWidth, deathQueue, count);
     window.requestAnimationFrame(this.renderView);
   };
 
@@ -38,12 +40,30 @@ class GestureView extends Component {
   }
 }
 
-function drawBox(ctx, position, boxWidth) {
+function renderBox(ctx, position, boxWidth) {
   if (position.x) {
     const x = (position.x - 1) * boxWidth;
     const y = (position.y - 1) * boxWidth;
     ctx.fillStyle = "black";
     ctx.fillRect(x, y, boxWidth, boxWidth);
+  }
+}
+
+function renderDeathQueue(ctx, boxWidth, deathQueue, count) {
+  if (deathQueue.length) {
+    deathQueue.forEach(box => {
+      const diff = count - box.timeAdded;
+      if (diff < 20) {
+        const alphaValue = 1 - diff / 20;
+        ctx.fillStyle = `rgba(0, 0, 0, ${alphaValue})`;
+      } else {
+        ctx.fillStyle = "rgba(0,0,0,0)";
+        box.expired = true;
+      }
+      const x = (box.position.x - 1) * boxWidth;
+      const y = (box.position.y - 1) * boxWidth;
+      ctx.fillRect(x, y, boxWidth, boxWidth);
+    });
   }
 }
 
@@ -53,4 +73,11 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(GestureView);
+const mapDispatchToProps = dispatch => ({
+  incrementCount: () => dispatch({ type: INCREMENT_COUNT })
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GestureView);

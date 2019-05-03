@@ -38,6 +38,11 @@ class GesturePad extends Component {
     const gridPosition = getGridPosition(documentPosition, containerProperties);
 
     if (!_.isEqual(gridPosition, this.props.state.currentPosition)) {
+      this.props.state.deathQueue.push({
+        position: this.props.state.currentPosition,
+        timeAdded: this.props.state.count,
+        expired: false
+      });
       this.props.saveNewPosition(gridPosition);
     }
   };
@@ -52,6 +57,11 @@ class GesturePad extends Component {
     const gridPosition = getGridPosition(documentPosition, containerProperties);
 
     if (!_.isEqual(gridPosition, this.props.state.currentPosition)) {
+      this.props.state.deathQueue.push({
+        position: this.props.state.currentPosition,
+        timeAdded: this.props.state.count,
+        expired: false
+      });
       this.props.saveNewPosition(gridPosition);
     }
   };
