@@ -60,6 +60,7 @@ class GesturePad extends Component {
         onTouchMove={this.onTouchMove}
         className="gesture-pad"
         ref={this.gesturePadElement}
+        data-testid="gesture-pad"
       >
         Gesture
       </div>
