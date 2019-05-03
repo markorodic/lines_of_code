@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NEW_POSITION } from "./GesturePad.actions";
 import { getGridPosition, getElementPosition } from "./GesturePadHelpers";
+import _ from "lodash";
+import GestureView from "./gestureView/GestureView";
 
 class GesturePad extends Component {
   state = {
@@ -34,7 +36,7 @@ class GesturePad extends Component {
     const containerProperties = this.state;
     const gridPosition = getGridPosition(documentPosition, containerProperties);
 
-    if (gridPosition != this.props.state.currentPosition) {
+    if (!_.isEqual(gridPosition, this.props.state.currentPosition)) {
       this.props.saveNewPosition(gridPosition);
     }
   };
@@ -48,7 +50,7 @@ class GesturePad extends Component {
     const containerProperties = this.state;
     const gridPosition = getGridPosition(documentPosition, containerProperties);
 
-    if (gridPosition != this.props.state.currentPosition) {
+    if (!_.isEqual(gridPosition, this.props.state.currentPosition)) {
       this.props.saveNewPosition(gridPosition);
     }
   };
@@ -62,11 +64,27 @@ class GesturePad extends Component {
         ref={this.gesturePadElement}
         data-testid="gesture-pad"
       >
-        Gesture
+        <GestureView />
       </div>
     );
   }
 }
+
+// TODO:
+// Make gesture view component
+// Add canvas to component
+// Use request animation frame for drawing ?
+// Draw grid in view
+// Highlight box when triggered
+// Make death queue for tail
+
+// Request animation frame (background script)
+// Drawing
+
+// Check when mouse is idle in Gesture Pad
+//
+
+// responsible for drawing
 
 function mapStateToProps(state) {
   return {
