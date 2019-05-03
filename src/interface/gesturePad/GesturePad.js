@@ -10,7 +10,8 @@ class GesturePad extends Component {
     containerX: null,
     containerY: null,
     containerWidth: null,
-    containerHeight: null
+    containerHeight: null,
+    boxWidth: null
   };
   gesturePadElement = React.createRef();
 
@@ -64,7 +65,7 @@ class GesturePad extends Component {
         ref={this.gesturePadElement}
         data-testid="gesture-pad"
       >
-        <GestureView />
+        <GestureView containerWidth={this.state.containerWidth} />
       </div>
     );
   }

@@ -16,8 +16,6 @@ class CodeEditor extends Component {
   render() {
     return (
       <div className="code">
-        <p>Code</p>
-
         <CodeMirror
           value={this.state.value}
           options={{ lineNumbers: true, autofocus: true }}

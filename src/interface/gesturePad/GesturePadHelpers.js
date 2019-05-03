@@ -31,8 +31,8 @@ export function getUserPosition(documentPosition, containerX, containerY) {
 }
 
 export function gridPosition(userPosition, boxWidth, boxHeight) {
-  const x = Math.floor(userPosition.x / boxWidth);
-  const y = Math.floor(userPosition.y / boxHeight);
+  const x = Math.floor(userPosition.x / boxWidth) + 1;
+  const y = Math.floor(userPosition.y / boxHeight) + 1;
 
   return { x, y };
 }
