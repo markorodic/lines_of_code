@@ -1,113 +1,105 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { NEW_POSITION } from "./GesturePad.actions";
-import { getGridPosition, getElementPosition } from "./GesturePadHelpers";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  getGridPosition,
+  getElementProperties,
+  getUserPosition
+} from "./GesturePadHelpers";
 import _ from "lodash";
+
 import GestureView from "./gestureView/GestureView";
 
-class GesturePad extends Component {
-  state = {
-    containerX: null,
-    containerY: null,
-    containerWidth: null,
-    containerHeight: null,
-    boxWidth: null
+export default function GesturePad(props) {
+  const [position, setPosition] = useState({});
+  const [count, setCount] = useState(0);
+  const [deathQueue, setDeathQueue] = useState([]);
+  const gesturePadElement = useRef();
+  let containerProperties = useContainerProperties(gesturePadElement);
+
+  const renderView = () => {
+    setCount(prevCount => prevCount + 1);
+    window.requestAnimationFrame(renderView);
   };
-  gesturePadElement = React.createRef();
 
-  componentDidMount() {
-    const {
-      x: containerX,
-      y: containerY,
-      width: containerWidth,
-      height: containerHeight
-    } = getElementPosition(this.gesturePadElement);
+  useRequestAnimationFrameOnLoad(renderView);
 
-    this.setState(currentState => ({
-      containerX,
-      containerY,
-      containerWidth,
-      containerHeight
-    }));
-  }
+  const savePosition = event => {
+    event.preventDefault();
+    const documentPosition = getDocumentPositionFrom(event);
+    const newPosition = getGridPosition(documentPosition, containerProperties);
 
-  onMouseMove = e => {
-    e.preventDefault();
-    const documentPosition = { x: e.clientX, y: e.clientY };
-    const containerProperties = this.state;
-    const gridPosition = getGridPosition(documentPosition, containerProperties);
-
-    if (!_.isEqual(gridPosition, this.props.state.currentPosition)) {
-      this.props.state.deathQueue.push({
-        position: this.props.state.currentPosition,
-        timeAdded: this.props.state.count,
-        expired: false
-      });
-      this.props.saveNewPosition(gridPosition);
+    if (mouseGridPositionHasChanged(position, newPosition)) {
+      setDeathQueue(deathQueueItem(position, count));
+      setPosition(newPosition);
     }
   };
 
-  onTouchMove = e => {
-    e.preventDefault();
-    const documentPosition = {
-      x: e.changedTouches[0].clientX,
-      y: e.changedTouches[0].clientY
+  return (
+    <div
+      onMouseMove={savePosition}
+      onTouchMove={savePosition}
+      className="gesture-pad"
+      ref={gesturePadElement}
+      data-testid="gesture-pad"
+    >
+      <GestureView
+        containerWidth={containerProperties.width}
+        gridPosition={position}
+        count={count}
+        deathQueue={deathQueue}
+      />
+    </div>
+  );
+}
+
+function getDocumentPositionFrom(event) {
+  let position;
+  if (event.type === "mousemove") {
+    position = { x: event.clientX, y: event.clientY };
+  }
+
+  if (event.type === "touchmove") {
+    position = {
+      x: event.changedTouches[0].clientX,
+      y: event.changedTouches[0].clientY
     };
-    const containerProperties = this.state;
-    const gridPosition = getGridPosition(documentPosition, containerProperties);
-
-    if (!_.isEqual(gridPosition, this.props.state.currentPosition)) {
-      this.props.state.deathQueue.push({
-        position: this.props.state.currentPosition,
-        timeAdded: this.props.state.count,
-        expired: false
-      });
-      this.props.saveNewPosition(gridPosition);
-    }
-  };
-
-  render() {
-    return (
-      <div
-        onMouseMove={this.onMouseMove}
-        onTouchMove={this.onTouchMove}
-        className="gesture-pad"
-        ref={this.gesturePadElement}
-        data-testid="gesture-pad"
-      >
-        <GestureView containerWidth={this.state.containerWidth} />
-      </div>
-    );
   }
+
+  return position;
 }
 
-// TODO:
-// Make gesture view component
-// Add canvas to component
-// Use request animation frame for drawing ?
-// Draw grid in view
-// Highlight box when triggered
-// Make death queue for tail
+function mouseGridPositionHasChanged(currentPosition, newPosition) {
+  return !_.isEqual(currentPosition, newPosition);
+}
 
-// Request animation frame (background script)
-// Drawing
+function useRequestAnimationFrameOnLoad(renderView) {
+  useEffect(() => {
+    window.requestAnimationFrame(renderView);
+  }, []);
+}
 
-// Check when mouse is idle in Gesture Pad
-//
+function useContainerProperties(gesturePadElement) {
+  const [containerProperties, setContainerProperties] = useState({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0
+  });
+  useEffect(() => {
+    const { x, y, width, height } = getElementProperties(gesturePadElement);
+    setContainerProperties({
+      x,
+      y,
+      width,
+      height
+    });
+  }, []);
+  return containerProperties;
+}
 
-// responsible for drawing
-
-function mapStateToProps(state) {
+function deathQueueItem(gridPosition, count) {
   return {
-    state: state
+    gridPosition,
+    timeAdded: count,
+    expired: false
   };
 }
-
-const mapDispatchToProps = dispatch => ({
-  saveNewPosition: position => dispatch({ type: NEW_POSITION, position })
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GesturePad);

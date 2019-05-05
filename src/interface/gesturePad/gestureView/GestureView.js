@@ -1,55 +1,33 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useState, useRef, useEffect } from "react";
 import { NUMBER_OF_BOXES } from "./../CONSTANTS";
-import { INCREMENT_COUNT } from "./../GesturePad.actions";
 
-class GestureView extends Component {
-  state = {
-    ctx: null,
-    count: 0
-  };
-  canvasDOMElement = React.createRef();
+export default function GesturePad(props) {
+  const [ctx, setCtx] = useState(null);
+  const canvasDOMElement = useRef();
 
-  componentDidMount() {
-    const canvas = this.canvasDOMElement.current;
-    const { containerWidth } = this.props;
-    const ctx = canvas.getContext("2d");
+  useEffect(() => {
+    const canvas = canvasDOMElement.current;
+    canvas.width = canvas.height = props.containerWidth;
+    setCtx(canvas.getContext("2d"));
+  }, [props.containerWidth]);
 
-    this.setState(currentState => ({
-      canvas,
-      ctx
-    }));
-    window.requestAnimationFrame(this.renderView);
-  }
+  useEffect(() => {
+    const { containerWidth, gridPosition, deathQueue, count } = props;
+    if (ctx) {
+      const boxWidth = containerWidth / NUMBER_OF_BOXES.X;
 
-  incrementCount() {
-    this.setState({
-      count: this.state.count + 1
-    });
-  }
+      ctx.clearRect(0, 0, containerWidth, containerWidth);
+      renderGrid(ctx, containerWidth, boxWidth);
+      renderPoints(ctx, boxWidth);
+      renderBox(ctx, gridPosition, boxWidth);
+      renderDeathQueue(ctx, boxWidth, deathQueue, count);
+    }
+  }, [ctx, props.count]);
 
-  renderView = () => {
-    const { canvas, ctx, count } = this.state;
-    const { currentPosition, deathQueue } = this.props.state;
-    const { containerWidth } = this.props;
-    const boxWidth = containerWidth / NUMBER_OF_BOXES.X;
-    this.incrementCount();
-    canvas.width = containerWidth;
-    canvas.height = containerWidth;
-    ctx.clearRect(0, 0, containerWidth, containerWidth);
-    renderGrid(ctx, containerWidth, boxWidth);
-    renderPoints(ctx, containerWidth, boxWidth);
-    renderBox(ctx, currentPosition, boxWidth);
-    renderDeathQueue(ctx, boxWidth, deathQueue, count);
-    window.requestAnimationFrame(this.renderView);
-  };
-
-  render() {
-    return <canvas id="canvas" ref={this.canvasDOMElement} />;
-  }
+  return <canvas id="canvas" ref={canvasDOMElement} />;
 }
 
-function renderPoints(ctx, containerWidth, boxWidth) {
+function renderPoints(ctx, boxWidth) {
   let countX, countY;
   countY = 1;
   while (NUMBER_OF_BOXES.Y > countY) {
@@ -110,18 +88,3 @@ function renderDeathQueue(ctx, boxWidth, deathQueue, count) {
     });
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    state: state
-  };
-}
-
-const mapDispatchToProps = dispatch => ({
-  // incrementCount: () => dispatch({ type: INCREMENT_COUNT })
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GestureView);

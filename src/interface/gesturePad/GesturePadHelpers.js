@@ -1,24 +1,17 @@
 import { NUMBER_OF_BOXES } from "./CONSTANTS";
 
-export function getElementPosition(element) {
+export function getElementProperties(element) {
   return element.current.getBoundingClientRect();
 }
 
-export function getGridPosition(documentPosition, containerProperties) {
-  const {
-    containerX,
-    containerY,
-    containerWidth,
-    containerHeight
-  } = containerProperties;
-
+export function getGridPosition(documentPosition, container) {
   const userPosition = getUserPosition(
     documentPosition,
-    containerX,
-    containerY
+    container.x,
+    container.y
   );
-  const boxWidth = containerWidth / NUMBER_OF_BOXES.X;
-  const boxHeight = containerHeight / NUMBER_OF_BOXES.Y;
+  const boxWidth = container.width / NUMBER_OF_BOXES.X;
+  const boxHeight = container.height / NUMBER_OF_BOXES.Y;
 
   return gridPosition(userPosition, boxWidth, boxHeight);
 }
