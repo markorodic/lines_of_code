@@ -1,6 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
-import { getGridPosition, getElementProperties } from "./GesturePadHelpers";
+import React, { useState, useRef } from "react";
 import _ from "lodash";
+import { getGridPosition } from "./GesturePadHelpers";
+import {
+  useRequestAnimationFrameOnLoad,
+  useContainerProperties
+} from "./GesturePad.customHooks";
 
 import GestureView from "./gestureView/GestureView";
 
@@ -55,44 +59,17 @@ function getDocumentPositionFrom(event) {
   if (event.type === "mousemove") {
     position = { x: event.clientX, y: event.clientY };
   }
-
   if (event.type === "touchmove") {
     position = {
       x: event.changedTouches[0].clientX,
       y: event.changedTouches[0].clientY
     };
   }
-
   return position;
 }
 
 function mouseGridPositionHasChanged(currentPosition, newPosition) {
   return !_.isEqual(currentPosition, newPosition);
-}
-
-function useRequestAnimationFrameOnLoad(renderView) {
-  useEffect(() => {
-    window.requestAnimationFrame(renderView);
-  }, []);
-}
-
-function useContainerProperties(gesturePadElement) {
-  const [containerProperties, setContainerProperties] = useState({
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0
-  });
-  useEffect(() => {
-    const { x, y, width, height } = getElementProperties(gesturePadElement);
-    setContainerProperties({
-      x,
-      y,
-      width,
-      height
-    });
-  }, []);
-  return containerProperties;
 }
 
 function deathQueueItem(position, count) {
