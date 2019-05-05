@@ -1,9 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import {
-  getGridPosition,
-  getElementProperties,
-  getUserPosition
-} from "./GesturePadHelpers";
+import { getGridPosition, getElementProperties } from "./GesturePadHelpers";
 import _ from "lodash";
 
 import GestureView from "./gestureView/GestureView";
@@ -28,7 +24,10 @@ export default function GesturePad(props) {
     const newPosition = getGridPosition(documentPosition, containerProperties);
 
     if (mouseGridPositionHasChanged(position, newPosition)) {
-      setDeathQueue(deathQueueItem(position, count));
+      setDeathQueue(currentQueue => {
+        currentQueue.push(deathQueueItem(position, count));
+        return currentQueue;
+      });
       setPosition(newPosition);
     }
   };
@@ -96,9 +95,9 @@ function useContainerProperties(gesturePadElement) {
   return containerProperties;
 }
 
-function deathQueueItem(gridPosition, count) {
+function deathQueueItem(position, count) {
   return {
-    gridPosition,
+    position,
     timeAdded: count,
     expired: false
   };
