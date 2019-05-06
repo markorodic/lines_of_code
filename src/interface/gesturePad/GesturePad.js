@@ -1,22 +1,34 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useReducer } from "react";
 import _ from "lodash";
 import { getGridPosition } from "./GesturePadHelpers";
 import {
   useRequestAnimationFrameOnLoad,
   useContainerProperties
 } from "./GesturePad.customHooks";
-
 import GestureView from "./gestureView/GestureView";
+import GesturePadReducer from "./GesturePad.reducer";
+import {
+  INCREMENT_COUNT,
+  ADD_POSITION_TO_EXPIRED,
+  SAVE_NEW_POSITION
+} from "./GesturePad.actions";
+
+const initialState = {
+  position: {},
+  expiredPositions: [],
+  count: 0
+};
 
 export default function GesturePad(props) {
-  const [position, setPosition] = useState({});
-  const [count, setCount] = useState(0);
-  const [deathQueue, setDeathQueue] = useState([]);
+  const [state, dispatch] = useReducer(GesturePadReducer, initialState);
   const gesturePadElement = useRef();
-  let containerProperties = useContainerProperties(gesturePadElement);
+  const containerProperties = useContainerProperties(
+    gesturePadElement,
+    dispatch
+  );
 
   const renderView = () => {
-    setCount(prevCount => prevCount + 1);
+    incrementCount();
     window.requestAnimationFrame(renderView);
   };
 
@@ -24,16 +36,19 @@ export default function GesturePad(props) {
 
   const savePosition = event => {
     event.preventDefault();
+    const { position, count } = state;
     const newPosition = getGridPosition(event, containerProperties);
-
     if (mouseGridPositionHasChanged(position, newPosition)) {
-      setDeathQueue(currentQueue => {
-        currentQueue.push(deathQueueItem(position, count));
-        return currentQueue;
-      });
-      setPosition(newPosition);
+      addPositionToExpired(deathQueueItem(position, count));
+      saveNewPosition(newPosition);
     }
   };
+
+  const incrementCount = () => dispatch({ type: INCREMENT_COUNT });
+  const addPositionToExpired = expiredPositions =>
+    dispatch({ type: ADD_POSITION_TO_EXPIRED, expiredPositions });
+  const saveNewPosition = position =>
+    dispatch({ type: SAVE_NEW_POSITION, position });
 
   return (
     <div
@@ -45,9 +60,9 @@ export default function GesturePad(props) {
     >
       <GestureView
         containerWidth={containerProperties.width}
-        gridPosition={position}
-        count={count}
-        deathQueue={deathQueue}
+        gridPosition={state.position}
+        count={state.count}
+        deathQueue={state.expiredPositions}
       />
     </div>
   );

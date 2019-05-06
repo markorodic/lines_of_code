@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getElementProperties } from "./GesturePadHelpers";
 
 export function useRequestAnimationFrameOnLoad(renderView) {
@@ -7,7 +7,7 @@ export function useRequestAnimationFrameOnLoad(renderView) {
   }, []);
 }
 
-export function useContainerProperties(gesturePadElement) {
+export function useContainerProperties(gesturePadElement, dispatch) {
   const [containerProperties, setContainerProperties] = useState({
     x: 0,
     y: 0,
