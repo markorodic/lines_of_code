@@ -55,7 +55,7 @@ export default function GesturePad(props) {
     dispatch({ type: SAVE_NEW_POSITION, position });
 
   return (
-    <div
+    <section
       onMouseMove={savePosition}
       onTouchMove={savePosition}
       className="gesture-pad"
@@ -63,11 +63,11 @@ export default function GesturePad(props) {
       data-testid="gesture-pad"
     >
       <GestureView
-        containerWidth={containerProperties.width}
-        gridPosition={state.position}
+        position={state.position}
+        expiredPositions={state.expiredPositions}
         count={state.count}
-        deathQueue={state.expiredPositions}
+        containerWidth={containerProperties.width}
       />
-    </div>
+    </section>
   );
 }
