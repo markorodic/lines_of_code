@@ -24,8 +24,7 @@ export default function GesturePad(props) {
 
   const savePosition = event => {
     event.preventDefault();
-    const documentPosition = getDocumentPositionFrom(event);
-    const newPosition = getGridPosition(documentPosition, containerProperties);
+    const newPosition = getGridPosition(event, containerProperties);
 
     if (mouseGridPositionHasChanged(position, newPosition)) {
       setDeathQueue(currentQueue => {
@@ -52,20 +51,6 @@ export default function GesturePad(props) {
       />
     </div>
   );
-}
-
-function getDocumentPositionFrom(event) {
-  let position;
-  if (event.type === "mousemove") {
-    position = { x: event.clientX, y: event.clientY };
-  }
-  if (event.type === "touchmove") {
-    position = {
-      x: event.changedTouches[0].clientX,
-      y: event.changedTouches[0].clientY
-    };
-  }
-  return position;
 }
 
 function mouseGridPositionHasChanged(currentPosition, newPosition) {
