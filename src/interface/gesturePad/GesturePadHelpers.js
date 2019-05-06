@@ -1,7 +1,20 @@
 import { NUMBER_OF_BOXES } from "./CONSTANTS";
+import _ from "lodash";
 
 export function getElementProperties(element) {
   return element.current.getBoundingClientRect();
+}
+
+export function mouseGridPositionHasChanged(currentPosition, newPosition) {
+  return !_.isEqual(currentPosition, newPosition);
+}
+
+export function positionItem(position, count) {
+  return {
+    position,
+    timeAdded: count,
+    expired: false
+  };
 }
 
 export function getGridPosition(event, container) {

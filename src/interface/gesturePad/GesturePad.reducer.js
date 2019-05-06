@@ -1,6 +1,6 @@
 import {
   INCREMENT_COUNT,
-  ADD_POSITION_TO_EXPIRED,
+  ADD_TO_EXPIRED,
   SAVE_NEW_POSITION
 } from "./GesturePad.actions";
 
@@ -8,7 +8,7 @@ export default function GesturePadReducer(state, action) {
   switch (action.type) {
     case SAVE_NEW_POSITION:
       return { ...state, position: action.position };
-    case ADD_POSITION_TO_EXPIRED:
+    case ADD_TO_EXPIRED:
       return {
         ...state,
         expiredPositions: [...state.expiredPositions, action.expiredPositions]

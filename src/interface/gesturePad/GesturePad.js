@@ -1,6 +1,9 @@
 import React, { useRef, useReducer } from "react";
-import _ from "lodash";
-import { getGridPosition } from "./GesturePadHelpers";
+import {
+  getGridPosition,
+  mouseGridPositionHasChanged,
+  positionItem
+} from "./GesturePadHelpers";
 import {
   useRequestAnimationFrameOnLoad,
   useContainerProperties
@@ -9,7 +12,7 @@ import GestureView from "./gestureView/GestureView";
 import GesturePadReducer from "./GesturePad.reducer";
 import {
   INCREMENT_COUNT,
-  ADD_POSITION_TO_EXPIRED,
+  ADD_TO_EXPIRED,
   SAVE_NEW_POSITION
 } from "./GesturePad.actions";
 
@@ -38,15 +41,16 @@ export default function GesturePad(props) {
     event.preventDefault();
     const { position, count } = state;
     const newPosition = getGridPosition(event, containerProperties);
+
     if (mouseGridPositionHasChanged(position, newPosition)) {
-      addPositionToExpired(deathQueueItem(position, count));
+      addToExpired(positionItem(position, count));
       saveNewPosition(newPosition);
     }
   };
 
   const incrementCount = () => dispatch({ type: INCREMENT_COUNT });
-  const addPositionToExpired = expiredPositions =>
-    dispatch({ type: ADD_POSITION_TO_EXPIRED, expiredPositions });
+  const addToExpired = expiredPositions =>
+    dispatch({ type: ADD_TO_EXPIRED, expiredPositions });
   const saveNewPosition = position =>
     dispatch({ type: SAVE_NEW_POSITION, position });
 
@@ -66,16 +70,4 @@ export default function GesturePad(props) {
       />
     </div>
   );
-}
-
-function mouseGridPositionHasChanged(currentPosition, newPosition) {
-  return !_.isEqual(currentPosition, newPosition);
-}
-
-function deathQueueItem(position, count) {
-  return {
-    position,
-    timeAdded: count,
-    expired: false
-  };
 }

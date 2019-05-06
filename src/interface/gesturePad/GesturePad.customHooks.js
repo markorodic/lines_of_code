@@ -7,7 +7,7 @@ export function useRequestAnimationFrameOnLoad(renderView) {
   }, []);
 }
 
-export function useContainerProperties(gesturePadElement, dispatch) {
+export function useContainerProperties(gesturePadElement) {
   const [containerProperties, setContainerProperties] = useState({
     x: 0,
     y: 0,
@@ -22,6 +22,6 @@ export function useContainerProperties(gesturePadElement, dispatch) {
       width,
       height
     });
-  }, []);
+  }, [gesturePadElement]);
   return containerProperties;
 }

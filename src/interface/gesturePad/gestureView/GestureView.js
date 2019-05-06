@@ -22,7 +22,7 @@ export default function GesturePad(props) {
       renderBox(ctx, gridPosition, boxWidth);
       renderDeathQueue(ctx, boxWidth, deathQueue, count);
     }
-  }, [ctx, props.count]);
+  }, [ctx, props, props.count]);
 
   return <canvas id="canvas" ref={canvasDOMElement} />;
 }
