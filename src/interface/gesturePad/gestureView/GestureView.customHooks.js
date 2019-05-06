@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import {
   renderGrid,
   renderGridPoints,
@@ -14,8 +14,8 @@ export function useRenderGestureView(props, canvasElement) {
 }
 
 function useCreateCanvasContext({ containerWidth }, canvasElement) {
-  const [ctx, setCtx] = useState(null);
-  useEffect(() => {
+  const [ctx, setCtx] = React.useState(null);
+  React.useEffect(() => {
     const canvas = canvasElement.current;
     canvas.width = canvas.height = containerWidth;
     setCtx(canvas.getContext("2d"));
@@ -28,7 +28,7 @@ function useRenderView(
   ctx,
   { position, expiredPositions, count, containerWidth }
 ) {
-  useEffect(() => {
+  React.useEffect(() => {
     if (ctx) {
       const boxWidth = containerWidth / NUMBER_OF_BOXES.X;
 

@@ -1,4 +1,4 @@
-import React, { useRef, useReducer } from "react";
+import React from "react";
 import {
   getGridPosition,
   mouseGridPositionHasChanged,
@@ -22,9 +22,9 @@ const initialState = {
   count: 0
 };
 
-export default function GesturePad(props) {
-  const [state, dispatch] = useReducer(GesturePadReducer, initialState);
-  const gesturePadElement = useRef();
+function GesturePad(props) {
+  const [state, dispatch] = React.useReducer(GesturePadReducer, initialState);
+  const gesturePadElement = React.useRef();
   const containerProperties = useContainerProperties(
     gesturePadElement,
     dispatch
@@ -56,10 +56,10 @@ export default function GesturePad(props) {
 
   return (
     <section
+      ref={gesturePadElement}
       onMouseMove={savePosition}
       onTouchMove={savePosition}
       className="gesture-pad"
-      ref={gesturePadElement}
       data-testid="gesture-pad"
     >
       <GestureView
@@ -71,3 +71,5 @@ export default function GesturePad(props) {
     </section>
   );
 }
+
+export default GesturePad;
