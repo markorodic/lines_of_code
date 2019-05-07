@@ -1,7 +1,7 @@
 import React from "react";
 import { useRenderGestureView } from "./GestureView.customHooks";
 
-export default function GesturePad(props) {
+export default function GestureView(props) {
   const canvasElement = React.useRef();
   useRenderGestureView(props, canvasElement);
 

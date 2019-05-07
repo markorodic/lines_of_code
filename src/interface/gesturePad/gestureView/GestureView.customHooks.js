@@ -6,7 +6,7 @@ import {
   renderExpiredBoxes,
   clearCanvas
 } from "./GestureViewHelpers";
-import { NUMBER_OF_BOXES } from "../CONSTANTS";
+import { NUMBER_OF_BOXES } from "../gestureInput/CONSTANTS";
 
 export function useRenderGestureView(props, canvasElement) {
   const ctx = useCreateCanvasContext(props, canvasElement);

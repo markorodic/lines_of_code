@@ -1,5 +1,5 @@
 import React from "react";
-import { getElementProperties } from "./GesturePadHelpers";
+import { getElementProperties } from "./GestureInputHelpers";
 
 export function useRequestAnimationFrameOnLoad(renderView) {
   React.useEffect(() => {
@@ -7,7 +7,7 @@ export function useRequestAnimationFrameOnLoad(renderView) {
   }, []);
 }
 
-export function useContainerProperties(gesturePadElement) {
+export function useContainerProperties(GestureInputElement) {
   const [containerProperties, setContainerProperties] = React.useState({
     x: 0,
     y: 0,
@@ -15,13 +15,13 @@ export function useContainerProperties(gesturePadElement) {
     height: 0
   });
   React.useEffect(() => {
-    const { x, y, width, height } = getElementProperties(gesturePadElement);
+    const { x, y, width, height } = getElementProperties(GestureInputElement);
     setContainerProperties({
       x,
       y,
       width,
       height
     });
-  }, [gesturePadElement]);
+  }, [GestureInputElement]);
   return containerProperties;
 }

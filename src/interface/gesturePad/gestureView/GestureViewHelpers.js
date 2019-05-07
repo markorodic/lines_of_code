@@ -1,4 +1,4 @@
-import { NUMBER_OF_BOXES } from "./../CONSTANTS";
+import { NUMBER_OF_BOXES } from "../gestureInput/CONSTANTS";
 
 export function renderGrid(ctx, containerWidth, boxWidth) {
   let count = 0;
