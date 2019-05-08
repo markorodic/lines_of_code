@@ -16,7 +16,7 @@ export default function GestureInputReducer(state, action) {
     case ADD_POSITION_TO_PATTERN:
       return { ...state, pattern: [...state.pattern, action.position] };
     case CLEAR_PATTERN:
-      return { ...state, pattern: [] };
+      return { ...state, pattern: [action.position] };
     case ADD_TO_EXPIRED:
       return {
         ...state,

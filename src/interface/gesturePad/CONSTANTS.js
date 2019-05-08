@@ -4,3 +4,5 @@ export const NUMBER_OF_BOXES = {
 };
 
 export const GestureIdleTimeInMs = 500;
+
+export const MAX_PATH_LENGTH = 6;

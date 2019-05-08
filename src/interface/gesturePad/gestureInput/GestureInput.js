@@ -50,9 +50,7 @@ export default function GestureInput(props) {
     whenGestureIsInactive(state, () => {
       clearExpiringPositions();
       props.updatePatternState(state.pattern);
-      clearPattern();
-      // send pattern up
-      // clear pattern list
+      clearPattern(state.position);
     });
   });
 
@@ -86,7 +84,7 @@ export default function GestureInput(props) {
   const addPositionToPattern = position =>
     dispatch({ type: ADD_POSITION_TO_PATTERN, position });
 
-  const clearPattern = () => dispatch({ type: CLEAR_PATTERN });
+  const clearPattern = position => dispatch({ type: CLEAR_PATTERN, position });
 
   return (
     <section
