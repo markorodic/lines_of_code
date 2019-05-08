@@ -4,7 +4,7 @@ import {
   mouseGridPositionHasChanged,
   positionItem,
   useAnimationFrame,
-  resetExpiringPositions
+  whenGestureIsInactive
 } from "./GestureInputHelpers";
 import { useContainerProperties } from "./GestureInput.customHooks";
 import GestureInputReducer from "./GestureInput.reducer";
@@ -14,7 +14,9 @@ import {
   SAVE_NEW_POSITION,
   GESTURE_IN_PROGRESS,
   GESTURE_NOT_IN_PROGRESS,
-  CLEAR_EXPIRED_POSITIONS
+  CLEAR_EXPIRED_POSITIONS,
+  ADD_POSITION_TO_PATTERN,
+  CLEAR_PATTERN
 } from "./GestureInput.actions";
 import GestureView from "../gestureView/GestureView";
 import { GestureIdleTimeInMs } from "../CONSTANTS";
@@ -24,10 +26,11 @@ const initialState = {
   expiringPositions: [],
   lastInputTime: null,
   gestureActive: false,
-  count: 0
+  count: 0,
+  pattern: []
 };
 
-function setGestureInactiveWhenIdle(timer, setTimer, dispatchCallBack) {
+function ifInputIsIdle(timer, setTimer, dispatchCallBack) {
   clearTimeout(timer);
   setTimer(
     setTimeout(() => {
@@ -44,7 +47,13 @@ export default function GestureInput(props) {
 
   useAnimationFrame(() => {
     incrementCount();
-    resetExpiringPositions(state, () => clearExpiringPositions());
+    whenGestureIsInactive(state, () => {
+      console.log("foo");
+      clearExpiringPositions();
+      clearPattern();
+      // send pattern up
+      // clear pattern list
+    });
   });
 
   const onGesture = event => {
@@ -57,11 +66,14 @@ export default function GestureInput(props) {
     if (mouseGridPositionHasChanged(position, newPosition)) {
       addToExpiring(positionItem(position, count));
       saveNewPosition(newPosition);
+      addPositionToPattern(newPosition);
     }
-    setGestureInactiveWhenIdle(timer, setTimer, () => {
+    ifInputIsIdle(timer, setTimer, () => {
       gestureNotInProgress();
     });
   };
+
+  console.log(state.pattern);
 
   const incrementCount = () => dispatch({ type: INCREMENT_COUNT });
   const addToExpiring = expiringPositions =>
@@ -73,6 +85,10 @@ export default function GestureInput(props) {
     dispatch({ type: GESTURE_NOT_IN_PROGRESS });
   const clearExpiringPositions = expiredPosition =>
     dispatch({ type: CLEAR_EXPIRED_POSITIONS, expiredPosition });
+  const addPositionToPattern = position =>
+    dispatch({ type: ADD_POSITION_TO_PATTERN, position });
+
+  const clearPattern = () => dispatch({ type: CLEAR_PATTERN });
 
   return (
     <section

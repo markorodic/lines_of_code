@@ -76,7 +76,7 @@ export const useAnimationFrame = callback => {
   }, []);
 };
 
-export function resetExpiringPositions(
+export function whenGestureIsInactive(
   { gestureActive, expiringPositions },
   dispatchCallBack
 ) {
