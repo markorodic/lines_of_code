@@ -18,6 +18,7 @@ import {
   UPDATE_INPUT_TIME
 } from "./GestureInput.actions";
 import GestureView from "../gestureView/GestureView";
+import { GestureIdleTimeInMs } from "../CONSTANTS";
 
 const initialState = {
   position: {},
@@ -60,7 +61,7 @@ export default function GestureInput(props) {
     setTimer(
       setTimeout(() => {
         gestureNotInProgress();
-      }, 900)
+      }, GestureIdleTimeInMs)
     );
   };
 

@@ -1,4 +1,4 @@
-import { NUMBER_OF_BOXES } from "./CONSTANTS";
+import { NUMBER_OF_BOXES } from "../CONSTANTS";
 import _ from "lodash";
 
 export function getElementProperties(element) {
