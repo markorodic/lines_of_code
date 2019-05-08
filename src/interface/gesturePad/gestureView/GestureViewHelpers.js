@@ -53,7 +53,6 @@ export function renderExpiredBoxes(ctx, boxWidth, expiredPositions, count) {
         ctx.fillStyle = `rgba(0, 0, 0, ${alphaValue})`;
       } else {
         ctx.fillStyle = "rgba(0,0,0,0)";
-        box.expired = true;
       }
       const x = (box.position.x - 1) * boxWidth;
       const y = (box.position.y - 1) * boxWidth;

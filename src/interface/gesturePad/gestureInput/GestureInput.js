@@ -15,7 +15,8 @@ import {
   SAVE_NEW_POSITION,
   GESTURE_IN_PROGRESS,
   GESTURE_NOT_IN_PROGRESS,
-  UPDATE_INPUT_TIME
+  UPDATE_INPUT_TIME,
+  CLEAR_EXPIRED_POSITIONS
 } from "./GestureInput.actions";
 import GestureView from "../gestureView/GestureView";
 import { GestureIdleTimeInMs } from "../CONSTANTS";
@@ -28,6 +29,23 @@ const initialState = {
   count: 0
 };
 
+const useAnimationFrame = callback => {
+  const callbackRef = React.useRef(callback);
+  React.useEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
+  const loop = () => {
+    frameRef.current = requestAnimationFrame(loop);
+    const cb = callbackRef.current;
+    cb();
+  };
+  const frameRef = React.useRef();
+  React.useLayoutEffect(() => {
+    frameRef.current = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(frameRef.current);
+  }, []);
+};
+
 export default function GestureInput(props) {
   const [state, dispatch] = React.useReducer(GestureInputReducer, initialState);
   const GestureInputElement = React.useRef();
@@ -37,12 +55,13 @@ export default function GestureInput(props) {
     dispatch
   );
 
-  const renderView = () => {
+  useAnimationFrame(() => {
     incrementCount();
-    window.requestAnimationFrame(renderView);
-  };
-
-  useRequestAnimationFrameOnLoad(renderView, state);
+    const { gestureActive, expiredPositions } = state;
+    if (!gestureActive && expiredPositions.length) {
+      clearExpiredPositions();
+    }
+  });
 
   const onGesture = event => {
     event.preventDefault();
@@ -51,12 +70,10 @@ export default function GestureInput(props) {
     if (!gestureActive) {
       gestureInProgress();
     }
-    updateInputTime(count);
     if (mouseGridPositionHasChanged(position, newPosition)) {
       addToExpired(positionItem(position, count));
       saveNewPosition(newPosition);
     }
-
     clearTimeout(timer);
     setTimer(
       setTimeout(() => {
@@ -73,7 +90,8 @@ export default function GestureInput(props) {
   const gestureInProgress = () => dispatch({ type: GESTURE_IN_PROGRESS });
   const gestureNotInProgress = () =>
     dispatch({ type: GESTURE_NOT_IN_PROGRESS });
-  const updateInputTime = count => dispatch({ type: UPDATE_INPUT_TIME, count });
+  const clearExpiredPositions = expiredPosition =>
+    dispatch({ type: CLEAR_EXPIRED_POSITIONS, expiredPosition });
 
   return (
     <section
