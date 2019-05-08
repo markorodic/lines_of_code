@@ -2,12 +2,11 @@ import React from "react";
 import {
   getGridPosition,
   mouseGridPositionHasChanged,
-  positionItem
+  positionItem,
+  useAnimationFrame,
+  resetExpiringPositions
 } from "./GestureInputHelpers";
-import {
-  useRequestAnimationFrameOnLoad,
-  useContainerProperties
-} from "./GestureInput.customHooks";
+import { useContainerProperties } from "./GestureInput.customHooks";
 import GestureInputReducer from "./GestureInput.reducer";
 import {
   INCREMENT_COUNT,
@@ -15,7 +14,6 @@ import {
   SAVE_NEW_POSITION,
   GESTURE_IN_PROGRESS,
   GESTURE_NOT_IN_PROGRESS,
-  UPDATE_INPUT_TIME,
   CLEAR_EXPIRED_POSITIONS
 } from "./GestureInput.actions";
 import GestureView from "../gestureView/GestureView";
@@ -23,44 +21,30 @@ import { GestureIdleTimeInMs } from "../CONSTANTS";
 
 const initialState = {
   position: {},
-  expiredPositions: [],
+  expiringPositions: [],
   lastInputTime: null,
   gestureActive: false,
   count: 0
 };
 
-const useAnimationFrame = callback => {
-  const callbackRef = React.useRef(callback);
-  React.useEffect(() => {
-    callbackRef.current = callback;
-  }, [callback]);
-  const loop = () => {
-    frameRef.current = requestAnimationFrame(loop);
-    const cb = callbackRef.current;
-    cb();
-  };
-  const frameRef = React.useRef();
-  React.useLayoutEffect(() => {
-    frameRef.current = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(frameRef.current);
-  }, []);
-};
+function setGestureInactiveWhenIdle(timer, setTimer, dispatchCallBack) {
+  clearTimeout(timer);
+  setTimer(
+    setTimeout(() => {
+      dispatchCallBack();
+    }, GestureIdleTimeInMs)
+  );
+}
 
 export default function GestureInput(props) {
   const [state, dispatch] = React.useReducer(GestureInputReducer, initialState);
   const GestureInputElement = React.useRef();
   const [timer, setTimer] = React.useState(null);
-  const containerProperties = useContainerProperties(
-    GestureInputElement,
-    dispatch
-  );
+  const containerProperties = useContainerProperties(GestureInputElement);
 
   useAnimationFrame(() => {
     incrementCount();
-    const { gestureActive, expiredPositions } = state;
-    if (!gestureActive && expiredPositions.length) {
-      clearExpiredPositions();
-    }
+    resetExpiringPositions(state, () => clearExpiringPositions());
   });
 
   const onGesture = event => {
@@ -71,26 +55,23 @@ export default function GestureInput(props) {
       gestureInProgress();
     }
     if (mouseGridPositionHasChanged(position, newPosition)) {
-      addToExpired(positionItem(position, count));
+      addToExpiring(positionItem(position, count));
       saveNewPosition(newPosition);
     }
-    clearTimeout(timer);
-    setTimer(
-      setTimeout(() => {
-        gestureNotInProgress();
-      }, GestureIdleTimeInMs)
-    );
+    setGestureInactiveWhenIdle(timer, setTimer, () => {
+      gestureNotInProgress();
+    });
   };
 
   const incrementCount = () => dispatch({ type: INCREMENT_COUNT });
-  const addToExpired = expiredPositions =>
-    dispatch({ type: ADD_TO_EXPIRED, expiredPositions });
+  const addToExpiring = expiringPositions =>
+    dispatch({ type: ADD_TO_EXPIRED, expiringPositions });
   const saveNewPosition = position =>
     dispatch({ type: SAVE_NEW_POSITION, position });
   const gestureInProgress = () => dispatch({ type: GESTURE_IN_PROGRESS });
   const gestureNotInProgress = () =>
     dispatch({ type: GESTURE_NOT_IN_PROGRESS });
-  const clearExpiredPositions = expiredPosition =>
+  const clearExpiringPositions = expiredPosition =>
     dispatch({ type: CLEAR_EXPIRED_POSITIONS, expiredPosition });
 
   return (
@@ -103,7 +84,7 @@ export default function GestureInput(props) {
     >
       <GestureView
         position={state.position}
-        expiredPositions={state.expiredPositions}
+        expiringPositions={state.expiringPositions}
         count={state.count}
         containerWidth={containerProperties.width}
       />

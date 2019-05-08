@@ -26,7 +26,7 @@ function useCreateCanvasContext({ containerWidth }, canvasElement) {
 
 function useRenderView(
   ctx,
-  { position, expiredPositions, count, containerWidth }
+  { position, expiringPositions, count, containerWidth }
 ) {
   React.useEffect(() => {
     if (ctx) {
@@ -36,7 +36,7 @@ function useRenderView(
       renderGrid(ctx, containerWidth, boxWidth);
       renderGridPoints(ctx, boxWidth);
       renderCurrentBox(ctx, position, boxWidth);
-      renderExpiredBoxes(ctx, boxWidth, expiredPositions, count);
+      renderExpiredBoxes(ctx, boxWidth, expiringPositions, count);
     }
-  }, [ctx, count, containerWidth, expiredPositions, position]);
+  }, [ctx, count, containerWidth, expiringPositions, position]);
 }

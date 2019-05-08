@@ -14,7 +14,10 @@ export default function GestureInputReducer(state, action) {
     case ADD_TO_EXPIRED:
       return {
         ...state,
-        expiredPositions: [...state.expiredPositions, action.expiredPositions]
+        expiringPositions: [
+          ...state.expiringPositions,
+          action.expiringPositions
+        ]
       };
     case INCREMENT_COUNT:
       return { ...state, count: state.count + 1 };
@@ -23,7 +26,7 @@ export default function GestureInputReducer(state, action) {
     case GESTURE_NOT_IN_PROGRESS:
       return { ...state, gestureActive: false };
     case CLEAR_EXPIRED_POSITIONS:
-      return { ...state, expiredPositions: [] };
+      return { ...state, expiringPositions: [] };
     default:
       throw new Error();
   }
