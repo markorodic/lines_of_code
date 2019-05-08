@@ -28,6 +28,7 @@ class CodeEditor extends Component {
           editorDidMount={editor => {
             this.instance = editor;
           }}
+          className={"code-editor"}
         />
       </div>
     );

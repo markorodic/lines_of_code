@@ -3,6 +3,6 @@ export const NUMBER_OF_BOXES = {
   Y: 9
 };
 
-export const GestureIdleTimeInMs = 500;
+export const GestureIdleTimeInMs = 200;
 
 export const MAX_PATH_LENGTH = 6;

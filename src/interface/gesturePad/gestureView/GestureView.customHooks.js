@@ -6,6 +6,7 @@ import {
   renderExpiredBoxes,
   clearCanvas
 } from "./GestureViewHelpers";
+import { renderGiridPointGuides } from "./gestureViewGrid/GestureViewGrid";
 import { NUMBER_OF_BOXES } from "../CONSTANTS";
 
 export function useRenderGestureView(props, canvasElement) {
@@ -26,7 +27,7 @@ function useCreateCanvasContext({ containerWidth }, canvasElement) {
 
 function useRenderView(
   ctx,
-  { position, expiringPositions, count, containerWidth }
+  { position, expiringPositions, count, containerWidth, gestureActive }
 ) {
   React.useEffect(() => {
     if (ctx) {
@@ -35,6 +36,7 @@ function useRenderView(
       clearCanvas(ctx, containerWidth);
       renderGrid(ctx, containerWidth, boxWidth);
       renderGridPoints(ctx, boxWidth);
+      renderGiridPointGuides(ctx, position, boxWidth, gestureActive);
       renderCurrentBox(ctx, position, boxWidth);
       renderExpiredBoxes(ctx, boxWidth, expiringPositions, count);
     }

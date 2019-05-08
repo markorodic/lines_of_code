@@ -27,11 +27,55 @@ export function renderGridPoints(ctx, boxWidth) {
     while (NUMBER_OF_BOXES.X > countX) {
       const x = countX * boxWidth;
       const y = countY * boxWidth;
-      ctx.fillStyle = "#9e9e9e";
-      ctx.fillRect(x - 1, y - 1, 2, 2);
+      ctx.fillStyle = "#a3a3a3";
+      ctx.fillRect(x - 0.5, y - 0.5, 1, 1);
       countX++;
     }
     countY++;
+  }
+}
+
+export function renderGiridPointGuides(ctx, position, boxWidth, gestureActive) {
+  if (position.x && gestureActive) {
+    const guidePoints = [];
+    let x, y;
+
+    x = (position.x - 1) * boxWidth - boxWidth;
+    y = (position.y - 1) * boxWidth;
+    guidePoints.push({ x, y });
+
+    x = (position.x - 1) * boxWidth - boxWidth;
+    y = (position.y - 1) * boxWidth + boxWidth;
+    guidePoints.push({ x, y });
+
+    x = (position.x - 1) * boxWidth;
+    y = (position.y - 1) * boxWidth - boxWidth;
+    guidePoints.push({ x, y });
+
+    x = (position.x - 1) * boxWidth + boxWidth;
+    y = (position.y - 1) * boxWidth - boxWidth;
+    guidePoints.push({ x, y });
+
+    x = (position.x - 1) * boxWidth + 2 * boxWidth;
+    y = (position.y - 1) * boxWidth;
+    guidePoints.push({ x, y });
+
+    x = (position.x - 1) * boxWidth + 2 * boxWidth;
+    y = (position.y - 1) * boxWidth + boxWidth;
+    guidePoints.push({ x, y });
+
+    x = (position.x - 1) * boxWidth;
+    y = (position.y - 1) * boxWidth + 2 * boxWidth;
+    guidePoints.push({ x, y });
+
+    x = (position.x - 1) * boxWidth + boxWidth;
+    y = (position.y - 1) * boxWidth + 2 * boxWidth;
+    guidePoints.push({ x, y });
+
+    guidePoints.forEach(point => {
+      ctx.fillStyle = "#7a7a7a";
+      ctx.fillRect(point.x - 1, point.y - 1, 2, 2);
+    });
   }
 }
 

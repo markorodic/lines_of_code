@@ -99,6 +99,7 @@ export default function GestureInput(props) {
         expiringPositions={state.expiringPositions}
         count={state.count}
         containerWidth={containerProperties.width}
+        gestureActive={state.gestureActive}
       />
     </section>
   );

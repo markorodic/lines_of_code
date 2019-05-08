@@ -12,14 +12,33 @@ html, body {
     width: 100vw;
 }
 
+.code {
+    height: 35rem;
+    width: 25rem;
+    height: calc(100vh - 100vw);
+}
+
+.code-editor {
+    height: 100%;
+}
+
+.code-editor .CodeMirror {
+    height: 100%;
+}
+
+.code-editor .CodeMirror-gutters {
+    border: none;
+    background: none;
+}
+
 .interface {
-    background: lightyellow;
-    height: 100vh;
-    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;;
+    flex-direction: column;
+    width: 60rem;
+    height: 39rem;
+    box-shadow: 2px 2px 15px #dadada;
 }
 
 .header {
@@ -43,23 +62,17 @@ html, body {
     display: flex;
 }
 
-.code {
-    background: palevioletred;
-    height: 35rem;
-    width: 25rem;
-}
-
 .gesture-pad {
     background: rebeccapurple;
     width: 35rem;
     height: 35rem;
+    z-index: 100;
 }
 
 #canvas {
     background: white;
     width: 100%;
     height: 100%;
-    z-index: 100;
 }
 
 @media (max-width: 960px) { 
@@ -94,10 +107,13 @@ html, body {
 
     .header {
         width: 100%;
+        height: 15vw;
     }
 
     .interface {
         margin: 0;
+        height: 100%;
+        width: 100%
     }
     
     .views {
@@ -110,7 +126,7 @@ html, body {
     .code {
         position: relative;
         width: 100%;
-        height: 0;
+        height: calc(100vh - 115vw);
     }
 
     .gesture-pad {
