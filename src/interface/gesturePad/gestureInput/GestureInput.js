@@ -48,8 +48,8 @@ export default function GestureInput(props) {
   useAnimationFrame(() => {
     incrementCount();
     whenGestureIsInactive(state, () => {
-      console.log("foo");
       clearExpiringPositions();
+      props.updatePatternState(state.pattern);
       clearPattern();
       // send pattern up
       // clear pattern list
@@ -72,8 +72,6 @@ export default function GestureInput(props) {
       gestureNotInProgress();
     });
   };
-
-  console.log(state.pattern);
 
   const incrementCount = () => dispatch({ type: INCREMENT_COUNT });
   const addToExpiring = expiringPositions =>
