@@ -44,9 +44,9 @@ export function renderCurrentBox(ctx, position, boxWidth) {
   }
 }
 
-export function renderExpiredBoxes(ctx, boxWidth, deathQueue, count) {
-  if (deathQueue.length) {
-    deathQueue.forEach(box => {
+export function renderExpiredBoxes(ctx, boxWidth, expiredPositions, count) {
+  if (expiredPositions.length) {
+    expiredPositions.forEach(box => {
       const diff = count - box.timeAdded;
       if (diff < 20) {
         const alphaValue = 1 - diff / 20;

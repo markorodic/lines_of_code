@@ -1,10 +1,10 @@
 import React from "react";
 import { getElementProperties } from "./GestureInputHelpers";
 
-export function useRequestAnimationFrameOnLoad(renderView) {
+export function useRequestAnimationFrameOnLoad(renderView, { gestureActive }) {
   React.useEffect(() => {
     window.requestAnimationFrame(renderView);
-  }, []);
+  }, [gestureActive]);
 }
 
 export function useContainerProperties(GestureInputElement) {
