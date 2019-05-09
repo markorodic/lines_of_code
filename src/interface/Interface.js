@@ -3,11 +3,13 @@ import Header from "./header/Header";
 import CodeEditor from "./codeEditor/CodeEditor";
 import GesturePad from "./gesturePad/GesturePad";
 import "./Interface.css";
+import logo from "../logo.svg";
 
 class Interface extends Component {
   render() {
     return (
       <div className="interface">
+        <img src={logo} alt="" />
         <Header />
         <Views>
           <CodeEditor />

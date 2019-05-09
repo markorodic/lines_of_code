@@ -9,7 +9,7 @@ import { Controlled as CodeMirror } from "react-codemirror2";
 
 class CodeEditor extends Component {
   state = {
-    value: "123"
+    value: `const arr = ['foo', 'bar', 'baz'] \n\narr.forEach((word) => console.log(word))`
   };
   instance;
   componentDidMount() {}
