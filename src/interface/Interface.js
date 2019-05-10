@@ -22,12 +22,35 @@ export const useAnimationFrame = callback => {
   }, []);
 };
 
+export function useContainerProperties(GestureInputElement) {
+  const [containerProperties, setContainerProperties] = React.useState({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0
+  });
+  React.useEffect(() => {
+    const { x, y, width, height } = getElementProperties(GestureInputElement);
+    setContainerProperties({
+      x,
+      y,
+      width,
+      height
+    });
+  }, [GestureInputElement]);
+  return containerProperties;
+}
+
+export function getElementProperties(element) {
+  return element.current.getBoundingClientRect();
+}
+
 export default function Interface() {
   const [userIsActive, setUserIsActive] = React.useState(false);
   const [count, setCount] = React.useState(0);
+
   useAnimationFrame(() => {
     setCount(count + 1);
-    console.log(userIsActive);
     // whenGestureIsInactive(state, () => {
     //   clearExpiringPositions();
     //   props.updatePatternState(state.pattern);
@@ -38,7 +61,7 @@ export default function Interface() {
   return (
     <div className="interface">
       <img src={logo} alt="" />
-      <Header count={count} />
+      <Header count={count} userIsActive={userIsActive} />
       <Views>
         <CodeEditor count={count} />
         <GesturePad
