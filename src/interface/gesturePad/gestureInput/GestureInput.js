@@ -45,28 +45,29 @@ export default function GestureInput(props) {
   const [timer, setTimer] = React.useState(null);
   const containerProperties = useContainerProperties(GestureInputElement);
 
-  useAnimationFrame(() => {
-    incrementCount();
-    whenGestureIsInactive(state, () => {
-      clearExpiringPositions();
-      props.updatePatternState(state.pattern);
-      clearPattern(state.position);
-    });
-  });
+  // useAnimationFrame(() => {
+  //   incrementCount();
+  //   whenGestureIsInactive(state, () => {
+  //     clearExpiringPositions();
+  //     props.updatePatternState(state.pattern);
+  //     clearPattern(state.position);
+  //   });
+  // });
 
   const onGesture = event => {
     event.preventDefault();
-    const { position, count, gestureActive } = state;
+    const { position, count } = state;
     const newPosition = getGridPosition(event, containerProperties);
-    if (!gestureActive) {
-      gestureInProgress();
+    if (!props.userIsActive) {
+      props.setUserIsActive(true);
     }
     if (mouseGridPositionHasChanged(position, newPosition)) {
-      addToExpiring(positionItem(position, count));
+      addToExpiring(positionItem(position, props.count));
       saveNewPosition(newPosition);
       addPositionToPattern(newPosition);
     }
     ifInputIsIdle(timer, setTimer, () => {
+      props.setUserIsActive(false);
       gestureNotInProgress();
     });
   };
@@ -97,9 +98,9 @@ export default function GestureInput(props) {
       <GestureView
         position={state.position}
         expiringPositions={state.expiringPositions}
-        count={state.count}
+        count={props.count}
         containerWidth={containerProperties.width}
-        gestureActive={state.gestureActive}
+        gestureActive={props.userIsActive}
       />
     </section>
   );

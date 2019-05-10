@@ -12,14 +12,21 @@ function GesturePad(props) {
     // gesturePatterns.forEach(pattern => {
     //   console.log(pattern);
     // });
-    console.log(gesturePatterns);
+    // console.log(gesturePatterns);
   }, [path]);
 
   React.useEffect(() => {
     setPath(getPathFrom(pattern));
   }, [pattern]);
 
-  return <GestureInput updatePatternState={updatePatternState} />;
+  return (
+    <GestureInput
+      updatePatternState={updatePatternState}
+      count={props.count}
+      userIsActive={props.userIsActive}
+      setUserIsActive={props.setUserIsActive}
+    />
+  );
 }
 
 export default GesturePad;
