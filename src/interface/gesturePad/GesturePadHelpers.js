@@ -2,11 +2,15 @@ import { MAX_PATH_LENGTH } from "./CONSTANTS";
 
 function trim(pattern) {
   const patternLength = pattern.length;
+  let trimmedPattern = pattern;
 
   if (patternLength > MAX_PATH_LENGTH) {
-    pattern.slice(patternLength - MAX_PATH_LENGTH, patternLength);
+    trimmedPattern = pattern.slice(
+      patternLength - MAX_PATH_LENGTH,
+      patternLength
+    );
   }
-  return pattern;
+  return trimmedPattern;
 }
 
 function getDirectionsFrom(trimmedPattern) {
