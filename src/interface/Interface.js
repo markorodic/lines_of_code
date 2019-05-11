@@ -47,6 +47,7 @@ export function getElementProperties(element) {
 
 export default function Interface() {
   const [gestureActive, setgestureActive] = React.useState(false);
+  const [userActive, setUserActive] = React.useState(false);
   const [count, setCount] = React.useState(0);
 
   useAnimationFrame(() => {
@@ -57,17 +58,24 @@ export default function Interface() {
     //   clearPattern(state.position);
     // });
   });
+  console.log(userActive);
 
   return (
     <div className="interface">
       <img src={logo} alt="" />
-      <Header count={count} gestureActive={gestureActive} />
+      <Header
+        count={count}
+        gestureActive={gestureActive}
+        userActive={userActive}
+      />
       <Views>
         <CodeEditor count={count} />
         <GesturePad
           count={count}
           gestureActive={gestureActive}
           setgestureActive={setgestureActive}
+          userActive={userActive}
+          setUserActive={setUserActive}
         />
       </Views>
     </div>

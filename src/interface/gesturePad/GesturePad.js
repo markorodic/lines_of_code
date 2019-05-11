@@ -23,6 +23,8 @@ function GesturePad(props) {
       count={props.count}
       gestureActive={props.gestureActive}
       setgestureActive={props.setgestureActive}
+      userActive={props.userActive}
+      setUserActive={props.setUserActive}
       containerProperties={props.containerProperties}
     />
   );

@@ -3,17 +3,13 @@ import {
   getGridPosition,
   mouseGridPositionHasChanged,
   positionItem,
-  useAnimationFrame,
   whenGestureIsInactive
 } from "./GestureInputHelpers";
 import { useContainerProperties } from "./GestureInput.customHooks";
 import GestureInputReducer from "./GestureInput.reducer";
 import {
-  INCREMENT_COUNT,
   ADD_TO_EXPIRED,
   SAVE_NEW_POSITION,
-  GESTURE_IN_PROGRESS,
-  GESTURE_NOT_IN_PROGRESS,
   CLEAR_EXPIRED_POSITIONS,
   ADD_POSITION_TO_PATTERN,
   CLEAR_PATTERN
@@ -53,7 +49,8 @@ export default function GestureInput(props) {
 
   const onGesture = event => {
     event.preventDefault();
-    const { position, count } = state;
+    props.setUserActive(true);
+    const { position } = state;
     const newPosition = getGridPosition(event, containerProperties);
     if (!props.gestureActive) {
       props.setgestureActive(true);
@@ -66,6 +63,11 @@ export default function GestureInput(props) {
     ifInputIsIdle(timer, setTimer, () => {
       props.setgestureActive(false);
     });
+  };
+
+  const onGestureEnd = event => {
+    event.preventDefault();
+    props.setUserActive(false);
   };
 
   const addToExpiring = expiringPositions =>
@@ -82,7 +84,9 @@ export default function GestureInput(props) {
     <section
       ref={GestureInputElement}
       onMouseMove={onGesture}
+      onMouseLeave={onGestureEnd}
       onTouchMove={onGesture}
+      onTouchEnd={onGestureEnd}
       className="gesture-pad"
       data-testid="gesture-pad"
     >

@@ -11,11 +11,11 @@ function Header(props) {
     containerProperties.width,
     containerProperties.height,
     canvasElement,
-    props.gestureActive
+    props.userActive
   );
   return (
     <header className="header" ref={HeaderElement}>
-      {!props.gestureActive && <p>line</p>}
+      {!props.userActive && <p>line</p>}
       <canvas id="canvas" ref={canvasElement} />
     </header>
   );
