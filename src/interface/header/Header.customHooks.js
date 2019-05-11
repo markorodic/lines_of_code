@@ -5,14 +5,14 @@ export function useRenderGestureView(
   containerWidth,
   containerHeight,
   canvasElement,
-  userIsActive
+  gestureActive
 ) {
   const ctx = useCreateCanvasContext(
     containerWidth,
     containerHeight,
     canvasElement
   );
-  useRenderView(ctx, containerWidth, userIsActive);
+  useRenderView(ctx, containerWidth, gestureActive);
 }
 
 function useCreateCanvasContext(
@@ -31,13 +31,13 @@ function useCreateCanvasContext(
   return ctx;
 }
 
-function useRenderView(ctx, containerWidth, userIsActive) {
+function useRenderView(ctx, containerWidth, gestureActive) {
   React.useEffect(() => {
     if (ctx) {
       clearCanvas(ctx, containerWidth);
     }
-    if (userIsActive) {
+    if (gestureActive) {
       drawPatternIcon(ctx, containerWidth);
     }
-  }, [ctx, containerWidth, userIsActive]);
+  }, [ctx, containerWidth, gestureActive]);
 }

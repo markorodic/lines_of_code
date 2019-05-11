@@ -21,8 +21,8 @@ function GesturePad(props) {
     <GestureInput
       updatePatternState={updatePatternState}
       count={props.count}
-      userIsActive={props.userIsActive}
-      setUserIsActive={props.setUserIsActive}
+      gestureActive={props.gestureActive}
+      setgestureActive={props.setgestureActive}
       containerProperties={props.containerProperties}
     />
   );

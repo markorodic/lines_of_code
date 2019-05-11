@@ -25,8 +25,6 @@ const initialState = {
   position: {},
   expiringPositions: [],
   lastInputTime: null,
-  gestureActive: false,
-  count: 0,
   pattern: []
 };
 
@@ -46,7 +44,7 @@ export default function GestureInput(props) {
   const containerProperties = useContainerProperties(GestureInputElement);
 
   React.useEffect(() => {
-    whenGestureIsInactive(props.userIsActive, state.expiringPositions, () => {
+    whenGestureIsInactive(props.gestureActive, state.expiringPositions, () => {
       clearExpiringPositions();
       props.updatePatternState(state.pattern);
       clearPattern(state.position);
@@ -57,8 +55,8 @@ export default function GestureInput(props) {
     event.preventDefault();
     const { position, count } = state;
     const newPosition = getGridPosition(event, containerProperties);
-    if (!props.userIsActive) {
-      props.setUserIsActive(true);
+    if (!props.gestureActive) {
+      props.setgestureActive(true);
     }
     if (mouseGridPositionHasChanged(position, newPosition)) {
       addToExpiring(positionItem(position, props.count));
@@ -66,24 +64,18 @@ export default function GestureInput(props) {
       addPositionToPattern(newPosition);
     }
     ifInputIsIdle(timer, setTimer, () => {
-      props.setUserIsActive(false);
-      gestureNotInProgress();
+      props.setgestureActive(false);
     });
   };
 
-  const incrementCount = () => dispatch({ type: INCREMENT_COUNT });
   const addToExpiring = expiringPositions =>
     dispatch({ type: ADD_TO_EXPIRED, expiringPositions });
   const saveNewPosition = position =>
     dispatch({ type: SAVE_NEW_POSITION, position });
-  const gestureInProgress = () => dispatch({ type: GESTURE_IN_PROGRESS });
-  const gestureNotInProgress = () =>
-    dispatch({ type: GESTURE_NOT_IN_PROGRESS });
   const clearExpiringPositions = expiredPosition =>
     dispatch({ type: CLEAR_EXPIRED_POSITIONS, expiredPosition });
   const addPositionToPattern = position =>
     dispatch({ type: ADD_POSITION_TO_PATTERN, position });
-
   const clearPattern = position => dispatch({ type: CLEAR_PATTERN, position });
 
   return (
@@ -99,7 +91,7 @@ export default function GestureInput(props) {
         expiringPositions={state.expiringPositions}
         count={props.count}
         containerWidth={containerProperties.width}
-        gestureActive={props.userIsActive}
+        gestureActive={props.gestureActive}
       />
     </section>
   );
