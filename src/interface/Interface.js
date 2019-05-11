@@ -58,7 +58,6 @@ export default function Interface() {
     //   clearPattern(state.position);
     // });
   });
-  console.log(userActive);
 
   return (
     <div className="interface">
