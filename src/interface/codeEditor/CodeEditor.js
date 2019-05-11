@@ -12,7 +12,9 @@ class CodeEditor extends Component {
     value: `const arr = ['foo', 'bar', 'baz'] \n\narr.forEach((word) => console.log(word))`
   };
   instance;
-  componentDidMount() {}
+  componentDidMount() {
+    this.instance.setSelection({ line: 3, ch: 5 }, { line: 3, ch: 0 });
+  }
   render() {
     return (
       <div className="code">

@@ -9,14 +9,12 @@ function GesturePad(props) {
   const updatePatternState = pattern => setPattern(pattern);
 
   React.useEffect(() => {
-    // gesturePatterns.forEach(pattern => {
-    //   console.log(pattern);
-    // });
-    // console.log(gesturePatterns);
+    console.log(path);
   }, [path]);
 
   React.useEffect(() => {
     setPath(getPathFrom(pattern));
+    console.log(path);
   }, [pattern]);
 
   return (

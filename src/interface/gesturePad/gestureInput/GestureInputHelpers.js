@@ -77,10 +77,11 @@ export const useAnimationFrame = callback => {
 };
 
 export function whenGestureIsInactive(
-  { gestureActive, expiringPositions },
+  userIsNotActive,
+  expiringPositions,
   dispatchCallBack
 ) {
-  if (!gestureActive && expiringPositions.length) {
+  if (!userIsNotActive && expiringPositions.length) {
     dispatchCallBack();
   }
 }

@@ -45,14 +45,13 @@ export default function GestureInput(props) {
   const [timer, setTimer] = React.useState(null);
   const containerProperties = useContainerProperties(GestureInputElement);
 
-  // useAnimationFrame(() => {
-  //   incrementCount();
-  //   whenGestureIsInactive(state, () => {
-  //     clearExpiringPositions();
-  //     props.updatePatternState(state.pattern);
-  //     clearPattern(state.position);
-  //   });
-  // });
+  React.useEffect(() => {
+    whenGestureIsInactive(props.userIsActive, state.expiringPositions, () => {
+      clearExpiringPositions();
+      props.updatePatternState(state.pattern);
+      clearPattern(state.position);
+    });
+  });
 
   const onGesture = event => {
     event.preventDefault();

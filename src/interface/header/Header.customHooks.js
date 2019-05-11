@@ -1,5 +1,4 @@
 import React from "react";
-import { NUMBER_OF_BOXES } from "../gesturePad/CONSTANTS";
 import { clearCanvas, renderPattern } from "./HeaderHelpers";
 
 export function useRenderGestureView(
