@@ -1,5 +1,5 @@
 import React from "react";
-import { clearCanvas, renderPattern } from "./HeaderHelpers";
+import { clearCanvas, drawPatternIcon } from "./HeaderHelpers";
 
 export function useRenderGestureView(
   containerWidth,
@@ -37,8 +37,7 @@ function useRenderView(ctx, containerWidth, userIsActive) {
       clearCanvas(ctx, containerWidth);
     }
     if (userIsActive) {
-      const boxWidth = Math.round(containerWidth / 7 - 100);
-      renderPattern(ctx, boxWidth);
+      drawPatternIcon(ctx, containerWidth);
     }
   }, [ctx, containerWidth, userIsActive]);
 }
