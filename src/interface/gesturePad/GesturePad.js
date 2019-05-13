@@ -3,17 +3,16 @@ import GestureInput from "./gestureInput/GestureInput";
 import { getPathFrom } from "./GesturePadHelpers";
 import { gesturePatterns } from "./gestures/gesturePatterns";
 import _ from "lodash";
-import { debug } from "util";
 
 function GesturePad(props) {
   const [pattern, setPattern] = React.useState([]);
   const [path, setPath] = React.useState([]);
-  const [gesture, setGesture] = React.useState({});
+  const [gesture, setGesture] = React.useState([]);
   const updatePatternState = pattern => setPattern(pattern);
 
   React.useEffect(() => {
-    const { count } = props;
-    let patternMatched = null;
+    console.log("set gesture");
+    let patternTrimmed = null;
     if (path.length) {
       const validGesture = gesturePatterns.edit.find(gesture => {
         const pathTrimmed = path.slice(
@@ -23,24 +22,16 @@ function GesturePad(props) {
         return _.isEqual(pathTrimmed, gesture.pattern);
       });
       if (validGesture) {
-        patternMatched = pattern.slice(
+        patternTrimmed = pattern.slice(
           pattern.length - validGesture.pattern.length,
           pattern.length
         );
       }
-      setGesture({ patternMatched, count });
+      if (patternTrimmed) {
+        setGesture(gesture.concat(patternTrimmed));
+      }
     }
-  }, [path, setGesture, props, pattern]);
-
-  React.useEffect(() => {
-    const { count } = props;
-    // if (gesture.patternMatched) {
-    //   if (gesture.count - 50 > count) {
-    //     console.log(gesture.count, count);
-    //     setGesture({});
-    //   }
-    // }
-  }, [props, gesture]);
+  }, [path, pattern]);
 
   React.useEffect(() => {
     setPath(getPathFrom(pattern));

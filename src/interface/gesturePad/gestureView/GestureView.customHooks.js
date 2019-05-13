@@ -53,8 +53,8 @@ function useRenderView(
 }
 
 function renderMatchedPattern(ctx, boxWidth, gesture) {
-  if (gesture.patternMatched) {
-    gesture.patternMatched.forEach(position => {
+  if (gesture.length) {
+    gesture.forEach(position => {
       renderCurrentBox(ctx, position, boxWidth);
     });
   }
