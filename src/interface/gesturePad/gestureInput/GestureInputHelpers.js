@@ -1,4 +1,3 @@
-import React from "react";
 import { NUMBER_OF_BOXES } from "../CONSTANTS";
 import _ from "lodash";
 
@@ -58,23 +57,6 @@ export function gridPosition(userPosition, boxWidth, boxHeight) {
 
   return { x, y };
 }
-
-export const useAnimationFrame = callback => {
-  const callbackRef = React.useRef(callback);
-  React.useEffect(() => {
-    callbackRef.current = callback;
-  }, [callback]);
-  const loop = () => {
-    frameRef.current = requestAnimationFrame(loop);
-    const cb = callbackRef.current;
-    cb();
-  };
-  const frameRef = React.useRef();
-  React.useLayoutEffect(() => {
-    frameRef.current = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(frameRef.current);
-  }, []);
-};
 
 export function whenGestureIsInactive(
   userIsNotActive,

@@ -27,7 +27,7 @@ function useCreateCanvasContext({ containerWidth }, canvasElement) {
 
 function useRenderView(
   ctx,
-  { position, expiringPositions, count, containerWidth, gestureActive }
+  { position, expiringPositions, count, containerWidth, gestureActive, gesture }
 ) {
   React.useEffect(() => {
     if (ctx) {
@@ -39,6 +39,23 @@ function useRenderView(
       renderGiridPointGuides(ctx, position, boxWidth, gestureActive);
       renderCurrentBox(ctx, position, boxWidth);
       renderExpiredBoxes(ctx, boxWidth, expiringPositions, count);
+      renderMatchedPattern(ctx, boxWidth, gesture);
     }
-  }, [ctx, count, containerWidth, expiringPositions, position]);
+  }, [
+    ctx,
+    count,
+    containerWidth,
+    expiringPositions,
+    position,
+    gestureActive,
+    gesture
+  ]);
+}
+
+function renderMatchedPattern(ctx, boxWidth, gesture) {
+  if (gesture.patternMatched) {
+    gesture.patternMatched.forEach(position => {
+      renderCurrentBox(ctx, position, boxWidth);
+    });
+  }
 }

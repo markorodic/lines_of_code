@@ -38,28 +38,7 @@ function getDirectionsFrom(trimmedPattern) {
   return stringPath;
 }
 
-function getVectorPathFrom(directionPath) {
-  const vectorPath = directionPath.reduce((path, direction, index) => {
-    if (
-      path[path.length - 1] &&
-      path[path.length - 1].direction === direction
-    ) {
-      path[path.length - 1].magnitude++;
-    } else {
-      const newDirection = {
-        direction: direction,
-        magnitude: 1
-      };
-      path.push(newDirection);
-    }
-    return path;
-  }, []);
-  return vectorPath;
-}
-
 export function getPathFrom(pattern) {
   const trimmedPattern = trim(pattern);
-  const directionPath = getDirectionsFrom(trimmedPattern);
-
-  return getVectorPathFrom(directionPath);
+  return getDirectionsFrom(trimmedPattern);
 }

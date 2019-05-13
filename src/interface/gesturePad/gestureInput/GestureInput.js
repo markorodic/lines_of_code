@@ -68,6 +68,7 @@ export default function GestureInput(props) {
   const onGestureEnd = event => {
     event.preventDefault();
     props.setUserActive(false);
+    // saveNewPosition({});
   };
 
   const addToExpiring = expiringPositions =>
@@ -96,6 +97,7 @@ export default function GestureInput(props) {
         count={props.count}
         containerWidth={containerProperties.width}
         gestureActive={props.gestureActive}
+        gesture={props.gesture}
       />
     </section>
   );
