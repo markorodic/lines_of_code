@@ -1,4 +1,5 @@
 import { MAX_PATH_LENGTH } from "./CONSTANTS";
+import _ from "lodash";
 
 function trim(pattern) {
   const patternLength = pattern.length;
@@ -6,7 +7,7 @@ function trim(pattern) {
 
   if (patternLength > MAX_PATH_LENGTH) {
     trimmedPattern = pattern.slice(
-      patternLength - MAX_PATH_LENGTH,
+      patternLength - MAX_PATH_LENGTH - 1,
       patternLength
     );
   }
@@ -41,4 +42,19 @@ function getDirectionsFrom(trimmedPattern) {
 export function getPathFrom(pattern) {
   const trimmedPattern = trim(pattern);
   return getDirectionsFrom(trimmedPattern);
+}
+
+export function userHasPaused(gestureActive, pattern) {
+  return !gestureActive && !_.isEmpty(pattern);
+}
+
+export function matchedGesture(gesturePatterns, gesturePath) {
+  return gesturePatterns.edit.find(gesture => {
+    const pathTrimmed = trimArray(gesturePath, gesture.pattern.length);
+    return _.isEqual(pathTrimmed, gesture.pattern);
+  });
+}
+
+export function trimArray(array, length) {
+  return array.slice(array.length - length, array.length);
 }

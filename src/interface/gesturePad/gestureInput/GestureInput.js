@@ -3,7 +3,8 @@ import {
   getGridPosition,
   mouseGridPositionHasChanged,
   positionItem,
-  whenGestureIsInactive
+  whenGestureIsInactive,
+  ifInputIsIdle
 } from "./GestureInputHelpers";
 import { useContainerProperties } from "./GestureInput.customHooks";
 import GestureInputReducer from "./GestureInput.reducer";
@@ -15,7 +16,6 @@ import {
   CLEAR_PATTERN
 } from "./GestureInput.actions";
 import GestureView from "../gestureView/GestureView";
-import { GestureIdleTimeInMs } from "../CONSTANTS";
 
 const initialState = {
   position: {},
@@ -24,15 +24,6 @@ const initialState = {
   pattern: []
 };
 
-function ifInputIsIdle(timer, setTimer, dispatchCallBack) {
-  clearTimeout(timer);
-  setTimer(
-    setTimeout(() => {
-      dispatchCallBack();
-    }, GestureIdleTimeInMs)
-  );
-}
-
 export default function GestureInput(props) {
   const [state, dispatch] = React.useReducer(GestureInputReducer, initialState);
   const GestureInputElement = React.useRef();
@@ -40,35 +31,41 @@ export default function GestureInput(props) {
   const containerProperties = useContainerProperties(GestureInputElement);
 
   React.useEffect(() => {
-    whenGestureIsInactive(props.gestureActive, state.expiringPositions, () => {
+    const { updatePatternState, gestureActive } = props;
+    const { expiringPositions, pattern } = state;
+
+    whenGestureIsInactive(gestureActive, expiringPositions, () => {
       clearExpiringPositions();
-      props.updatePatternState(state.pattern);
-      clearPattern(state.position);
+      updatePatternState(pattern);
     });
   });
 
   const onGesture = event => {
     event.preventDefault();
-    props.setUserActive(true);
     const { position } = state;
+    const { count, setUserActive, setgestureActive, gestureActive } = props;
+
     const newPosition = getGridPosition(event, containerProperties);
-    if (!props.gestureActive) {
-      props.setgestureActive(true);
+
+    setUserActive(true);
+    if (!gestureActive) {
+      setgestureActive(true);
     }
+
     if (mouseGridPositionHasChanged(position, newPosition)) {
-      addToExpiring(positionItem(position, props.count));
+      addToExpiring(positionItem(position, count));
       saveNewPosition(newPosition);
       addPositionToPattern(newPosition);
     }
+
     ifInputIsIdle(timer, setTimer, () => {
-      props.setgestureActive(false);
+      setgestureActive(false);
     });
   };
 
   const onGestureEnd = event => {
     event.preventDefault();
     props.setUserActive(false);
-    // saveNewPosition({});
   };
 
   const addToExpiring = expiringPositions =>
@@ -79,7 +76,6 @@ export default function GestureInput(props) {
     dispatch({ type: CLEAR_EXPIRED_POSITIONS, expiredPosition });
   const addPositionToPattern = position =>
     dispatch({ type: ADD_POSITION_TO_PATTERN, position });
-  const clearPattern = position => dispatch({ type: CLEAR_PATTERN, position });
 
   return (
     <section

@@ -53,11 +53,6 @@ export default function Interface() {
 
   useAnimationFrame(() => {
     setCount(count + 1);
-    // whenGestureIsInactive(state, () => {
-    //   clearExpiringPositions();
-    //   props.updatePatternState(state.pattern);
-    //   clearPattern(state.position);
-    // });
   });
 
   return (
