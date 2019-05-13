@@ -38,8 +38,8 @@ function useRenderView(
       renderGridPoints(ctx, boxWidth);
       renderGiridPointGuides(ctx, position, boxWidth, gestureActive);
       renderCurrentBox(ctx, position, boxWidth);
-      renderExpiredBoxes(ctx, boxWidth, expiringPositions, count);
       renderMatchedPattern(ctx, boxWidth, gesture);
+      renderExpiredBoxes(ctx, boxWidth, expiringPositions, count, gesture);
     }
   }, [
     ctx,

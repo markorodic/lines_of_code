@@ -11,7 +11,6 @@ function GesturePad(props) {
   const updatePatternState = pattern => setPattern(pattern);
 
   React.useEffect(() => {
-    console.log("set gesture");
     let patternTrimmed = null;
     if (path.length) {
       const validGesture = gesturePatterns.edit.find(gesture => {

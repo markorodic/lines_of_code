@@ -48,6 +48,7 @@ export function getElementProperties(element) {
 export default function Interface() {
   const [gestureActive, setgestureActive] = React.useState(false);
   const [userActive, setUserActive] = React.useState(false);
+  const [patternInProgress, setPatternInProgress] = React.useState(false);
   const [count, setCount] = React.useState(0);
 
   useAnimationFrame(() => {
@@ -73,6 +74,7 @@ export default function Interface() {
           count={count}
           gestureActive={gestureActive}
           setgestureActive={setgestureActive}
+          setPatternInProgress={setPatternInProgress}
           userActive={userActive}
           setUserActive={setUserActive}
         />
