@@ -58,3 +58,10 @@ export function matchedGesture(gesturePatterns, gesturePath) {
 export function trimArray(array, length) {
   return array.slice(array.length - length, array.length);
 }
+
+export function findStartingPosition(gesturePattern, validGesture) {
+  return gesturePattern.slice(
+    gesturePattern.length - validGesture.pattern.length - 1,
+    gesturePattern.length - validGesture.pattern.length
+  );
+}

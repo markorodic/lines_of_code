@@ -1,6 +1,11 @@
 import React from "react";
 import GestureInput from "./gestureInput/GestureInput";
-import { getPathFrom, matchedGesture, trimArray } from "./GesturePadHelpers";
+import {
+  getPathFrom,
+  matchedGesture,
+  trimArray,
+  findStartingPosition
+} from "./GesturePadHelpers";
 import { gesturePatterns } from "./gestures/gesturePatterns";
 import _ from "lodash";
 function isReverse(prevPath, newPath) {
@@ -10,7 +15,7 @@ function isReverse(prevPath, newPath) {
 function GesturePad(props) {
   const [gesture, setGesture] = React.useState({ path: [], pattern: [] });
 
-  const updatePatternState = gesturePattern => {
+  const updatePatternState = (gesturePattern, position) => {
     const gesturePath = getPathFrom(gesturePattern);
     if (gesturePath.length) {
       if (isReverse(gesture.path, gesturePattern)) {
@@ -18,14 +23,29 @@ function GesturePad(props) {
       } else {
         const validGesture = matchedGesture(gesturePatterns, gesturePath);
         if (validGesture) {
-          const trimmedPattern = trimArray(
+          const trimmedPath = trimArray(
             gesturePattern,
             validGesture.pattern.length
           );
           const newGesture = {
-            path: trimmedPattern,
+            path: trimmedPath,
             pattern: validGesture.pattern
           };
+
+          const startingPosition = findStartingPosition(
+            gesturePattern,
+            validGesture
+          );
+
+          if (
+            gesture.path.length &&
+            !_.isEqual(
+              startingPosition[0],
+              gesture.path[gesture.path.length - 1]
+            )
+          ) {
+            return;
+          }
           setGesture(newGesture);
         }
       }
