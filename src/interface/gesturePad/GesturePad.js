@@ -27,24 +27,32 @@ function GesturePad(props) {
             gesturePattern,
             validGesture.pattern.length
           );
-          const newGesture = {
-            path: trimmedPath,
-            pattern: validGesture.pattern
-          };
 
           const startingPosition = findStartingPosition(
             gesturePattern,
             validGesture
           );
+          let newGesture;
 
-          if (
-            gesture.path.length &&
-            !_.isEqual(
-              startingPosition[0],
-              gesture.path[gesture.path.length - 1]
-            )
-          ) {
-            return;
+          if (gesture.path.length) {
+            if (
+              !_.isEqual(
+                startingPosition[0],
+                gesture.path[gesture.path.length - 1]
+              )
+            ) {
+              return;
+            } else {
+              newGesture = {
+                path: gesture.path.concat(trimmedPath),
+                pattern: gesture.pattern.concat(validGesture.pattern)
+              };
+            }
+          } else {
+            newGesture = {
+              path: trimmedPath,
+              pattern: validGesture.pattern
+            };
           }
           setGesture(newGesture);
         }
