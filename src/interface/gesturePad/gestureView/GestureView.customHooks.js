@@ -8,6 +8,7 @@ import {
 } from "./GestureViewHelpers";
 import { renderGiridPointGuides } from "./gestureViewGrid/GestureViewGrid";
 import { NUMBER_OF_BOXES } from "../CONSTANTS";
+import { renderInnerLine } from "./GestureViewRenderHelpers";
 
 export function useRenderGestureView(props, canvasElement) {
   const ctx = useCreateCanvasContext(props, canvasElement);
@@ -53,9 +54,22 @@ function useRenderView(
 }
 
 function renderMatchedPattern(ctx, boxWidth, gesture) {
-  if (gesture.length) {
-    gesture.forEach(position => {
+  if (gesture.path.length) {
+    let prevDirection;
+    gesture.path.forEach((position, index) => {
+      const direction = gesture.pattern[index];
+      const gestureLength = gesture.path.length;
       renderCurrentBox(ctx, position, boxWidth);
+      renderInnerLine(
+        ctx,
+        position,
+        direction,
+        prevDirection,
+        index,
+        gestureLength,
+        boxWidth
+      );
+      prevDirection = direction;
     });
   }
 }
