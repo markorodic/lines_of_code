@@ -12,11 +12,10 @@ import {
   ADD_TO_EXPIRED,
   SAVE_NEW_POSITION,
   CLEAR_EXPIRED_POSITIONS,
-  ADD_POSITION_TO_PATTERN,
-  CLEAR_PATTERN
+  ADD_POSITION_TO_PATTERN
 } from "./GestureInput.actions";
 import GestureView from "../gestureView/GestureView";
-
+import { useInterface } from "./GestureInput.customHooks";
 const initialState = {
   position: {},
   expiringPositions: [],
@@ -29,9 +28,18 @@ export default function GestureInput(props) {
   const GestureInputElement = React.useRef();
   const [timer, setTimer] = React.useState(null);
   const containerProperties = useContainerProperties(GestureInputElement);
+  const {
+    count,
+    userActive,
+    gestureActive,
+    setGestureActive,
+    setGestureInactive,
+    setUserActive,
+    setUserInactive
+  } = useInterface();
 
   React.useEffect(() => {
-    const { updatePatternState, gestureActive } = props;
+    const { updatePatternState } = props;
     const { expiringPositions, pattern } = state;
 
     whenGestureIsInactive(gestureActive, expiringPositions, () => {
@@ -43,15 +51,15 @@ export default function GestureInput(props) {
   const onGesture = event => {
     event.preventDefault();
     const { position } = state;
-    const { count, setUserActive, setgestureActive, gestureActive } = props;
 
-    const newPosition = getGridPosition(event, containerProperties);
-
-    setUserActive(true);
+    if (!userActive) {
+      setUserActive();
+    }
     if (!gestureActive) {
-      setgestureActive(true);
+      setGestureActive();
     }
 
+    const newPosition = getGridPosition(event, containerProperties);
     if (mouseGridPositionHasChanged(position, newPosition)) {
       addToExpiring(positionItem(position, count));
       saveNewPosition(newPosition);
@@ -59,13 +67,13 @@ export default function GestureInput(props) {
     }
 
     ifInputIsIdle(timer, setTimer, () => {
-      setgestureActive(false);
+      setGestureInactive();
     });
   };
 
   const onGestureEnd = event => {
     event.preventDefault();
-    props.setUserActive(false);
+    setUserInactive();
   };
 
   const addToExpiring = expiringPositions =>
@@ -90,9 +98,9 @@ export default function GestureInput(props) {
       <GestureView
         position={state.position}
         expiringPositions={state.expiringPositions}
-        count={props.count}
+        count={count}
         containerWidth={containerProperties.width}
-        gestureActive={props.gestureActive}
+        gestureActive={gestureActive}
         gesture={props.gesture}
       />
     </section>

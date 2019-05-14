@@ -2,9 +2,11 @@ import React from "react";
 import GestureInput from "./gestureInput/GestureInput";
 import { getPathFrom, matchedGesture, trimArray } from "./GesturePadHelpers";
 import { gesturePatterns } from "./gestures/gesturePatterns";
+// import { useCount } from "../gesturePad/gestureInput/GestureInput.customHooks";
 
 function GesturePad(props) {
   const [gesture, setGesture] = React.useState([]);
+  // const interfaceContext = useCount();
 
   const updatePatternState = gesturePattern => {
     const gesturePath = getPathFrom(gesturePattern);
