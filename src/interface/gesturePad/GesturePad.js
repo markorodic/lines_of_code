@@ -41,6 +41,13 @@ function removeLastGesture(gestureState, inputPositions) {
   };
 }
 
+function inputNotStartedFromLastGesture(inputPositions, gesturePositions) {
+  return !_.isEqual(
+    inputPositions[0],
+    gesturePositions[gesturePositions.length - 1]
+  );
+}
+
 function GesturePad(props) {
   const [gesture, setGesture] = React.useState(initialState);
 
@@ -58,6 +65,19 @@ function GesturePad(props) {
           inputPositions,
           validInputPath.length
         );
+        const validInputPositions2 = trimArray(
+          inputPositions,
+          validInputPath.length + 1
+        );
+        if (
+          gesture.numberAdded &&
+          inputNotStartedFromLastGesture(
+            validInputPositions2,
+            gesture.positions
+          )
+        ) {
+          return;
+        }
         const newGesture = {};
         newGesture[gesture.numberAdded + 1] = {
           positions: validInputPositions,
