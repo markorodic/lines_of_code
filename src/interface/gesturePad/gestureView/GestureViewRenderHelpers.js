@@ -1,8 +1,9 @@
 export function renderInnerLine(
   canvas,
   position,
-  direction,
   prevDirection,
+  direction,
+  nextDirection,
   index,
   gestureLength,
   boxWidth
@@ -12,7 +13,7 @@ export function renderInnerLine(
   centerPoint = [boxWidth / 2, boxWidth / 2];
 
   if (prevDirection) {
-    startPoint = getBoxPointFromPreviousDirection(prevDirection, boxWidth);
+    startPoint = getBoxPointFromPreviousDirection(direction, boxWidth);
   } else {
     startPoint = centerPoint;
   }
@@ -20,7 +21,7 @@ export function renderInnerLine(
   if (positionIsLast(index, gestureLength)) {
     endPoint = centerPoint;
   } else {
-    endPoint = getBoxPointFromCurrentDirection(direction, boxWidth);
+    endPoint = getBoxPointFromCurrentDirection(nextDirection, boxWidth);
   }
 
   canvas.beginPath();
@@ -52,8 +53,8 @@ function positionIsLast(index, gestureLength) {
   return index === gestureLength - 1;
 }
 
-function getBoxPointFromCurrentDirection(direction, boxWidth) {
-  switch (direction) {
+function getBoxPointFromCurrentDirection(nextDirection, boxWidth) {
+  switch (nextDirection) {
     case "Up":
       return [boxWidth / 2, 0];
     case "Right":
