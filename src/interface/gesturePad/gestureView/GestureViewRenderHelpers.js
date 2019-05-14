@@ -39,6 +39,13 @@ export function renderInnerLine(
   canvas.lineWidth = 2;
   canvas.strokeStyle = "white";
   canvas.stroke();
+
+  if (positionIsLast(index, gestureLength)) {
+    const x = (position.x - 1) * boxWidth + endPoint[0];
+    const y = (position.y - 1) * boxWidth + endPoint[1];
+    canvas.fillStyle = "white";
+    canvas.fillRect(x - 2, y - 2, 4, 4);
+  }
 }
 
 function positionIsLast(index, gestureLength) {
