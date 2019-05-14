@@ -48,9 +48,9 @@ export function userHasPaused(gestureActive, pattern) {
   return !gestureActive && !_.isEmpty(pattern);
 }
 
-export function matchedGesture(gesturePatterns, gesturePath) {
-  return gesturePatterns.edit.find(gesture => {
-    const pathTrimmed = trimArray(gesturePath, gesture.pattern.length);
+export function matchedGesture(inputPath, validGestures) {
+  return validGestures.edit.find(gesture => {
+    const pathTrimmed = trimArray(inputPath, gesture.pattern.length);
     return _.isEqual(pathTrimmed, gesture.pattern);
   });
 }

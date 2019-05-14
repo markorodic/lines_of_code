@@ -1,7 +1,7 @@
 import { editPatterns } from "./editPatterns";
 import { writePatterns } from "./writePatterns";
 
-export const gesturePatterns = {
+export const validGestures = {
   ...editPatterns,
   ...writePatterns
 };

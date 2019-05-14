@@ -55,13 +55,15 @@ function useRenderView(
 }
 
 function renderMatchedPattern(ctx, boxWidth, gesture) {
-  if (gesture.path.length) {
-    gesture.path.forEach((position, index) => {
-      const prevDirection = gesture.pattern[index - 1];
-      const direction = gesture.pattern[index];
-      const nextDirection = gesture.pattern[index + 1];
+  console.log(gesture.path);
+  if (gesture.numberAdded) {
+    gesture.positions.forEach((position, index) => {
+      const prevDirection = gesture.path[index - 1];
+      const direction = gesture.path[index];
+      const nextDirection = gesture.path[index + 1];
       const gestureLength = gesture.path.length;
       renderCurrentBox(ctx, position, boxWidth);
+      console.log(nextDirection);
       renderInnerLine(
         ctx,
         position,
