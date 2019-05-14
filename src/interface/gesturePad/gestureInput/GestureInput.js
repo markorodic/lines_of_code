@@ -12,7 +12,8 @@ import {
   ADD_TO_EXPIRED,
   SAVE_NEW_POSITION,
   CLEAR_EXPIRED_POSITIONS,
-  ADD_POSITION_TO_PATTERN
+  ADD_POSITION_TO_PATTERN,
+  CLEAR_PATTERN
 } from "./GestureInput.actions";
 import GestureView from "../gestureView/GestureView";
 import { useInterface } from "./GestureInput.customHooks";
@@ -40,11 +41,12 @@ export default function GestureInput(props) {
 
   React.useEffect(() => {
     const { updatePatternState } = props;
-    const { expiringPositions, pattern } = state;
+    const { expiringPositions, pattern, position } = state;
 
     whenGestureIsInactive(gestureActive, expiringPositions, () => {
       clearExpiringPositions();
       updatePatternState(pattern);
+      clearPattern(position);
     });
   });
 
@@ -84,6 +86,7 @@ export default function GestureInput(props) {
     dispatch({ type: CLEAR_EXPIRED_POSITIONS, expiredPosition });
   const addPositionToPattern = position =>
     dispatch({ type: ADD_POSITION_TO_PATTERN, position });
+  const clearPattern = position => dispatch({ type: CLEAR_PATTERN, position });
 
   return (
     <section
