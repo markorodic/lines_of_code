@@ -1,17 +1,17 @@
 import React from "react";
 import GestureInput from "./gestureInput/GestureInput";
-import {
-  getPathFrom,
-  matchedGesture,
-  trimArray,
-  findStartingPosition
-} from "./GesturePadHelpers";
+import { getPathFrom, matchedGesture, trimArray } from "./GesturePadHelpers";
 import { validGestures } from "./gestures/gesturePatterns";
 import _ from "lodash";
 
-function inputIsAnErase(newPath, prevPath) {
-  const reversedPath = prevPath.slice().reverse();
-  return _.isEqual(newPath, reversedPath);
+function inputIsAnErase(inputPositions, gesture) {
+  const lastGestureReversed = gesture.positions
+    .slice(
+      gesture.positions.length - inputPositions.length,
+      gesture.positions.length
+    )
+    .reverse();
+  return _.isEqual(inputPositions, lastGestureReversed);
 }
 
 const initialState = {
@@ -21,36 +21,57 @@ const initialState = {
   numberAdded: 0
 };
 
+function removeLastGesture(gestureState, inputPositions) {
+  const inputLength = inputPositions.length;
+  const newGestureState = gestureState;
+  delete newGestureState.each[newGestureState.numberAdded];
+  const positionsWithoutLastGesture = gestureState.positions.slice(
+    0,
+    gestureState.positions.length - inputLength + 1
+  );
+  const pathWithoutLastGesture = gestureState.path.slice(
+    0,
+    gestureState.path.length - inputLength + 1
+  );
+  return {
+    each: { ...newGestureState.each },
+    positions: positionsWithoutLastGesture,
+    path: pathWithoutLastGesture,
+    numberAdded: gestureState.numberAdded - 1
+  };
+}
+
 function GesturePad(props) {
   const [gesture, setGesture] = React.useState(initialState);
 
   const updatePatternState = (inputPositions, position) => {
-    // if (inputIsAnErase(inputPath, gesture.path)) {
-    //   setGesture(initialState);
-    // }
-
     const inputPath = getPathFrom(inputPositions);
-    const gestureFound = matchedGesture(inputPath, validGestures);
 
-    if (gestureFound) {
-      const validInputPath = gestureFound.pattern;
-      const validInputPositions = trimArray(
-        inputPositions,
-        validInputPath.length
-      );
-      const newGesture = {};
-      newGesture[gesture.numberAdded + 1] = {
-        positions: validInputPositions,
-        path: validInputPath,
-        length: validInputPath.length
-      };
+    if (gesture.numberAdded && inputIsAnErase(inputPositions, gesture)) {
+      setGesture(removeLastGesture(gesture, inputPositions, inputPath));
+    } else {
+      const gestureFound = matchedGesture(inputPath, validGestures);
 
-      setGesture({
-        each: { ...gesture.each, ...newGesture },
-        positions: gesture.positions.concat(validInputPositions),
-        path: gesture.path.concat(validInputPath),
-        numberAdded: gesture.numberAdded + 1
-      });
+      if (gestureFound) {
+        const validInputPath = gestureFound.pattern;
+        const validInputPositions = trimArray(
+          inputPositions,
+          validInputPath.length
+        );
+        const newGesture = {};
+        newGesture[gesture.numberAdded + 1] = {
+          positions: validInputPositions,
+          path: validInputPath,
+          length: validInputPath.length
+        };
+
+        setGesture({
+          each: { ...gesture.each, ...newGesture },
+          positions: gesture.positions.concat(validInputPositions),
+          path: gesture.path.concat(validInputPath),
+          numberAdded: gesture.numberAdded + 1
+        });
+      }
     }
 
     // const gesturePath = getPathFrom(gesturePattern);
