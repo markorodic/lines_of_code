@@ -16,7 +16,6 @@ export function useInterface() {
     setUserActive,
     setUserInactive
   } = context;
-  // const increment = React.useCallback(() => setCount(c => c + 1), [setCount]);
   return {
     count,
     userActive,
@@ -27,19 +26,6 @@ export function useInterface() {
     setUserInactive
   };
 }
-
-// export function useCount() {
-//   const context = React.useContext(InterfaceContext);
-//   if (!context) {
-//     throw new Error("useCount must be used within a CountProvider");
-//   }
-//   const { count, setCount } = context;
-//   const increment = React.useCallback(() => setCount(c => c + 1), [setCount]);
-//   return {
-//     count,
-//     increment
-//   };
-// }
 
 export function useContainerProperties(GestureInputElement) {
   const [containerProperties, setContainerProperties] = React.useState({
