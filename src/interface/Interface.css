@@ -105,6 +105,19 @@ html, body {
     position: absolute;
 }
 
+.sidebar {
+    position: absolute;
+    z-index: 1000;
+    background: none;
+    right: 0;
+    height: 30rem;
+    width: 5rem;
+}
+
+.sidebar #cavnas {
+    background: green;
+}
+
 @media (max-width: 960px) { 
     body {
     }
