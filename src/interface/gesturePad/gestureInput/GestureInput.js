@@ -55,7 +55,7 @@ export default function GestureInput(props) {
     const { position } = state;
 
     if (!userActive) {
-      setUserActive();
+      props.setUserActive(true);
     }
     if (!gestureActive) {
       setGestureActive();
@@ -75,7 +75,7 @@ export default function GestureInput(props) {
 
   const onGestureEnd = event => {
     event.preventDefault();
-    setUserInactive();
+    props.setUserActive(false);
   };
 
   const addToExpiring = expiringPositions =>
