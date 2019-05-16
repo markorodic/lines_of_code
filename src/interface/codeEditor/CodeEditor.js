@@ -13,7 +13,11 @@ class CodeEditor extends Component {
   };
   instance;
   componentDidMount() {
-    this.instance.setSelection({ line: 3, ch: 5 }, { line: 3, ch: 0 });
+    this.instance.markText(
+      { line: 0, ch: 5 },
+      { line: 2, ch: 4 },
+      { readOnly: true, className: "selected-text" }
+    );
   }
   render() {
     return (

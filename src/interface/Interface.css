@@ -118,6 +118,10 @@ html, body {
     background: green;
 }
 
+.selected-text { 
+    background: #FC5081
+}
+
 @media (max-width: 960px) { 
     body {
     }
