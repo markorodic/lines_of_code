@@ -24,20 +24,33 @@ export function drawPatternIcon(ctx, containerWidth) {
 
 const patternIconRatios = {
   sideMargins: 3,
+  verticleMargins: 3,
   boxMargins: 5,
   boxWidth: 13
 };
 
 function drawPatternGrids(ctx, numberOfGrids, containerWidth) {
-  const { sideMargins, boxMargins, boxWidth } = getWidthProportions(
-    containerWidth
-  );
+  let marginSide, marginBox, widthBox, gridNumber;
+  if (containerWidth > 900) {
+    marginSide = 10;
+    marginBox = 15;
+    widthBox = 35;
+    gridNumber = 19;
+  } else {
+    const { sideMargins, boxMargins, boxWidth } = getWidthProportions(
+      containerWidth
+    );
+    marginSide = sideMargins;
+    marginBox = boxMargins;
+    widthBox = boxWidth;
+    gridNumber = numberOfGrids;
+  }
 
   let count = 0;
-  while (count < numberOfGrids) {
-    const marginX = sideMargins + count * (boxWidth + boxMargins);
-    const marginY = sideMargins;
-    drawSinglePatternGrid(ctx, marginX, marginY, boxMargins, boxWidth);
+  while (count < gridNumber) {
+    const marginX = marginSide + count * (widthBox + marginBox);
+    const marginY = marginSide;
+    drawSinglePatternGrid(ctx, marginX, marginY, marginBox, widthBox);
     count++;
   }
 }
