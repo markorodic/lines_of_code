@@ -4,27 +4,38 @@ import "codemirror/theme/material.css";
 import "codemirror/theme/neat.css";
 import "codemirror/mode/xml/xml.js";
 import "codemirror/mode/javascript/javascript.js";
-
 import { Controlled as CodeMirror } from "react-codemirror2";
+
+function showRelativeLines(cm) {
+  const lineNum = cm.getCursor().line + 1;
+  if (cm.state.curLineNum === lineNum) {
+    return;
+  }
+  cm.state.curLineNum = lineNum;
+  cm.setOption("lineNumberFormatter", l =>
+    l === lineNum ? lineNum : Math.abs(lineNum - l)
+  );
+}
 
 class CodeEditor extends Component {
   state = {
-    value: `const arr = ['foo', 'bar', 'baz'] \n\narr.forEach((word) => console.log(word))`
+    value: `Task 1 - Delete all comments\n------------------------------------\n// delete  commented lines\nconst arr = ['foo', 'bar', 'baz'] // like this one\nconst obj = { one: 1, two: 2, three: 3 }\n// and these...\n// two\nconst obj = { one: 1, two: 2, three: 3 }\n\n\nTask 2 - Change arrays to strings and\nobjects to integers\n------------------------------------\nconst arr = ['foo', 'bar', 'baz']\nconst anotherArr = ['foofoo', 'barbar',\n'bazbaz']\nconst obj = { one: 1, two: 2, three: 3 }\n\n\nTask 3 - Change arrays to strings and\nobjects to integers\n------------------------------------\nconst str = "foo\nconst anotherStr = "bar"\nconst int = 1\n\n\nFinal result\n------------------------------------\nconst int = 1\nconst str = "foo"\nconst anotherStr = "bar"`
   };
   instance;
   componentDidMount() {
-    this.instance.markText(
-      { line: 0, ch: 5 },
-      { line: 2, ch: 4 },
-      { readOnly: true, className: "selected-text" }
-    );
+    this.instance.on("cursorActivity", showRelativeLines);
+    // this.instance.markText(
+    //   { line: 0, ch: 5 },
+    //   { line: 2, ch: 4 },
+    //   { readOnly: true, className: "selected-text" }
+    // );
   }
   render() {
     return (
       <div className="code">
         <CodeMirror
           value={this.state.value}
-          options={{ lineNumbers: true, autofocus: true }}
+          options={{ lineNumbers: true, autofocus: true, lineWrapping: true }}
           onBeforeChange={(editor, data, value) => {
             this.setState({ value });
           }}

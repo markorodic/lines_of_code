@@ -22,7 +22,7 @@ export default function Interface() {
         <Header gestureActive={gestureActive} userActive={userActive} />
         <Views>
           <Sidebar interfaceGesture={interfaceGesture} />
-          <CodeEditor />
+          <CodeEditor userActive={userActive} />
           <GesturePad
             gestureActive={gestureActive}
             setgestureActive={setgestureActive}

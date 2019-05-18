@@ -1,29 +1,34 @@
 export const editPatterns = {
-  edit: [
+  motion: [
     {
-      type: "navigate",
+      name: "Start",
+      type: "motion",
       pattern: ["Left", "Left", "Left"],
-      command: "moveToStartOfLine"
+      normalisedPath: [{ x: 3, y: 2 }, { x: 2, y: 2 }, { x: 1, y: 2 }]
     },
     {
-      type: "navigate",
+      name: "Up",
+      type: "motion",
       pattern: ["Up", "Up"],
-      command: "moveUp"
+      normalisedPath: [{ x: 2, y: 3 }, { x: 2, y: 2 }]
     },
     {
-      type: "navigate",
+      name: "Down",
+      type: "motion",
       pattern: ["Down", "Down"],
-      command: "moveDown"
+      normalisedPath: [{ x: 2, y: 1 }, { x: 2, y: 2 }]
     },
     {
-      type: "navigate",
+      name: "Left",
+      type: "motion",
       pattern: ["Left", "Left"],
-      command: "moveLeft"
+      normalisedPath: [{ x: 2, y: 2 }, { x: 1, y: 2 }]
     },
     {
-      type: "navigate",
+      name: "Right",
+      type: "motion",
       pattern: ["Right", "Right"],
-      command: "moverRight"
+      normalisedPath: [{ x: 2, y: 2 }, { x: 3, y: 2 }]
     }
   ]
 };

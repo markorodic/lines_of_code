@@ -191,5 +191,7 @@ html, body {
         overflow-y: hidden;
         overscroll-behavior: none;
         touch-action: none;
+        box-shadow: 0px 1px 18px 1px rgb(220, 220, 220); 
+        background: #fdfdfd;
     }
  }
