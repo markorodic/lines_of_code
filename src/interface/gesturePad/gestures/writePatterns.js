@@ -1,4 +1,4 @@
-export const writePatterns = [
+export const writeGestures = [
   // primitive: {
   //   string: {
   //     type: "write",

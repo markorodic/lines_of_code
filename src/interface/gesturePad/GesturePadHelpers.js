@@ -65,3 +65,43 @@ export function findStartingPosition(gesturePattern, validGesture) {
     gesturePattern.length - validGesture.pattern.length
   );
 }
+
+export function inputIsAnErase(inputPositions, gesture) {
+  const lastGestureReversed = gesture.positions
+    .slice(
+      gesture.positions.length - inputPositions.length,
+      gesture.positions.length
+    )
+    .reverse();
+  return gesture.numberAdded && _.isEqual(inputPositions, lastGestureReversed);
+}
+
+export function removeLastGesture(gestureState, inputPositions) {
+  const inputLength = inputPositions.length;
+  const newGestureState = gestureState;
+  delete newGestureState.each[newGestureState.numberAdded];
+  const positionsWithoutLastGesture = gestureState.positions.slice(
+    0,
+    gestureState.positions.length - inputLength + 1
+  );
+  const pathWithoutLastGesture = gestureState.path.slice(
+    0,
+    gestureState.path.length - inputLength + 1
+  );
+  return {
+    each: { ...newGestureState.each },
+    positions: positionsWithoutLastGesture,
+    path: pathWithoutLastGesture,
+    numberAdded: gestureState.numberAdded - 1
+  };
+}
+
+export function inputNotStartedFromLastGesture(
+  inputPositions,
+  gesturePositions
+) {
+  return !_.isEqual(
+    inputPositions[0],
+    gesturePositions[gesturePositions.length - 1]
+  );
+}

@@ -1,5 +1,5 @@
-export const editPatterns = {
-  motion: [
+export const editGestures = {
+  edit: [
     {
       name: "Start",
       type: "motion",
