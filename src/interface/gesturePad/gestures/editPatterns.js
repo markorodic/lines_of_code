@@ -1,9 +1,9 @@
 export const editGestures = {
   edit: [
     {
-      name: "Start",
-      type: "motion",
-      pattern: ["Left", "Left", "Left"],
+      name: "Delete",
+      type: "operation",
+      pattern: ["Right", "Right", "Up", "Right"],
       normalisedPath: [{ x: 3, y: 2 }, { x: 2, y: 2 }, { x: 1, y: 2 }]
     },
     {

@@ -55,7 +55,7 @@ function useRenderView(
 }
 
 function renderMatchedPattern(ctx, boxWidth, gesture) {
-  if (gesture.numberAdded) {
+  if (gesture.numberAdded && gesture.type !== "motion") {
     gesture.positions.forEach((position, index) => {
       const prevDirection = gesture.path[index - 1];
       const direction = gesture.path[index];

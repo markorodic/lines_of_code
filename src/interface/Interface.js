@@ -15,7 +15,7 @@ export default function Interface() {
   const [gestureActive, setgestureActive] = React.useState(false);
   const [userActive, setUserActive] = React.useState(false);
   const [interfaceGesture, setInterfaceGesture] = React.useState([]);
-  const [task, setTask] = React.useState(1);
+
   return (
     <div className="interface">
       <img src={logo} alt="" />
@@ -23,7 +23,10 @@ export default function Interface() {
         <Header gestureActive={gestureActive} userActive={userActive} />
         <Views>
           <Sidebar interfaceGesture={interfaceGesture} />
-          <CodeEditor userActive={userActive} />
+          <CodeEditor
+            userActive={userActive}
+            interfaceGesture={interfaceGesture}
+          />
           <GesturePad
             gestureActive={gestureActive}
             setgestureActive={setgestureActive}

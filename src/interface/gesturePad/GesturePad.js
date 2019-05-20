@@ -33,7 +33,8 @@ function GesturePad(props) {
         const inputPath = gestureFound.pattern;
         const inputPostions = trimArray(inputPositions, inputPath.length);
         const inputLength = gestureFound.pattern.length;
-        console.log(inputPositions);
+        const gestureName = gestureFound.name;
+        const gestureType = gestureFound.type;
 
         // const validInputPositions = trimArray(
         //   inputPositions,
@@ -47,6 +48,7 @@ function GesturePad(props) {
 
         if (
           gesture.numberAdded &&
+          gestureType !== "motion" &&
           inputNotStartedFromLastGesture(
             validInputPositions2,
             gesture.positions
@@ -76,7 +78,9 @@ function GesturePad(props) {
           each: { ...gesture.each, ...newGesture },
           positions: gesture.positions.concat(inputPostions),
           path: gesture.path.concat(inputPath),
-          numberAdded: gesture.numberAdded + 1
+          numberAdded: gesture.numberAdded + 1,
+          name: gestureName,
+          type: gestureType
         });
       }
     }

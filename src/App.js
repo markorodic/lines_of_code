@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Interface from "./interface/Interface";
+import AST from "./ast/AST";
 import { setCSSCustomProperty } from "./utils";
 import { preventRefreshOnMobile } from "./utils";
 import logo from "./splash-logo.svg";
@@ -25,7 +26,11 @@ class App extends Component {
     if (this.state.loading) return SplashScreen();
 
     // otherwise, show the desired route
-    return <Interface />;
+    return (
+      <AST>
+        <Interface />
+      </AST>
+    );
   }
 }
 
