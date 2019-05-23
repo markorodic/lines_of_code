@@ -1,15 +1,16 @@
 export function executeCommand({ name }, editor) {
+  console.log(name);
   switch (name) {
-    case "Up":
+    case "up":
       editor.execCommand("goLineUp");
       break;
-    case "Down":
+    case "down":
       editor.execCommand("goLineDown");
       break;
-    case "Right":
+    case "next":
       editor.execCommand("goLineDown");
       break;
-    case "Left":
+    case "previous":
       editor.execCommand("goLineUp");
       break;
     default:

@@ -8,7 +8,6 @@ export function useInterface() {
     throw new Error("useCount must be used within a CountProvider");
   }
   const {
-    count,
     userActive,
     gestureActive,
     setGestureActive,
@@ -17,7 +16,6 @@ export function useInterface() {
     setUserInactive
   } = context;
   return {
-    count,
     userActive,
     gestureActive,
     setGestureActive,

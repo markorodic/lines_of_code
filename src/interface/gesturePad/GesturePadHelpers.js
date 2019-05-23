@@ -48,11 +48,21 @@ export function userHasPaused(gestureActive, pattern) {
   return !gestureActive && !_.isEmpty(pattern);
 }
 
-export function matchedGesture(inputPath, validGestures) {
-  return validGestures.edit.find(gesture => {
-    const pathTrimmed = trimArray(inputPath, gesture.pattern.length);
-    return _.isEqual(pathTrimmed, gesture.pattern);
+export function matchedGesture(gestureState, inputPositions, validGestures) {
+  const inputPath = getPathFrom(inputPositions);
+
+  if (inputIsAnErase(gestureState, inputPositions)) {
+    return removeLastGesture(gestureState, inputPositions, inputPath);
+  }
+
+  const matchedGesture = validGestures.edit.allEditPaths.find(gesture => {
+    const pathTrimmed = trimArray(inputPath, gesture.length);
+    return _.isEqual(pathTrimmed, gesture.path);
   });
+  return (
+    matchedGesture &&
+    validGestures.edit[matchedGesture.type][matchedGesture.name]
+  );
 }
 
 export function trimArray(array, length) {
@@ -66,14 +76,16 @@ export function findStartingPosition(gesturePattern, validGesture) {
   );
 }
 
-export function inputIsAnErase(inputPositions, gesture) {
-  const lastGestureReversed = gesture.positions
+export function inputIsAnErase(gestureState, inputPositions) {
+  const previousGestureReversed = gestureState.positions
     .slice(
-      gesture.positions.length - inputPositions.length,
-      gesture.positions.length
+      gestureState.positions.length - inputPositions.length,
+      gestureState.positions.length
     )
     .reverse();
-  return gesture.numberAdded && _.isEqual(inputPositions, lastGestureReversed);
+  return (
+    gestureState.length && _.isEqual(inputPositions, previousGestureReversed)
+  );
 }
 
 export function removeLastGesture(gestureState, inputPositions) {
@@ -103,5 +115,74 @@ export function inputNotStartedFromLastGesture(
   return !_.isEqual(
     inputPositions[0],
     gesturePositions[gesturePositions.length - 1]
+  );
+}
+
+export function getGestureState(gesture, inputPositions, gestureState) {
+  const gesturePostions = trimArray(inputPositions, gesture.length);
+  switch (gesture.type) {
+    case "Motion":
+      if (gestureState.gestures.type === "Operator") {
+        return {
+          gestures: gesture,
+          positions: gestureState.positions.concat(gesturePostions),
+          path: gestureState.path.concat(gesture.path),
+          length: gestureState.length + 1,
+          combo: true,
+          finished: true
+        };
+      } else {
+        return {
+          name: gesture.name,
+          gestures: gesture,
+          positions: gesturePostions,
+          path: gesture.path,
+          length: 1,
+          combo: true,
+          finished: true
+        };
+      }
+    // if there are no gestures
+    // return new motion
+    // if there is one operator
+    // concat
+    case "Operator":
+      console.log("Operator");
+      break;
+    case "Object":
+      console.log("Object");
+      break;
+    default:
+      throw new Error();
+  }
+
+  // let positions, path;
+  // if (gestureState.length) {
+  //   positions = gestureState.positions.concat(gesturePostions);
+  //   path = gestureState.path.concat(gesture.path);
+  // } else {
+  //   positions = gesturePostions;
+  //   path = gesture.path;
+  // }
+
+  // return {
+  //   gestures: { ...gestureState.gestures, ...gesture },
+  //   positions,
+  //   path,
+  //   length: 1
+  // };
+}
+
+function typeIsValid({ gestures, positions, type }, inputPositions) {}
+
+function followsPrevious(gestureStatePositions, gestureInputPositions) {
+  return false;
+}
+
+export function gestureCanBeCombined(gestureState, gestureInputPositions) {
+  return (
+    followsPrevious(gestureState.positions, gestureInputPositions) &&
+    gestureState.length
+    // typeIsValid(gesture, inputType) &&
   );
 }

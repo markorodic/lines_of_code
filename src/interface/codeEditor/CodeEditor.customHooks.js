@@ -17,8 +17,10 @@ export function useUpdateCursor(editor, props) {
   }, [editor]);
 }
 
-export function useExecuteCommand(editor, { interfaceGesture }) {
+export function useExecuteCommand(editor, { interfaceGesture, gestureReady }) {
   React.useEffect(() => {
-    executeCommand(interfaceGesture, editor);
-  }, [interfaceGesture, editor]);
+    if (gestureReady && interfaceGesture.finished) {
+      executeCommand(interfaceGesture, editor);
+    }
+  }, [interfaceGesture, gestureReady, editor]);
 }

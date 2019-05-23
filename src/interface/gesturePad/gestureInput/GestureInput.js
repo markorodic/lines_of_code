@@ -29,21 +29,14 @@ export default function GestureInput(props) {
   const GestureInputElement = React.useRef();
   const [timer, setTimer] = React.useState(null);
   const containerProperties = useContainerProperties(GestureInputElement);
-  const {
-    count,
-    userActive,
-    gestureActive,
-    setGestureActive,
-    setGestureInactive,
-    setUserActive,
-    setUserInactive
-  } = useInterface();
+  // const { count } = useInterface();
+  const { count } = props;
 
   React.useEffect(() => {
     const { updatePatternState } = props;
     const { expiringPositions, pattern, position } = state;
 
-    whenGestureIsInactive(gestureActive, expiringPositions, () => {
+    whenGestureIsInactive(props.gestureActive, expiringPositions, () => {
       clearExpiringPositions();
       updatePatternState(pattern, position);
       clearPattern(position);
@@ -54,11 +47,12 @@ export default function GestureInput(props) {
     event.preventDefault();
     const { position } = state;
 
-    if (!userActive) {
+    if (!props.userActive) {
       props.setUserActive(true);
     }
-    if (!gestureActive) {
-      setGestureActive();
+
+    if (!props.gestureActive) {
+      props.setGestureActive(true);
     }
 
     const newPosition = getGridPosition(event, containerProperties);
@@ -69,7 +63,7 @@ export default function GestureInput(props) {
     }
 
     ifInputIsIdle(timer, setTimer, () => {
-      setGestureInactive();
+      props.setGestureActive(false);
     });
   };
 
@@ -103,7 +97,7 @@ export default function GestureInput(props) {
         expiringPositions={state.expiringPositions}
         count={count}
         containerWidth={containerProperties.width}
-        gestureActive={gestureActive}
+        gestureActive={props.gestureActive}
         gesture={props.gesture}
       />
     </section>
