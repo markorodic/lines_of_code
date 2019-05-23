@@ -60,11 +60,11 @@ export function gridPosition(userPosition, boxWidth, boxHeight) {
 }
 
 export function whenGestureIsInactive(
-  userIsNotActive,
+  gestureActive,
   expiringPositions,
   dispatchCallBack
 ) {
-  if (!userIsNotActive && expiringPositions.length) {
+  if (!gestureActive && expiringPositions.length) {
     dispatchCallBack();
   }
 }

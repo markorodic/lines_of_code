@@ -6,7 +6,7 @@ import "./Interface.css";
 import logo from "../logo.svg";
 import { InterfaceProvider } from "./Interface.context";
 import Sidebar from "./sidebar/Sidebar";
-import { useAnimationFrame, useGestureReady } from "./Interface.customHooks";
+import { useAnimationFrame } from "./Interface.customHooks";
 
 export function getElementProperties(element) {
   return element.current.getBoundingClientRect();
@@ -15,9 +15,8 @@ export function getElementProperties(element) {
 export default function Interface() {
   const [gestureActive, setGestureActive] = React.useState(false);
   const [userActive, setUserActive] = React.useState(false);
-  const [interfaceGesture, setInterfaceGesture] = React.useState([]);
+  const [interfaceGesture, setInterfaceGesture] = React.useState({});
   const [count, setCount] = React.useState(0);
-  const gestureReady = useGestureReady(userActive, gestureActive, count);
 
   useAnimationFrame(() => {
     setCount(count + 1);
@@ -27,12 +26,11 @@ export default function Interface() {
     <div className="interface">
       <img src={logo} alt="" />
       <InterfaceProvider>
-        <Header gestureActive={gestureActive} userActive={userActive} />
+        {/* <Header gestureActive={gestureActive} userActive={userActive} /> */}
         <Views>
-          <Sidebar interfaceGesture={interfaceGesture} />
+          {/* <Sidebar interfaceGesture={interfaceGesture} /> */}
           <CodeEditor
             userActive={userActive}
-            gestureReady={gestureReady}
             interfaceGesture={interfaceGesture}
           />
           <GesturePad

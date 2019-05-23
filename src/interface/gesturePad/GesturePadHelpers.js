@@ -122,7 +122,7 @@ export function getGestureState(gesture, inputPositions, gestureState) {
   const gesturePostions = trimArray(inputPositions, gesture.length);
   switch (gesture.type) {
     case "Motion":
-      if (gestureState.gestures.type === "Operator") {
+      if (gestureState.gestures.type === "Delete") {
         return {
           gestures: gesture,
           positions: gestureState.positions.concat(gesturePostions),
@@ -146,13 +146,14 @@ export function getGestureState(gesture, inputPositions, gestureState) {
     // return new motion
     // if there is one operator
     // concat
-    case "Operator":
-      console.log("Operator");
+    case "Operation":
+      console.log("Operation");
       break;
     case "Object":
       console.log("Object");
       break;
     default:
+      debugger;
       throw new Error();
   }
 

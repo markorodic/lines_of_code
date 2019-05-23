@@ -1,46 +1,36 @@
 import React from "react";
 import GestureInput from "./gestureInput/GestureInput";
-import {
-  getPathFrom,
-  matchedGesture,
-  trimArray,
-  inputNotStartedFromLastGesture,
-  removeLastGesture,
-  inputIsAnErase,
-  getGestureState,
-  gestureCanBeCombined
-} from "./GesturePadHelpers";
+import { matchMotionGesture } from "./GesturePad.helpers";
 import { validGestures } from "./gestures/gesturePatterns";
 import _ from "lodash";
 
 function GesturePad(props) {
+  const [path, setPath] = React.useState([]);
   const [gestureState, setGestureState] = React.useState({
     gestures: {},
     positions: [],
     path: [],
-    length: 0,
-    combo: false,
-    finished: false
+    length: 0
   });
 
-  const inputAdded = inputPositions => {
-    const gesture = matchedGesture(gestureState, inputPositions, validGestures);
-    if (gesture) {
-      const newGestureState = getGestureState(
-        gesture,
-        inputPositions,
-        gestureState
-      );
-      setGestureState(newGestureState);
-    }
+  const inputAdded = input => {
+    const motionGesture = matchMotionGesture(input, validGestures);
+    setPath(motionGesture);
+    motionGesture.id = props.count;
+    props.setInterfaceGesture(motionGesture);
+    // if (gesture) {
+    //   const newGestureState = getGestureState(
+    //     gesture,
+    //     inputPositions,
+    //     gestureState
+    //   );
+    //   setGestureState(newGestureState);
+    // }
   };
-
-  React.useEffect(() => {
-    props.setInterfaceGesture(gestureState);
-  }, [gestureState]);
 
   return (
     <GestureInput
+      updatePositionGestureState={inputAdded}
       count={props.count}
       updatePatternState={inputAdded}
       gestureActive={props.gestureActive}
@@ -51,37 +41,6 @@ function GesturePad(props) {
       gesture={gestureState}
     />
   );
-}
-
-function createNewGestureState(
-  gesture,
-  inputPositions,
-  inputPath,
-  inputLength,
-  newGesture
-) {
-  return {
-    each: { ...gesture.each, ...newGesture },
-    positions: gesture.positions.concat(inputPositions),
-    path: gesture.path.concat(inputPath),
-    numberAdded: gesture.numberAdded + 1
-  };
-}
-
-function createNewGestureFrom(
-  { numberAdded },
-  inputPositions,
-  inputPath,
-  inputLength
-) {
-  const newGesture = {};
-
-  newGesture[numberAdded + 1] = {
-    positions: inputPositions,
-    path: inputPath,
-    length: inputLength
-  };
-  return newGesture;
 }
 
 export default GesturePad;

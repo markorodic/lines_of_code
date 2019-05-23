@@ -1,5 +1,4 @@
 export function executeCommand({ name }, editor) {
-  console.log(name);
   switch (name) {
     case "up":
       editor.execCommand("goLineUp");

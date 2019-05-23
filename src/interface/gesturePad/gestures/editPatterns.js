@@ -45,7 +45,7 @@ export const editGestures = {
         name: "next",
         type: "Motion",
         length: 1,
-        path: ["Right"],
+        path: "Right",
         normalisedPositions: [{ x: 2, y: 2 }, { x: 3, y: 2 }]
       },
       previous: {
@@ -53,7 +53,7 @@ export const editGestures = {
         name: "previous",
         type: "Motion",
         length: 1,
-        path: ["Left"],
+        path: "Left",
         normalisedPositions: [{ x: 2, y: 2 }, { x: 1, y: 2 }]
       },
       up: {
@@ -61,7 +61,7 @@ export const editGestures = {
         name: "up",
         type: "Motion",
         length: 1,
-        path: ["Up"],
+        path: "Up",
         normalisedPositions: [{ x: 2, y: 3 }, { x: 2, y: 2 }]
       },
       down: {
@@ -69,9 +69,27 @@ export const editGestures = {
         name: "down",
         type: "Motion",
         length: 1,
-        path: ["Down"],
+        path: "Down",
         normalisedPositions: [{ x: 2, y: 1 }, { x: 2, y: 2 }]
-      }
+      },
+      all: [
+        {
+          name: "up",
+          path: "Up"
+        },
+        {
+          name: "down",
+          path: "Down"
+        },
+        {
+          name: "next",
+          path: "Right"
+        },
+        {
+          name: "previous",
+          path: "Left"
+        }
+      ]
     },
     object: [
       {
