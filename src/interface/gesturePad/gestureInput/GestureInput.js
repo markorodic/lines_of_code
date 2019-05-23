@@ -37,6 +37,7 @@ export default function GestureInput(props) {
     const { expiringPositions, pattern, position } = state;
 
     whenGestureIsInactive(props.gestureActive, expiringPositions, () => {
+      saveNewPosition({});
       clearExpiringPositions();
       clearPattern(position);
     });
