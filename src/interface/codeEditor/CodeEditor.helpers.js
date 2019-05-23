@@ -9,21 +9,40 @@ function showRelativeLines(cm) {
   );
 }
 
-export function markCursor(editor, className, cursorSet = true) {
+export function markGutter(editor, lineNumber) {
+  editor.clearGutter("position");
+  editor.setGutterMarker(lineNumber, "position", makeMarker());
+  // editor.markText(
+  //   { line, ch },
+  //   { line, ch: ch + 1 },
+  //   { readOnly: true, className }
+  // );
+}
+
+function makeMarker() {
+  var marker = document.createElement("div");
+  marker.innerHTML = "●";
+  marker.classList.add("position-gutter-marker");
+  return marker;
+}
+
+export function markCursor(editor, cursorPosition, cursorSet = true) {
   if (!cursorSet) {
-    editor.setCursor({ line: 0, ch: 0 });
+    editor.setCursor(cursorPosition);
   }
 
   if (editor.getAllMarks()[0]) {
     editor.getAllMarks()[0].clear();
   }
 
-  const cursorLine = editor.getCursor().line;
-  const cursorChar = editor.getCursor().ch;
+  const line = editor.getCursor().line;
+  const ch = editor.getCursor().ch;
+  console.log(line, ch);
+
   editor.markText(
-    { line: cursorLine, ch: cursorChar },
-    { line: cursorLine, ch: cursorChar + 1 },
-    { readOnly: true, className }
+    { line, ch },
+    { line, ch: ch + 1 },
+    { readOnly: true, className: "cursor" }
   );
 }
 

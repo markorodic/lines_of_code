@@ -31,6 +31,7 @@ export default function Interface() {
           {/* <Sidebar interfaceGesture={interfaceGesture} /> */}
           <CodeEditor
             userActive={userActive}
+            gestureActive={gestureActive}
             interfaceGesture={interfaceGesture}
           />
           <GesturePad

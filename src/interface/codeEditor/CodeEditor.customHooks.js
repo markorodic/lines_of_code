@@ -1,26 +1,32 @@
 import React from "react";
-import { markCursor, relativeLinesOn } from "./CodeEditor.helpers";
+import { markGutter, markCursor, relativeLinesOn } from "./CodeEditor.helpers";
 import { executeCommand } from "./CodeEditor.commands";
 
-export function useUpdateCursor(editor, props) {
-  React.useEffect(() => {
-    if (editor) {
-      markCursor(editor, "cursor");
-    }
-  }, [props, editor]);
-
+export function useMarkGutter(editor, cursorLineNumber) {
   React.useEffect(() => {
     if (editor) {
       relativeLinesOn(editor);
-      markCursor(editor, "cursor", false);
+      markGutter(editor, cursorLineNumber, "cursor", false);
+    }
+  }, [editor, cursorLineNumber]);
+}
+
+export function useMarkCursor(editor, props, cursorPosition) {
+  React.useEffect(() => {
+    if (editor) {
+      markCursor(editor, cursorPosition, false);
     }
   }, [editor]);
+  React.useEffect(() => {
+    if (editor) {
+      markCursor(editor, cursorPosition);
+    }
+  }, [editor, props]);
 }
 
 export function useExecuteCommand(editor, { interfaceGesture }) {
   React.useEffect(() => {
     if (interfaceGesture.id) {
-      console.log(interfaceGesture.id);
       executeCommand(interfaceGesture, editor);
     }
   }, [interfaceGesture.id]);
