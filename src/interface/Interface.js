@@ -26,7 +26,7 @@ export default function Interface() {
     <div className="interface">
       <img src={logo} alt="" />
       <InterfaceProvider>
-        {/* <Header gestureActive={gestureActive} userActive={userActive} /> */}
+        <Header gestureActive={gestureActive} userActive={userActive} />
         <Views>
           {/* <Sidebar interfaceGesture={interfaceGesture} /> */}
           <CodeEditor

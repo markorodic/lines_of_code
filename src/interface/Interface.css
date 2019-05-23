@@ -137,14 +137,12 @@ html, body {
 }
 
 .position {
-    /* position: absolute; */
     width: 0.5rem;
 }
 
 .position-gutter-marker {
     width: 1rem;
     height: 2rem;
-    /* background: black; */
 }
 
 @media (max-width: 960px) { 

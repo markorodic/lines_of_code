@@ -12,11 +12,6 @@ function showRelativeLines(cm) {
 export function markGutter(editor, lineNumber) {
   editor.clearGutter("position");
   editor.setGutterMarker(lineNumber, "position", makeMarker());
-  // editor.markText(
-  //   { line, ch },
-  //   { line, ch: ch + 1 },
-  //   { readOnly: true, className }
-  // );
 }
 
 function makeMarker() {
