@@ -15,8 +15,10 @@ export function getElementProperties(element) {
 export default function Interface() {
   const [gestureActive, setGestureActive] = React.useState(false);
   const [userActive, setUserActive] = React.useState(false);
-  const [interfaceGesture, setInterfaceGesture] = React.useState({});
+  const [interfaceGesture, setInterfaceGesture] = React.useState([]);
+  const [move, setMove] = React.useState({});
   const [count, setCount] = React.useState(0);
+  const [mode, setMode] = React.useState("motion");
 
   useAnimationFrame(() => {
     setCount(count + 1);
@@ -30,17 +32,23 @@ export default function Interface() {
         <Views>
           {/* <Sidebar interfaceGesture={interfaceGesture} /> */}
           <CodeEditor
+            mode={mode}
             userActive={userActive}
             gestureActive={gestureActive}
-            interfaceGesture={interfaceGesture}
+            interfaceGesture={move}
           />
           <GesturePad
+            mode={mode}
             count={count}
             gestureActive={gestureActive}
             setGestureActive={setGestureActive}
             userActive={userActive}
             setUserActive={setUserActive}
-            setInterfaceGesture={setInterfaceGesture}
+            setMove={setMove}
+            setInterfaceGesture={gesture => {
+              setMode(gesture.name);
+              setInterfaceGesture(gesture);
+            }}
           />
         </Views>
       </InterfaceProvider>

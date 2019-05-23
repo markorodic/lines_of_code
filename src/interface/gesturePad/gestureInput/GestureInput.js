@@ -37,7 +37,7 @@ export default function GestureInput(props) {
     const { expiringPositions, pattern, position } = state;
 
     whenGestureIsInactive(props.gestureActive, expiringPositions, () => {
-      saveNewPosition({});
+      // saveNewPosition({});
       clearExpiringPositions();
       clearPattern(position);
     });
@@ -47,14 +47,6 @@ export default function GestureInput(props) {
     event.preventDefault();
     const { position } = state;
 
-    if (!props.userActive) {
-      props.setUserActive(true);
-    }
-
-    if (!props.gestureActive) {
-      props.setGestureActive(true);
-    }
-
     const newPosition = getGridPosition(event, containerProperties);
     if (mouseGridPositionHasChanged(position, newPosition)) {
       if (state.position.x) {
@@ -63,6 +55,14 @@ export default function GestureInput(props) {
       addToExpiring(positionItem(position, count));
       saveNewPosition(newPosition);
       addPositionToPattern(newPosition);
+    }
+
+    if (!props.userActive) {
+      props.setUserActive(true);
+    }
+
+    if (!props.gestureActive) {
+      props.setGestureActive(true);
     }
 
     ifInputIsIdle(timer, setTimer, () => {

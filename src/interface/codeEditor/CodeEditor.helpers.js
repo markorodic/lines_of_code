@@ -21,7 +21,7 @@ function makeMarker() {
   return marker;
 }
 
-export function markCursor(editor, cursorPosition, cursorSet = true) {
+export function markCursor(editor, cursorPosition, mode, cursorSet = true) {
   if (!cursorSet) {
     editor.setCursor(cursorPosition);
   }
@@ -30,15 +30,26 @@ export function markCursor(editor, cursorPosition, cursorSet = true) {
     editor.getAllMarks()[0].clear();
   }
 
-  const line = editor.getCursor().line;
-  const ch = editor.getCursor().ch;
-  console.log(line, ch);
+  if (mode !== "motion") {
+    console.log(mode);
+    const { line } = cursorPosition;
+    const lastCh = editor.getLine(line).length;
 
-  editor.markText(
-    { line, ch },
-    { line, ch: ch + 1 },
-    { readOnly: true, className: "cursor" }
-  );
+    editor.markText(
+      { line, ch: 0 },
+      { line, ch: lastCh },
+      { readOnly: true, className: "cursor-delete" }
+    );
+  } else {
+    const line = editor.getCursor().line;
+    const ch = editor.getCursor().ch;
+
+    editor.markText(
+      { line, ch },
+      { line, ch: ch + 1 },
+      { readOnly: true, className: "cursor" }
+    );
+  }
 }
 
 export function relativeLinesOn(editor) {

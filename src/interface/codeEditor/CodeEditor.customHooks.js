@@ -11,15 +11,15 @@ export function useMarkGutter(editor, cursorLineNumber) {
   }, [editor, cursorLineNumber]);
 }
 
-export function useMarkCursor(editor, props, cursorPosition) {
+export function useMarkCursor(editor, props, cursorPosition, mode) {
   React.useEffect(() => {
     if (editor) {
-      markCursor(editor, cursorPosition, false);
+      markCursor(editor, cursorPosition, mode, false);
     }
   }, [editor]);
   React.useEffect(() => {
     if (editor) {
-      markCursor(editor, cursorPosition);
+      markCursor(editor, cursorPosition, mode);
     }
   }, [editor, props]);
 }
@@ -31,3 +31,5 @@ export function useExecuteCommand(editor, { interfaceGesture }) {
     }
   }, [interfaceGesture.id]);
 }
+
+export function useMarkLineOperator(editor, mode, line) {}

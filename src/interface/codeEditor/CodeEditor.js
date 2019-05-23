@@ -9,7 +9,8 @@ import { initialCodeState } from "./initialCode";
 import {
   useMarkGutter,
   useMarkCursor,
-  useExecuteCommand
+  useExecuteCommand,
+  useMarkLineOperator
 } from "./CodeEditor.customHooks";
 
 function CodeEditor(props) {
@@ -20,12 +21,11 @@ function CodeEditor(props) {
   });
 
   useExecuteCommand(editor, props);
-  useMarkGutter(editor, cursorPosition.line);
-  useMarkCursor(editor, props, cursorPosition);
+  // useMarkGutter(editor, cursorPosition.line);
+  useMarkCursor(editor, props, cursorPosition, props.mode);
 
   React.useEffect(() => {
     if (editor && !props.gestureActive) {
-      console.log(props.gestureActive);
       const line = editor.getCursor().line;
       const ch = editor.getCursor().ch;
       setCursorPosition({ line, ch });

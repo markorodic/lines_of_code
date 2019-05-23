@@ -1,8 +1,10 @@
 import React from "react";
 import GestureInput from "./gestureInput/GestureInput";
 import { matchMotionGesture } from "./GesturePad.helpers";
+import { trimArray } from "./GesturePadHelpers";
 import { validGestures } from "./gestures/gesturePatterns";
 import _ from "lodash";
+import { realpathSync } from "fs";
 
 function GesturePad(props) {
   const [path, setPath] = React.useState([]);
@@ -15,9 +17,27 @@ function GesturePad(props) {
 
   const inputAdded = input => {
     const motionGesture = matchMotionGesture(input, validGestures);
-    setPath(motionGesture);
-    motionGesture.id = props.count;
-    props.setInterfaceGesture(motionGesture);
+    const motionGestureDirection = motionGesture.path;
+    const newPath = path;
+    if (path.length === 7) {
+      newPath.shift();
+    }
+    newPath.push(motionGestureDirection);
+    setPath(newPath);
+
+    const matchedGesture = validGestures.edit.operator.all.find(operator => {
+      const pathTrimmed = trimArray(newPath, operator.path.length);
+
+      return _.isEqual(pathTrimmed, operator.path);
+    });
+    if (matchedGesture) {
+      const gesture = validGestures.edit.operator[matchedGesture.name];
+      props.setInterfaceGesture(gesture);
+    } else {
+      motionGesture.id = props.count;
+      props.setMove(motionGesture);
+    }
+
     // if (gesture) {
     //   const newGestureState = getGestureState(
     //     gesture,

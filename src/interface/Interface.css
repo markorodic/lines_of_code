@@ -145,6 +145,10 @@ html, body {
     height: 2rem;
 }
 
+.cursor-delete {
+    background: #FC5081;
+}
+
 @media (max-width: 960px) { 
     body {
     }

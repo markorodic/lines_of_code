@@ -37,7 +37,11 @@ export const editGestures = {
           { x: 2, y: 3 },
           { x: 3, y: 3 }
         ]
-      }
+      },
+      all: [
+        { name: "delete", path: ["Right", "Right", "Up"] },
+        { name: "delete", path: ["Left", "Left", "Up"] }
+      ]
     },
     motion: {
       next: {
