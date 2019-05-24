@@ -31,7 +31,6 @@ export function markCursor(editor, cursorPosition, mode, cursorSet = true) {
   }
 
   if (mode !== "motion") {
-    console.log(mode);
     const { line } = cursorPosition;
     const lastCh = editor.getLine(line).length;
 

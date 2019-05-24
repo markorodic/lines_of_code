@@ -19,18 +19,22 @@ function CodeEditor(props) {
     line: 0,
     ch: 0
   });
+  const { gestureActive, mode } = props;
 
   useExecuteCommand(editor, props);
-  // useMarkGutter(editor, cursorPosition.line);
+  useMarkGutter(editor, cursorPosition.line);
   useMarkCursor(editor, props, cursorPosition, props.mode);
 
   React.useEffect(() => {
-    if (editor && !props.gestureActive) {
-      const line = editor.getCursor().line;
-      const ch = editor.getCursor().ch;
-      setCursorPosition({ line, ch });
+    if (editor && !gestureActive) {
+      // set the cursor state, which keeps track of where we are
+      if (mode === "motion") {
+        const line = editor.getCursor().line;
+        const ch = editor.getCursor().ch;
+        setCursorPosition({ line, ch });
+      }
     }
-  }, [props.gestureActive, editor]);
+  }, [gestureActive, editor]);
 
   return (
     <div className="code">

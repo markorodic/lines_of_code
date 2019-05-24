@@ -49,7 +49,8 @@ export default function GestureInput(props) {
 
     const newPosition = getGridPosition(event, containerProperties);
     if (mouseGridPositionHasChanged(position, newPosition)) {
-      if (state.position.x) {
+      // ensure there is state.position and prevent cursor moving when reentering gesturing
+      if (props.gestureActive) {
         props.updatePatternState([state.position, newPosition]);
       }
       addToExpiring(positionItem(position, count));

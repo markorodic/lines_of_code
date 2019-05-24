@@ -19,6 +19,7 @@ function GesturePad(props) {
     const motionGesture = matchMotionGesture(input, validGestures);
     const motionGestureDirection = motionGesture.path;
     const newPath = path;
+
     if (path.length === 7) {
       newPath.shift();
     }
