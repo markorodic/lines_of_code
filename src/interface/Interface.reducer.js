@@ -6,7 +6,7 @@ import {
   USER_INACTIVE
 } from "./Interface.actions";
 
-export default function GestureInputReducer(state, action) {
+export default function InterfaceReducer(state, action) {
   switch (action.type) {
     case INCREMENT_COUNT:
       return { ...state, count: state.count + 1 };

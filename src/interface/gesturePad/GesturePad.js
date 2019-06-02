@@ -1,13 +1,7 @@
 import React from "react";
 import GestureInput from "./gestureInput/GestureInput";
-import {
-  matchMotionGesture,
-  matchGesture,
-  getNewPath,
-  getFullGesture
-} from "./GesturePad.helpers";
+import { matchGesture, getFullGesture } from "./GesturePad.helpers";
 import { validGestures } from "./gestures/gesturePatterns";
-import _ from "lodash";
 
 function GesturePad(props) {
   const inputAdded = input => {
@@ -26,8 +20,6 @@ function GesturePad(props) {
       updatePatternState={inputAdded}
       gestureActive={props.gestureActive}
       setGestureActive={props.setGestureActive}
-      userActive={props.userActive}
-      setUserActive={props.setUserActive}
       containerProperties={props.containerProperties}
     />
   );

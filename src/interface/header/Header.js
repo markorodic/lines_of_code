@@ -1,17 +1,19 @@
 import React from "react";
 import { useContainerProperties } from "../gesturePad/gestureInput/GestureInput.customHooks";
 import { useRenderGestureView } from "./Header.customHooks";
+import { useInterfaceState } from "../Interface.customHooks";
 
 function Header(props) {
   const HeaderElement = React.useRef();
   const containerProperties = useContainerProperties(HeaderElement);
   const canvasElement = React.useRef();
+  const { userActive } = useInterfaceState();
 
   useRenderGestureView(
     containerProperties.width,
     containerProperties.height,
     canvasElement,
-    props.userActive
+    userActive
   );
   return (
     <header className="header" ref={HeaderElement}>

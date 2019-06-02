@@ -16,7 +16,11 @@ import {
   CLEAR_PATTERN
 } from "./GestureInput.actions";
 import GestureView from "../gestureView/GestureView";
-import { useInterface } from "./GestureInput.customHooks";
+import {
+  useInterfaceState,
+  useInterfaceDispatch
+} from "../../Interface.customHooks";
+
 const initialState = {
   position: {},
   expiringPositions: [],
@@ -29,8 +33,9 @@ export default function GestureInput(props) {
   const GestureInputElement = React.useRef();
   const [timer, setTimer] = React.useState(null);
   const containerProperties = useContainerProperties(GestureInputElement);
-  // const { count } = useInterface();
   const { count } = props;
+  const { userActive } = useInterfaceState();
+  const { setUserActive, setUserInactive } = useInterfaceDispatch();
 
   React.useEffect(() => {
     const { updatePatternState } = props;
@@ -58,8 +63,8 @@ export default function GestureInput(props) {
       addPositionToPattern(newPosition);
     }
 
-    if (!props.userActive) {
-      props.setUserActive(true);
+    if (!userActive) {
+      setUserActive();
     }
 
     if (!props.gestureActive) {
@@ -73,7 +78,7 @@ export default function GestureInput(props) {
 
   const onGestureEnd = event => {
     event.preventDefault();
-    props.setUserActive(false);
+    setUserInactive();
   };
 
   const addToExpiring = expiringPositions =>

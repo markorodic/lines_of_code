@@ -1,29 +1,29 @@
 import React from "react";
 import { getElementProperties } from "./GestureInputHelpers";
-import { InterfaceContext } from "../../Interface.context";
+import { InterfaceStateContext } from "../../Interface.context";
 
-export function useInterface() {
-  const context = React.useContext(InterfaceContext);
-  if (!context) {
-    throw new Error("useCount must be used within a CountProvider");
-  }
-  const {
-    userActive,
-    gestureActive,
-    setGestureActive,
-    setGestureInactive,
-    setUserActive,
-    setUserInactive
-  } = context;
-  return {
-    userActive,
-    gestureActive,
-    setGestureActive,
-    setGestureInactive,
-    setUserActive,
-    setUserInactive
-  };
-}
+// export function useInterface() {
+//   const context = React.useContext(InterfaceStateContext);
+//   if (!context) {
+//     throw new Error("useCount must be used within a CountProvider");
+//   }
+//   const {
+//     userActive,
+//     gestureActive,
+//     setGestureActive,
+//     setGestureInactive,
+//     setUserActive,
+//     setUserInactive
+//   } = context;
+//   return {
+//     userActive,
+//     gestureActive,
+//     setGestureActive,
+//     setGestureInactive,
+//     setUserActive,
+//     setUserInactive
+//   };
+// }
 
 export function useContainerProperties(GestureInputElement) {
   const [containerProperties, setContainerProperties] = React.useState({
