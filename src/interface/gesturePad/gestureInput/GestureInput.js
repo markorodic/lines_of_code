@@ -102,7 +102,6 @@ export default function GestureInput(props) {
         count={count}
         containerWidth={containerProperties.width}
         gestureActive={props.gestureActive}
-        gesture={props.gesture}
       />
     </section>
   );

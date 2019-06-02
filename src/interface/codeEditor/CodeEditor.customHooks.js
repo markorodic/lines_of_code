@@ -24,12 +24,12 @@ export function useMarkCursor(editor, props, cursorPosition, mode) {
   }, [editor, props]);
 }
 
-export function useExecuteCommand(editor, { interfaceGesture }) {
+export function useExecuteCommand(editor, { gesture }) {
   React.useEffect(() => {
-    if (interfaceGesture.id) {
-      executeCommand(interfaceGesture, editor);
+    if (gesture.id) {
+      executeCommand(gesture, editor);
     }
-  }, [interfaceGesture.id]);
+  }, [gesture.id]);
 }
 
 export function useMarkLineOperator(editor, mode, line) {}

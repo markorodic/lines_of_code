@@ -34,7 +34,7 @@ function CodeEditor(props) {
         setCursorPosition({ line, ch });
       }
     }
-  }, [gestureActive, editor]);
+  }, [gestureActive, editor, mode]);
 
   return (
     <div className="code">

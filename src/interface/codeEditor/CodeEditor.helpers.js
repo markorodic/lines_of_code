@@ -30,7 +30,7 @@ export function markCursor(editor, cursorPosition, mode, cursorSet = true) {
     editor.getAllMarks()[0].clear();
   }
 
-  if (mode !== "motion") {
+  if (mode !== "Motion") {
     const { line } = cursorPosition;
     const lastCh = editor.getLine(line).length;
 

@@ -53,16 +53,12 @@ export function renderExpiredBoxes(
 ) {
   if (expiringPositions.length) {
     expiringPositions.forEach(box => {
-      if (gesture.length > 1) {
-        ctx.fillStyle = `rgba(0, 0, 0, 1)`;
+      const diff = count - box.timeAdded;
+      if (diff < 20) {
+        const alphaValue = 1 - diff / 20;
+        ctx.fillStyle = `rgba(0, 0, 0, ${alphaValue})`;
       } else {
-        const diff = count - box.timeAdded;
-        if (diff < 20) {
-          const alphaValue = 1 - diff / 20;
-          ctx.fillStyle = `rgba(0, 0, 0, ${alphaValue})`;
-        } else {
-          ctx.fillStyle = "rgba(0,0,0,0)";
-        }
+        ctx.fillStyle = "rgba(0,0,0,0)";
       }
       const x = (box.position.x - 1) * boxWidth;
       const y = (box.position.y - 1) * boxWidth;

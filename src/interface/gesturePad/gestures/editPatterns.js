@@ -79,19 +79,19 @@ export const editGestures = {
       all: [
         {
           name: "up",
-          path: "Up"
+          path: ["Up"]
         },
         {
           name: "down",
-          path: "Down"
+          path: ["Down"]
         },
         {
           name: "next",
-          path: "Right"
+          path: ["Right"]
         },
         {
           name: "previous",
-          path: "Left"
+          path: ["Left"]
         }
       ]
     },
@@ -111,7 +111,8 @@ export const editGestures = {
         ]
       }
     ],
-    allEditPaths: [
+    allTypes: ["operator", "motion"],
+    allPaths: [
       {
         name: "delete",
         type: "operator",

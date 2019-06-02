@@ -15,10 +15,10 @@ export function getElementProperties(element) {
 export default function Interface() {
   const [gestureActive, setGestureActive] = React.useState(false);
   const [userActive, setUserActive] = React.useState(false);
-  const [interfaceGesture, setInterfaceGesture] = React.useState([]);
-  const [move, setMove] = React.useState({});
+  const [gesture, setGesture] = React.useState([]);
+  // const [move, setMove] = React.useState({});
   const [count, setCount] = React.useState(0);
-  const [mode, setMode] = React.useState("motion");
+  const [mode, setMode] = React.useState("Motion");
 
   useAnimationFrame(() => {
     setCount(count + 1);
@@ -35,19 +35,20 @@ export default function Interface() {
             mode={mode}
             userActive={userActive}
             gestureActive={gestureActive}
-            interfaceGesture={move}
+            gesture={gesture}
           />
           <GesturePad
             mode={mode}
             count={count}
+            gesture={gesture}
             gestureActive={gestureActive}
             setGestureActive={setGestureActive}
             userActive={userActive}
             setUserActive={setUserActive}
-            setMove={setMove}
-            setInterfaceGesture={gesture => {
-              setMode(gesture.name);
-              setInterfaceGesture(gesture);
+            // setMove={setMove}
+            setGesture={gesture => {
+              setMode(gesture.type);
+              setGesture(gesture);
             }}
           />
         </Views>
