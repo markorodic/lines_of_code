@@ -11,6 +11,20 @@ const initialState = {
   gestureActive: false
 };
 
+function InterfaceProvider({ children }) {
+  const [state, dispatch] = React.useReducer(InterfaceReducer, initialState);
+
+  return (
+    <InterfaceStateContext.Provider value={state}>
+      <InterfaceDispatchContext.Provider value={dispatch}>
+        {children}
+      </InterfaceDispatchContext.Provider>
+    </InterfaceStateContext.Provider>
+  );
+}
+
+export { InterfaceProvider, InterfaceStateContext, InterfaceDispatchContext };
+
 // function InterfaceProvider(props) {
 //   const [state, dispatch] = React.useReducer(InterfaceReducer, initialState);
 
@@ -34,17 +48,3 @@ const initialState = {
 
 //   return <InterfaceContext.Provider value={value} {...props} />;
 // }
-
-function InterfaceProvider({ children }) {
-  const [state, dispatch] = React.useReducer(InterfaceReducer, initialState);
-
-  return (
-    <InterfaceStateContext.Provider value={state}>
-      <InterfaceDispatchContext.Provider value={dispatch}>
-        {children}
-      </InterfaceDispatchContext.Provider>
-    </InterfaceStateContext.Provider>
-  );
-}
-
-export { InterfaceProvider, InterfaceStateContext, InterfaceDispatchContext };

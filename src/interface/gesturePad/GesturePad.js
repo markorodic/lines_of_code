@@ -2,14 +2,10 @@ import React from "react";
 import GestureInput from "./gestureInput/GestureInput";
 import { matchGesture, getFullGesture } from "./GesturePad.helpers";
 import { validGestures } from "./gestures/gesturePatterns";
-import {
-  useInterfaceState,
-  useInterfaceDispatch
-} from "../Interface.customHooks";
+import { useInterfaceDispatch } from "../Interface.customHooks";
 
 function GesturePad(props) {
-  const { gesture } = useInterfaceState();
-  const { setGesture } = useInterfaceDispatch();
+  const { setGesture, setMode } = useInterfaceDispatch();
 
   const inputAdded = input => {
     const gestureMatched = matchGesture(input, validGestures);
@@ -20,15 +16,15 @@ function GesturePad(props) {
         gestureMatched,
         props.count
       );
+      setMode(gesture.type);
       setGesture(gesture);
     }
   };
 
   return (
     <GestureInput
-      updatePositionGestureState={inputAdded}
+      updateGestureState={inputAdded}
       count={props.count}
-      updatePatternState={inputAdded}
       containerProperties={props.containerProperties}
     />
   );

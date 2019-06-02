@@ -33,7 +33,7 @@ export default function GestureInput(props) {
   const GestureInputElement = React.useRef();
   const [timer, setTimer] = React.useState(null);
   const containerProperties = useContainerProperties(GestureInputElement);
-  const { count } = props;
+  const { count, updateGestureState } = props;
   const { userActive, gestureActive } = useInterfaceState();
   const {
     setUserActive,
@@ -43,11 +43,9 @@ export default function GestureInput(props) {
   } = useInterfaceDispatch();
 
   React.useEffect(() => {
-    const { updatePatternState } = props;
-    const { expiringPositions, pattern, position } = state;
+    const { expiringPositions, position } = state;
 
     whenGestureIsInactive(gestureActive, expiringPositions, () => {
-      // saveNewPosition({});
       clearExpiringPositions();
       clearPattern(position);
     });
@@ -61,7 +59,7 @@ export default function GestureInput(props) {
     if (mouseGridPositionHasChanged(position, newPosition)) {
       // ensure there is state.position and prevent cursor moving when reentering gesturing
       if (gestureActive) {
-        props.updatePatternState([state.position, newPosition]);
+        updateGestureState([state.position, newPosition]);
       }
       addToExpiring(positionItem(position, count));
       saveNewPosition(newPosition);

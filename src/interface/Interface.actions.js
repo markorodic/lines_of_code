@@ -1,4 +1,5 @@
 export const SET_GESTURE = "SET_GESTURE";
+export const SET_MODE = "SET_MODE";
 export const GESTURE_ACTIVE = "GESTURE_ACTIVE";
 export const GESTURE_INACTIVE = "GESTURE_INACTIVE";
 export const USER_ACTIVE = "USER_ACTIVE";

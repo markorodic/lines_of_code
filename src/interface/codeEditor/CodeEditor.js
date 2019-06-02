@@ -20,12 +20,11 @@ function CodeEditor(props) {
     line: 0,
     ch: 0
   });
-  const { mode } = props;
-  const { gesture, gestureActive } = useInterfaceState();
+  const { gesture, gestureActive, mode } = useInterfaceState();
 
   useExecuteCommand(editor, gesture);
   useMarkGutter(editor, cursorPosition.line);
-  useMarkCursor(editor, props, cursorPosition, props.mode);
+  useMarkCursor(editor, props, cursorPosition, mode);
 
   React.useEffect(() => {
     if (editor && !gestureActive) {

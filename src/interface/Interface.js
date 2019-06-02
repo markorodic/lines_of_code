@@ -8,14 +8,8 @@ import Sidebar from "./sidebar/Sidebar";
 import { InterfaceProvider } from "./Interface.context";
 import { useAnimationFrame } from "./Interface.customHooks";
 
-export function getElementProperties(element) {
-  return element.current.getBoundingClientRect();
-}
-
 export default function Interface() {
-  // const [gesture, setGesture] = React.useState([]);
   const [count, setCount] = React.useState(0);
-  const [mode, setMode] = React.useState("Motion");
 
   useAnimationFrame(() => {
     setCount(count + 1);
@@ -28,16 +22,8 @@ export default function Interface() {
         <Header />
         <Views>
           {/* <Sidebar interfaceGesture={interfaceGesture} /> */}
-          <CodeEditor mode={mode} />
-          <GesturePad
-            mode={mode}
-            count={count}
-            // gesture={gesture}
-            // setGesture={gesture => {
-            //   setMode(gesture.type);
-            //   setGesture(gesture);
-            // }}
-          />
+          <CodeEditor />
+          <GesturePad count={count} />
         </Views>
       </InterfaceProvider>
     </div>
