@@ -18,8 +18,6 @@ function GesturePad(props) {
       updatePositionGestureState={inputAdded}
       count={props.count}
       updatePatternState={inputAdded}
-      gestureActive={props.gestureActive}
-      setGestureActive={props.setGestureActive}
       containerProperties={props.containerProperties}
     />
   );

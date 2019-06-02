@@ -12,6 +12,7 @@ import {
   useExecuteCommand,
   useMarkLineOperator
 } from "./CodeEditor.customHooks";
+import { useInterfaceState } from "../Interface.customHooks";
 
 function CodeEditor(props) {
   const [editor, setEditor] = React.useState(null);
@@ -19,7 +20,8 @@ function CodeEditor(props) {
     line: 0,
     ch: 0
   });
-  const { gestureActive, mode } = props;
+  const { mode } = props;
+  const { gestureActive } = useInterfaceState();
 
   useExecuteCommand(editor, props);
   useMarkGutter(editor, cursorPosition.line);

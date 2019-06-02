@@ -38,16 +38,6 @@ const initialState = {
 function InterfaceProvider({ children }) {
   const [state, dispatch] = React.useReducer(InterfaceReducer, initialState);
 
-  // useAnimationFrame(() => {
-  //   incrementCount();
-  // });
-
-  // const incrementCount = () => dispatch({ type: INCREMENT_COUNT });
-  // const setUserActive = () => dispatch({ type: USER_ACTIVE });
-  // const setUserInactive = () => dispatch({ type: USER_INACTIVE });
-  // const setGestureActive = () => dispatch({ type: GESTURE_ACTIVE });
-  // const setGestureInactive = () => dispatch({ type: GESTURE_INACTIVE });
-
   return (
     <InterfaceStateContext.Provider value={state}>
       <InterfaceDispatchContext.Provider value={dispatch}>

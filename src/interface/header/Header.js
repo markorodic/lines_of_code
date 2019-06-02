@@ -5,8 +5,8 @@ import { useInterfaceState } from "../Interface.customHooks";
 
 function Header(props) {
   const HeaderElement = React.useRef();
-  const containerProperties = useContainerProperties(HeaderElement);
   const canvasElement = React.useRef();
+  const containerProperties = useContainerProperties(HeaderElement);
   const { userActive } = useInterfaceState();
 
   useRenderGestureView(

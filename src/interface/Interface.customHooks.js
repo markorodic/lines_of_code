@@ -3,7 +3,12 @@ import {
   InterfaceStateContext,
   InterfaceDispatchContext
 } from "./Interface.context";
-import { USER_ACTIVE, USER_INACTIVE } from "./Interface.actions";
+import {
+  USER_ACTIVE,
+  USER_INACTIVE,
+  GESTURE_ACTIVE,
+  GESTURE_INACTIVE
+} from "./Interface.actions";
 
 export const useAnimationFrame = callback => {
   const callbackRef = React.useRef(callback);
@@ -60,7 +65,12 @@ export function useInterfaceDispatch() {
   }
   const setUserActive = () => dispatch({ type: USER_ACTIVE });
   const setUserInactive = () => dispatch({ type: USER_INACTIVE });
-  // const setGestureActive = () => dispatch({ type: GESTURE_ACTIVE });
-  // const setGestureInactive = () => dispatch({ type: GESTURE_INACTIVE });
-  return { setUserActive, setUserInactive };
+  const setGestureActive = () => dispatch({ type: GESTURE_ACTIVE });
+  const setGestureInactive = () => dispatch({ type: GESTURE_INACTIVE });
+  return {
+    setUserActive,
+    setUserInactive,
+    setGestureActive,
+    setGestureInactive
+  };
 }
