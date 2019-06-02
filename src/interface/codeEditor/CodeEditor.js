@@ -21,9 +21,9 @@ function CodeEditor(props) {
     ch: 0
   });
   const { mode } = props;
-  const { gestureActive } = useInterfaceState();
+  const { gesture, gestureActive } = useInterfaceState();
 
-  useExecuteCommand(editor, props);
+  useExecuteCommand(editor, gesture);
   useMarkGutter(editor, cursorPosition.line);
   useMarkCursor(editor, props, cursorPosition, props.mode);
 

@@ -1,5 +1,5 @@
 import {
-  INCREMENT_COUNT,
+  SET_GESTURE,
   GESTURE_ACTIVE,
   GESTURE_INACTIVE,
   USER_ACTIVE,
@@ -8,8 +8,8 @@ import {
 
 export default function InterfaceReducer(state, action) {
   switch (action.type) {
-    case INCREMENT_COUNT:
-      return { ...state, count: state.count + 1 };
+    case SET_GESTURE:
+      return { ...state, gesture: action.gesture };
     case GESTURE_ACTIVE:
       return { ...state, gestureActive: true };
     case GESTURE_INACTIVE:

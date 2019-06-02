@@ -24,7 +24,7 @@ export function useMarkCursor(editor, props, cursorPosition, mode) {
   }, [editor, props]);
 }
 
-export function useExecuteCommand(editor, { gesture }) {
+export function useExecuteCommand(editor, gesture) {
   React.useEffect(() => {
     if (gesture.id) {
       executeCommand(gesture, editor);

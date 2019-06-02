@@ -1,11 +1,11 @@
 import React, { Component } from "react";
+import "./Interface.css";
+import logo from "../logo.svg";
 import Header from "./header/Header";
 import CodeEditor from "./codeEditor/CodeEditor";
 import GesturePad from "./gesturePad/GesturePad";
-import "./Interface.css";
-import logo from "../logo.svg";
-import { InterfaceProvider } from "./Interface.context";
 import Sidebar from "./sidebar/Sidebar";
+import { InterfaceProvider } from "./Interface.context";
 import { useAnimationFrame } from "./Interface.customHooks";
 
 export function getElementProperties(element) {
@@ -13,7 +13,7 @@ export function getElementProperties(element) {
 }
 
 export default function Interface() {
-  const [gesture, setGesture] = React.useState([]);
+  // const [gesture, setGesture] = React.useState([]);
   const [count, setCount] = React.useState(0);
   const [mode, setMode] = React.useState("Motion");
 
@@ -28,15 +28,15 @@ export default function Interface() {
         <Header />
         <Views>
           {/* <Sidebar interfaceGesture={interfaceGesture} /> */}
-          <CodeEditor mode={mode} gesture={gesture} />
+          <CodeEditor mode={mode} />
           <GesturePad
             mode={mode}
             count={count}
-            gesture={gesture}
-            setGesture={gesture => {
-              setMode(gesture.type);
-              setGesture(gesture);
-            }}
+            // gesture={gesture}
+            // setGesture={gesture => {
+            //   setMode(gesture.type);
+            //   setGesture(gesture);
+            // }}
           />
         </Views>
       </InterfaceProvider>

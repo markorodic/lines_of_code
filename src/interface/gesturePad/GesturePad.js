@@ -2,14 +2,25 @@ import React from "react";
 import GestureInput from "./gestureInput/GestureInput";
 import { matchGesture, getFullGesture } from "./GesturePad.helpers";
 import { validGestures } from "./gestures/gesturePatterns";
+import {
+  useInterfaceState,
+  useInterfaceDispatch
+} from "../Interface.customHooks";
 
 function GesturePad(props) {
+  const { gesture } = useInterfaceState();
+  const { setGesture } = useInterfaceDispatch();
+
   const inputAdded = input => {
-    const { setGesture } = props;
     const gestureMatched = matchGesture(input, validGestures);
 
     if (gestureMatched.name) {
-      setGesture(getFullGesture(validGestures, gestureMatched, props.count));
+      const gesture = getFullGesture(
+        validGestures,
+        gestureMatched,
+        props.count
+      );
+      setGesture(gesture);
     }
   };
 
