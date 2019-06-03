@@ -1,5 +1,5 @@
 import React from "react";
-import { useContainerProperties } from "../gesturePad/gestureInput/GestureInput.customHooks";
+import { useContainerProperties } from "../customHooks";
 import { useRenderGestureView } from "./Header.customHooks";
 import { useInterfaceState } from "../Interface.customHooks";
 

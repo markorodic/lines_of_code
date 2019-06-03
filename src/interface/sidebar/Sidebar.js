@@ -1,4 +1,5 @@
 import React from "react";
+import { useContainerProperties } from "../customHooks";
 
 function Sidebar(props) {
   const SidebarElement = React.useRef();
@@ -103,29 +104,6 @@ function useCreateCanvasContext(
   }, [containerWidth, containerHeight, canvasElement]);
 
   return ctx;
-}
-
-export function useContainerProperties(SidebarElement) {
-  const [containerProperties, setContainerProperties] = React.useState({
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0
-  });
-  React.useEffect(() => {
-    const { x, y, width, height } = getElementProperties(SidebarElement);
-    setContainerProperties({
-      x,
-      y,
-      width,
-      height
-    });
-  }, [SidebarElement]);
-  return containerProperties;
-}
-
-function getElementProperties(element) {
-  return element.current.getBoundingClientRect();
 }
 
 export default Sidebar;

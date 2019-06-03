@@ -6,7 +6,7 @@ import {
   whenGestureIsInactive,
   ifInputIsIdle
 } from "./GestureInputHelpers";
-import { useContainerProperties } from "./GestureInput.customHooks";
+import { useContainerProperties } from "../../customHooks";
 import GestureInputReducer from "./GestureInput.reducer";
 import {
   ADD_TO_EXPIRED,
