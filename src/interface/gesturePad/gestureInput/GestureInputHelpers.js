@@ -6,7 +6,7 @@ export function getElementProperties(element) {
   return element.current.getBoundingClientRect();
 }
 
-export function mouseGridPositionHasChanged(currentPosition, newPosition) {
+export function gridPositionHasChanged(currentPosition, newPosition) {
   return !_.isEqual(currentPosition, newPosition);
 }
 

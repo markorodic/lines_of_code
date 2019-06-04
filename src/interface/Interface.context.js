@@ -24,27 +24,3 @@ function InterfaceProvider({ children }) {
 }
 
 export { InterfaceProvider, InterfaceStateContext, InterfaceDispatchContext };
-
-// function InterfaceProvider(props) {
-//   const [state, dispatch] = React.useReducer(InterfaceReducer, initialState);
-
-//   const incrementCount = () => dispatch({ type: INCREMENT_COUNT });
-//   const setUserActive = () => dispatch({ type: USER_ACTIVE });
-//   const setUserInactive = () => dispatch({ type: USER_INACTIVE });
-//   const setGestureActive = () => dispatch({ type: GESTURE_ACTIVE });
-//   const setGestureInactive = () => dispatch({ type: GESTURE_INACTIVE });
-//   const { count, userActive, gestureActive } = state;
-//   const value = React.useMemo(() => {
-//     return {
-//       count,
-//       userActive,
-//       gestureActive,
-//       setGestureActive,
-//       setGestureInactive,
-//       setUserActive,
-//       setUserInactive
-//     };
-//   }, [state]);
-
-//   return <InterfaceContext.Provider value={value} {...props} />;
-// }

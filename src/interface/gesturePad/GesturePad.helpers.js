@@ -71,23 +71,4 @@ function getDirectionFrom(positions) {
   if (positions[0].y > positions[1].y) {
     return "Up";
   }
-  //   while (count < positions.length - 1) {
-  //     const firstPosition = positions[count];
-  //     const secondPosition = positions[count + 1];
-
-  //     if (firstPosition.y === secondPosition.y) {
-  //       if (firstPosition.x - secondPosition.x === 1) {
-  //         stringPath.push("Left");
-  //       } else {
-  //         stringPath.push("Right");
-  //       }
-  //     } else {
-  //       if (firstPosition.y - secondPosition.y === 1) {
-  //         stringPath.push("Up");
-  //       } else {
-  //         stringPath.push("Down");
-  //       }
-  //     }
-  //     count++;
-  //   }
 }
