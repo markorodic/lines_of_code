@@ -2,21 +2,39 @@ import React from "react";
 import { markGutter, markCursor, relativeLinesOn } from "./CodeEditor.helpers";
 import { executeCommand } from "./CodeEditor.commands";
 
-export function useMarkGutter(editor, cursorLineNumber) {
+export function useCursorPosition(editor, gestureActive) {
+  const [cursorPosition, setCursorPosition] = React.useState({
+    lineNumber: 0,
+    characterPosition: 0
+  });
+
+  React.useEffect(() => {
+    if (editor) {
+      editor.setCursor({ line: 0, ch: 0 });
+    }
+  }, [editor]);
+
+  React.useEffect(() => {
+    if (editor && !gestureActive) {
+      const lineNumber = editor.getCursor().line;
+      const characterPosition = editor.getCursor().ch;
+      setCursorPosition({ lineNumber, characterPosition });
+    }
+  }, [gestureActive, editor]);
+
+  return cursorPosition;
+}
+
+export function useMarkGutter(editor, { lineNumber }) {
   React.useEffect(() => {
     if (editor) {
       relativeLinesOn(editor);
-      markGutter(editor, cursorLineNumber, "cursor", false);
+      markGutter(editor, lineNumber, "cursor");
     }
-  }, [editor, cursorLineNumber]);
+  }, [editor, lineNumber]);
 }
 
-export function useMarkCursor(editor, props, cursorPosition, mode) {
-  React.useEffect(() => {
-    if (editor) {
-      markCursor(editor, cursorPosition, mode, false);
-    }
-  }, [editor]);
+export function useMarkCursor(editor, cursorPosition, mode, props) {
   React.useEffect(() => {
     if (editor) {
       markCursor(editor, cursorPosition, mode);

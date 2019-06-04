@@ -21,7 +21,6 @@ export default function Interface() {
       <InterfaceProvider>
         <Header />
         <Views>
-          {/* <Sidebar interfaceGesture={interfaceGesture} /> */}
           <CodeEditor />
           <GesturePad count={count} />
         </Views>

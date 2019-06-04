@@ -17,7 +17,7 @@ function Header(props) {
   );
   return (
     <header className="header" ref={HeaderElement}>
-      {!props.userActive && <p>line</p>}
+      {!userActive && <p>line</p>}
       <canvas id="canvas" ref={canvasElement} />
     </header>
   );

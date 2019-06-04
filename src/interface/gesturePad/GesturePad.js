@@ -1,6 +1,6 @@
 import React from "react";
 import GestureInput from "./gestureInput/GestureInput";
-import { matchGesture, getFullGesture } from "./GesturePad.helpers";
+import { matchGesture, getGesture } from "./GesturePad.helpers";
 import { validGestures } from "./gestures/gesturePatterns";
 import { useInterfaceDispatch } from "../Interface.customHooks";
 
@@ -11,11 +11,7 @@ function GesturePad(props) {
     const gestureMatched = matchGesture(input, validGestures);
 
     if (gestureMatched.name) {
-      const gesture = getFullGesture(
-        validGestures,
-        gestureMatched,
-        props.count
-      );
+      const gesture = getGesture(validGestures, gestureMatched, props.count);
       setMode(gesture.type);
       setGesture(gesture);
     }

@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { getPathFrom } from "./GesturePadHelpers";
 
-export function getFullGesture(validGestures, gestureMatched, count) {
+export function getGesture(validGestures, gestureMatched, count) {
   const gesture = validGestures.edit[gestureMatched.type][gestureMatched.name];
   if (gestureMatched.type === "motion") {
     gesture.id = count;

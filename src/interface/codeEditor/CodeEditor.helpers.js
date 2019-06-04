@@ -21,22 +21,17 @@ function makeMarker() {
   return marker;
 }
 
-export function markCursor(editor, cursorPosition, mode, cursorSet = true) {
-  if (!cursorSet) {
-    editor.setCursor(cursorPosition);
-  }
-
+export function markCursor(editor, { lineNumber, characterPosition }, mode) {
   if (editor.getAllMarks()[0]) {
     editor.getAllMarks()[0].clear();
   }
 
   if (mode !== "Motion") {
-    const { line } = cursorPosition;
-    const lastCh = editor.getLine(line).length;
+    const lastCh = editor.getLine(lineNumber).length;
 
     editor.markText(
-      { line, ch: 0 },
-      { line, ch: lastCh },
+      { line: lineNumber, ch: 0 },
+      { line: lineNumber, ch: lastCh },
       { readOnly: true, className: "cursor-delete" }
     );
   } else {

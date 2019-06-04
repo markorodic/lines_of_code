@@ -9,33 +9,19 @@ import { initialCodeState } from "./initialCode";
 import {
   useMarkGutter,
   useMarkCursor,
-  useExecuteCommand,
-  useMarkLineOperator
+  useExecuteCommand
 } from "./CodeEditor.customHooks";
 import { useInterfaceState } from "../Interface.customHooks";
+import { useCursorPosition } from "./CodeEditor.customHooks";
 
 function CodeEditor(props) {
   const [editor, setEditor] = React.useState(null);
-  const [cursorPosition, setCursorPosition] = React.useState({
-    line: 0,
-    ch: 0
-  });
   const { gesture, gestureActive, mode } = useInterfaceState();
+  const cursorPosition = useCursorPosition(editor, gestureActive);
 
   useExecuteCommand(editor, gesture);
-  useMarkGutter(editor, cursorPosition.line);
-  useMarkCursor(editor, props, cursorPosition, mode);
-
-  React.useEffect(() => {
-    if (editor && !gestureActive) {
-      // set the cursor state, which keeps track of where we are
-      if (mode === "motion") {
-        const line = editor.getCursor().line;
-        const ch = editor.getCursor().ch;
-        setCursorPosition({ line, ch });
-      }
-    }
-  }, [gestureActive, editor, mode]);
+  useMarkGutter(editor, cursorPosition);
+  useMarkCursor(editor, cursorPosition, mode, props);
 
   return (
     <div className="code">

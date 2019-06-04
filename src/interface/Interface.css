@@ -38,13 +38,11 @@ html, body {
 .code-editor {
     background: #F9F9F9;
     padding-top: 0.5rem;
-    height: 100%;
 }
 
 .code-editor .CodeMirror {
     height: 100%;
     background: #F9F9F9;
-    /* color: lightgrey */
 }
 
 .code-editor .CodeMirror-gutters {
