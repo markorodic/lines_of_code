@@ -1,6 +1,6 @@
 import { NUMBER_OF_BOXES } from "../CONSTANTS";
-import _ from "lodash";
 import { GestureIdleTimeInMs } from "../CONSTANTS";
+import _ from "lodash";
 
 export function getElementProperties(element) {
   return element.current.getBoundingClientRect();
