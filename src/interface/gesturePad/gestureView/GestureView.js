@@ -8,7 +8,7 @@ import {
   clearCanvas
 } from "./GestureViewHelpers";
 import { renderGiridPointGuides } from "./gestureViewGrid/GestureViewGrid";
-import { NUMBER_OF_BOXES } from "../CONSTANTS";
+import { NUMBER_OF_BOXES } from "../../CONSTANTS";
 
 export default function GestureView(props) {
   React.useEffect(() => {});

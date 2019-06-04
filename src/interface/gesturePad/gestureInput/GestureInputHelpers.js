@@ -1,5 +1,4 @@
-import { NUMBER_OF_BOXES } from "../CONSTANTS";
-import { GestureIdleTimeInMs } from "../CONSTANTS";
+import { NUMBER_OF_BOXES, GestureIdleTimeInMs } from "../../CONSTANTS";
 import _ from "lodash";
 
 export function getElementProperties(element) {

@@ -1,4 +1,4 @@
-import { MAX_PATH_LENGTH } from "./CONSTANTS";
+import { MAX_PATH_LENGTH } from "../CONSTANTS";
 import _ from "lodash";
 
 function trim(pattern) {
@@ -173,8 +173,6 @@ export function getGestureState(gesture, inputPositions, gestureState) {
   //   length: 1
   // };
 }
-
-function typeIsValid({ gestures, positions, type }, inputPositions) {}
 
 function followsPrevious(gestureStatePositions, gestureInputPositions) {
   return false;

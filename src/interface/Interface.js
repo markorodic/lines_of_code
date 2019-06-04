@@ -4,7 +4,6 @@ import logo from "../logo.svg";
 import Header from "./header/Header";
 import CodeEditor from "./codeEditor/CodeEditor";
 import GesturePad from "./gesturePad/GesturePad";
-import Sidebar from "./sidebar/Sidebar";
 import { InterfaceProvider } from "./Interface.context";
 import { useAnimationFrame } from "./Interface.customHooks";
 

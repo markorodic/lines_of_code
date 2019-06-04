@@ -1,10 +1,10 @@
 import React from "react";
 
 function AST(props) {
-  const [current, setCurrent] = React.useState({
-    state: "global",
-    position: 2
-  });
+  // const [current, setCurrent] = React.useState({
+  //   state: "global",
+  //   position: 2
+  // });
 
   return <React.Fragment>{props.children}</React.Fragment>;
 }
@@ -45,64 +45,64 @@ export default AST;
 
 // String to AST
 
-const codeState = {
-  global: [
-    {
-      type: "VariableDeclaration",
-      start: 0,
-      end: 22,
-      id: {
-        type: "const",
-        start: 6,
-        end: 9,
-        name: "arr"
-      },
-      init: {
-        type: "ArrayExpression",
-        start: 15,
-        end: 21,
-        elements: [1, 2, 3]
-      }
-    },
-    {
-      type: "VariableDeclaration",
-      start: 0,
-      end: 22,
-      id: {
-        type: "const",
-        start: 6,
-        end: 9,
-        name: "int"
-      },
-      init: {
-        type: "Literal",
-        start: 15,
-        end: 21,
-        value: 1
-      }
-    }
-    //   {
-    //     type: "array",
-    //     id: "a1"
-    //   },
-    //   {
-    //     type: "object",
-    //     id: "o1"
-    //   },
-    //   4: {
-    //     type: "comment",
-    //     id: "c2"
-    //   },
-    //   5: {
-    //     type: "comment",
-    //     id: "c3"
-    //   },
-    //   6: {
-    //     type: "object",
-    //     id: "o2"
-    //   }
-  ]
-};
+// const codeState = {
+//   global: [
+//     {
+//       type: "VariableDeclaration",
+//       start: 0,
+//       end: 22,
+//       id: {
+//         type: "const",
+//         start: 6,
+//         end: 9,
+//         name: "arr"
+//       },
+//       init: {
+//         type: "ArrayExpression",
+//         start: 15,
+//         end: 21,
+//         elements: [1, 2, 3]
+//       }
+//     },
+//     {
+//       type: "VariableDeclaration",
+//       start: 0,
+//       end: 22,
+//       id: {
+//         type: "const",
+//         start: 6,
+//         end: 9,
+//         name: "int"
+//       },
+//       init: {
+//         type: "Literal",
+//         start: 15,
+//         end: 21,
+//         value: 1
+//       }
+//     }
+//   {
+//     type: "array",
+//     id: "a1"
+//   },
+//   {
+//     type: "object",
+//     id: "o1"
+//   },
+//   4: {
+//     type: "comment",
+//     id: "c2"
+//   },
+//   5: {
+//     type: "comment",
+//     id: "c3"
+//   },
+//   6: {
+//     type: "object",
+//     id: "o2"
+//   }
+//   ]
+// };
 
 // AST to String
 

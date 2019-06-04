@@ -12,7 +12,7 @@ import {
   useInterfaceDispatch
 } from "../../Interface.customHooks";
 
-export default function GestureInput(props) {
+export default function GestureInput({ count, updateGestureState }) {
   const GestureInputElement = React.useRef();
   const [position, setPosition] = React.useState({});
   const [expiringPositions, setExpiringPositions] = React.useState([]);
@@ -20,7 +20,6 @@ export default function GestureInput(props) {
   const [timer, setTimer] = React.useState(null);
   const containerProperties = useContainerProperties(GestureInputElement);
   const { userActive, gestureActive } = useInterfaceState();
-  const { count, updateGestureState } = props;
   const {
     setUserActive,
     setUserInactive,
@@ -74,10 +73,11 @@ export default function GestureInput(props) {
     >
       <GestureView
         position={position}
+        pattern={pattern}
         expiringPositions={expiringPositions}
         count={count}
         containerWidth={containerProperties.width}
-        gestureActive={props.gestureActive}
+        gestureActive={gestureActive}
       />
     </section>
   );

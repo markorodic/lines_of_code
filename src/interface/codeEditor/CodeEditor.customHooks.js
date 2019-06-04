@@ -39,7 +39,7 @@ export function useMarkCursor(editor, cursorPosition, mode, props) {
     if (editor) {
       markCursor(editor, cursorPosition, mode);
     }
-  }, [editor, props]);
+  }, [editor, props, cursorPosition, mode]);
 }
 
 export function useExecuteCommand(editor, gesture) {
@@ -47,7 +47,7 @@ export function useExecuteCommand(editor, gesture) {
     if (gesture.id) {
       executeCommand(gesture, editor);
     }
-  }, [gesture.id]);
+  }, [gesture.id, editor, gesture]);
 }
 
 export function useMarkLineOperator(editor, mode, line) {}

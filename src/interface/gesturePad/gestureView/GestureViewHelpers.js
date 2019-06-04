@@ -1,4 +1,4 @@
-import { NUMBER_OF_BOXES } from "../CONSTANTS";
+import { NUMBER_OF_BOXES } from "../../CONSTANTS";
 
 export function renderGrid(ctx, containerWidth, boxWidth) {
   let count = 0;
@@ -54,7 +54,7 @@ export function renderExpiredBoxes(
   if (expiringPositions.length) {
     expiringPositions.forEach(box => {
       const diff = count - box.timeAdded;
-      if (diff < 20) {
+      if (diff < 10) {
         const alphaValue = 1 - diff / 20;
         ctx.fillStyle = `rgba(0, 0, 0, ${alphaValue})`;
       } else {
