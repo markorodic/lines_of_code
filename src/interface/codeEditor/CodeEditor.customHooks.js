@@ -34,12 +34,12 @@ export function useMarkGutter(editor, { lineNumber }) {
   }, [editor, lineNumber]);
 }
 
-export function useMarkCursor(editor, cursorPosition, mode, props) {
+export function useMarkCursor(editor, cursorPosition, { type }, props) {
   React.useEffect(() => {
     if (editor) {
-      markCursor(editor, cursorPosition, mode);
+      markCursor(editor, cursorPosition, type);
     }
-  }, [editor, props, cursorPosition, mode]);
+  }, [editor, props, cursorPosition, type]);
 }
 
 export function useExecuteCommand(editor, gesture) {
@@ -49,5 +49,3 @@ export function useExecuteCommand(editor, gesture) {
     }
   }, [gesture.id, editor, gesture]);
 }
-
-export function useMarkLineOperator(editor, mode, line) {}

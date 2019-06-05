@@ -21,12 +21,12 @@ function makeMarker() {
   return marker;
 }
 
-export function markCursor(editor, { lineNumber, characterPosition }, mode) {
+export function markCursor(editor, { lineNumber, characterPosition }, type) {
   if (editor.getAllMarks()[0]) {
     editor.getAllMarks()[0].clear();
   }
 
-  if (mode !== "Motion") {
+  if (type === "Operator") {
     const lastCh = editor.getLine(lineNumber).length;
 
     editor.markText(

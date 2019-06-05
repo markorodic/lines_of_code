@@ -9,27 +9,30 @@ export function getGesture(validGestures, gestureMatched, count) {
   }
 }
 
-export function matchGesture(input, validGestures) {
-  let name, type;
+export function matchMotionGesture(positions, validGestures, count) {
+  const path = getPathFrom(positions);
+  const gestureMatched = validGestures.edit.motion.all.find(gesture => {
+    const pathTrimmed = trimArray(path, gesture.path.length);
+    return _.isEqual(pathTrimmed, gesture.path);
+  });
+  gestureMatched.id = count;
+  return gestureMatched;
+}
 
-  const path = getPathFrom(input);
+export function gestureComboMatched(positions, validGestures) {
+  let gestureMatched;
+  const path = getPathFrom(positions);
 
   validGestures.edit.allTypes.forEach(gestureType => {
-    const gestureMatched = validGestures.edit[gestureType].all.find(gesture => {
-      const pathTrimmed = trimArray(path, gesture.path.length);
-
-      return _.isEqual(pathTrimmed, gesture.path);
-    });
-    if (gestureMatched) {
-      name = gestureMatched.name;
+    if (!gestureMatched) {
+      gestureMatched = validGestures.edit[gestureType].all.find(gesture => {
+        const pathTrimmed = trimArray(path, gesture.path.length);
+        return _.isEqual(pathTrimmed, gesture.path);
+      });
     }
-    type = gestureType;
   });
 
-  return {
-    name,
-    type
-  };
+  return gestureMatched;
 }
 
 function trimArray(array, length) {
@@ -48,27 +51,27 @@ export function getNewPath(path, gestureMatched) {
   return newPath;
 }
 
-export function matchMotionGesture(input, { edit: { motion } }) {
-  if (input.length > 1) {
-    const direction = getDirectionFrom(input);
-    const motionInput = motion.all.find(nav => {
-      return _.isEqual(direction, nav.path);
-    });
-    return motion[motionInput.name];
-  }
-}
+// export function matchMotionGesture(input, { edit: { motion } }) {
+//   if (input.length > 1) {
+//     const direction = getDirectionFrom(input);
+//     const motionInput = motion.all.find(nav => {
+//       return _.isEqual(direction, nav.path);
+//     });
+//     return motion[motionInput.name];
+//   }
+// }
 
-function getDirectionFrom(positions) {
-  if (positions[0].x < positions[1].x) {
-    return "Right";
-  }
-  if (positions[0].x > positions[1].x) {
-    return "Left";
-  }
-  if (positions[0].y < positions[1].y) {
-    return "Down";
-  }
-  if (positions[0].y > positions[1].y) {
-    return "Up";
-  }
-}
+// function getDirectionFrom(positions) {
+//   if (positions[0].x < positions[1].x) {
+//     return "Right";
+//   }
+//   if (positions[0].x > positions[1].x) {
+//     return "Left";
+//   }
+//   if (positions[0].y < positions[1].y) {
+//     return "Down";
+//   }
+//   if (positions[0].y > positions[1].y) {
+//     return "Up";
+//   }
+// }

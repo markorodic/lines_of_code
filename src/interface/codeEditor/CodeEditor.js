@@ -16,12 +16,12 @@ import { useCursorPosition } from "./CodeEditor.customHooks";
 
 function CodeEditor(props) {
   const [editor, setEditor] = React.useState(null);
-  const { gesture, gestureActive, mode } = useInterfaceState();
+  const { gesture, gestureActive } = useInterfaceState();
   const cursorPosition = useCursorPosition(editor, gestureActive);
 
   useExecuteCommand(editor, gesture);
   useMarkGutter(editor, cursorPosition);
-  useMarkCursor(editor, cursorPosition, mode, props);
+  useMarkCursor(editor, cursorPosition, gesture, props);
 
   return (
     <div className="code">

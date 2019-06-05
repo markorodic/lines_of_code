@@ -39,8 +39,8 @@ export const editGestures = {
         ]
       },
       all: [
-        { name: "delete", path: ["Right", "Right", "Up"] },
-        { name: "delete", path: ["Left", "Left", "Up"] }
+        { name: "delete", path: ["Right", "Right", "Up"], type: "Operator" },
+        { name: "delete", path: ["Left", "Left", "Up"], type: "Operator" }
       ]
     },
     motion: {
@@ -78,20 +78,36 @@ export const editGestures = {
       },
       all: [
         {
-          name: "up",
-          path: ["Up"]
-        },
-        {
-          name: "down",
-          path: ["Down"]
-        },
-        {
+          id: 1,
           name: "next",
-          path: ["Right"]
+          type: "Motion",
+          length: 1,
+          path: ["Right"],
+          normalisedPositions: [{ x: 2, y: 2 }, { x: 3, y: 2 }]
         },
         {
+          id: 2,
           name: "previous",
-          path: ["Left"]
+          type: "Motion",
+          length: 1,
+          path: ["Left"],
+          normalisedPositions: [{ x: 2, y: 2 }, { x: 1, y: 2 }]
+        },
+        {
+          id: 3,
+          name: "up",
+          type: "Motion",
+          length: 1,
+          path: ["Up"],
+          normalisedPositions: [{ x: 2, y: 3 }, { x: 2, y: 2 }]
+        },
+        {
+          id: 4,
+          name: "down",
+          type: "Motion",
+          length: 1,
+          path: ["Down"],
+          normalisedPositions: [{ x: 2, y: 1 }, { x: 2, y: 2 }]
         }
       ]
     },

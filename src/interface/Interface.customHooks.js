@@ -5,7 +5,6 @@ import {
 } from "./Interface.context";
 import {
   SET_GESTURE,
-  SET_MODE,
   USER_ACTIVE,
   USER_INACTIVE,
   GESTURE_ACTIVE,
@@ -70,13 +69,11 @@ export function useInterfaceDispatch() {
   const setGestureActive = () => dispatch({ type: GESTURE_ACTIVE });
   const setGestureInactive = () => dispatch({ type: GESTURE_INACTIVE });
   const setGesture = gesture => dispatch({ type: SET_GESTURE, gesture });
-  const setMode = mode => dispatch({ type: SET_MODE, mode });
   return {
     setUserActive,
     setUserInactive,
     setGestureActive,
     setGestureInactive,
-    setGesture,
-    setMode
+    setGesture
   };
 }

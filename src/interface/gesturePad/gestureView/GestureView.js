@@ -11,6 +11,18 @@ import { renderGiridPointGuides } from "./gestureViewGrid/GestureViewGrid";
 import { NUMBER_OF_BOXES } from "../../CONSTANTS";
 
 export default function GestureView(props) {
+  // should take props and the context gesture state
+  // create a matrix of the grid
+  // [
+  //  [0,0,0,0,0,0,0],
+  //  [0,0,0,0,0,0,0],
+  //  [0,0,0,0,0,0,0],
+  //  [0,0,0,0,0,0,0],
+  //  [0,0,0,0,0,0,0],
+  //  [0,0,0,0,0,0,0],
+  //  [0,0,0,0,0,0,0]
+  // ]
+
   React.useEffect(() => {});
   const canvasElement = React.useRef();
   const ctx = useCreateCanvasContext(props, canvasElement);

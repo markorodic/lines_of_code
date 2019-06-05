@@ -1,6 +1,6 @@
 import React from "react";
 import GestureInput from "./gestureInput/GestureInput";
-import { matchGesture, getGesture } from "./GesturePad.helpers";
+import { matchMotionGesture, gestureComboMatched } from "./GesturePad.helpers";
 import { validGestures } from "../gesturesPatterns/gesturePatterns";
 import {
   useInterfaceDispatch,
@@ -8,7 +8,7 @@ import {
 } from "../Interface.customHooks";
 
 function GesturePad({ count, containerProperties }) {
-  const { setGesture, setMode } = useInterfaceDispatch();
+  const { setGesture } = useInterfaceDispatch();
   const { gestureActive } = useInterfaceState();
   const [currentPattern, setCurrentPattern] = React.useState([]);
 
@@ -16,16 +16,21 @@ function GesturePad({ count, containerProperties }) {
     const currentPosition = input[1];
     setCurrentPattern([...currentPattern, currentPosition]);
 
-    const gestureMatched = matchGesture(input, validGestures);
+    const gestureMatched = matchMotionGesture(input, validGestures, count);
 
-    if (gestureMatched.name) {
-      const gesture = getGesture(validGestures, gestureMatched, count);
-      setMode(gesture.type);
-      setGesture(gesture);
+    if (gestureMatched) {
+      setGesture(gestureMatched);
     }
   };
 
   React.useEffect(() => {
+    if (!gestureActive && currentPattern.length) {
+      const gestureMatched = gestureComboMatched(currentPattern, validGestures);
+      console.log(gestureMatched);
+      if (gestureMatched) {
+        setGesture(gestureMatched);
+      }
+    }
     setCurrentPattern([]);
   }, [gestureActive]);
 
