@@ -8,8 +8,8 @@ import {
 } from "../Interface.customHooks";
 
 function GesturePad({ count, containerProperties }) {
-  const { setGesture } = useInterfaceDispatch();
-  const { gestureActive } = useInterfaceState();
+  const { setGesture, setMode } = useInterfaceDispatch();
+  const { gestureActive, mode } = useInterfaceState();
   const [currentPattern, setCurrentPattern] = React.useState([]);
 
   const inputAdded = input => {
@@ -18,17 +18,25 @@ function GesturePad({ count, containerProperties }) {
 
     const gestureMatched = matchMotionGesture(input, validGestures, count);
 
-    if (gestureMatched) {
+    if (gestureMatched && mode === "Motion") {
       setGesture(gestureMatched);
     }
   };
 
   React.useEffect(() => {
     if (!gestureActive && currentPattern.length) {
-      const gestureMatched = gestureComboMatched(currentPattern, validGestures);
-      console.log(gestureMatched);
-      if (gestureMatched) {
-        setGesture(gestureMatched);
+      if (mode === "Motion") {
+        const gestureMatched = gestureComboMatched(
+          currentPattern,
+          validGestures
+        );
+        if (gestureMatched) {
+          setMode(gestureMatched.type);
+          setGesture(gestureMatched);
+        }
+      }
+
+      if (mode === "Operation") {
       }
     }
     setCurrentPattern([]);

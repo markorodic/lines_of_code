@@ -8,7 +8,8 @@ import {
   USER_ACTIVE,
   USER_INACTIVE,
   GESTURE_ACTIVE,
-  GESTURE_INACTIVE
+  GESTURE_INACTIVE,
+  SET_MODE
 } from "./Interface.actions";
 
 export const useAnimationFrame = callback => {
@@ -69,11 +70,13 @@ export function useInterfaceDispatch() {
   const setGestureActive = () => dispatch({ type: GESTURE_ACTIVE });
   const setGestureInactive = () => dispatch({ type: GESTURE_INACTIVE });
   const setGesture = gesture => dispatch({ type: SET_GESTURE, gesture });
+  const setMode = mode => dispatch({ type: SET_MODE, mode });
   return {
     setUserActive,
     setUserInactive,
     setGestureActive,
     setGestureInactive,
-    setGesture
+    setGesture,
+    setMode
   };
 }
