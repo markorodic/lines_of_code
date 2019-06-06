@@ -79,10 +79,6 @@ export default function GestureInput({ count, updateGestureState }) {
     }
   };
 
-  React.useEffect(() => {
-    console.log(userActive);
-  }, [userActive]);
-
   return (
     <section
       ref={GestureInputElement}

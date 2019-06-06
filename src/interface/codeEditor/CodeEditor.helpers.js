@@ -11,7 +11,6 @@ function showRelativeLines(cm) {
 
 export function markGutter(editor, lineNumber) {
   editor.clearGutter("position");
-  console.log(lineNumber);
   editor.setGutterMarker(lineNumber, "position", makeMarker());
 }
 
@@ -25,14 +24,14 @@ function makeMarker() {
 export function markCursor(
   editor,
   { lineNumber, characterPosition },
-  type,
+  name,
   mode
 ) {
   if (editor.getAllMarks()[0]) {
     editor.getAllMarks()[0].clear();
   }
 
-  if (mode === "Operator") {
+  if (name === "delete") {
     const lastCh = editor.getLine(lineNumber).length;
 
     editor.markText(
@@ -40,6 +39,30 @@ export function markCursor(
       { line: lineNumber, ch: lastCh },
       { readOnly: false, className: "cursor-delete" }
     );
+  } else if (name === "change") {
+    const lastCh = editor.getLine(lineNumber).length;
+    editor.markText(
+      { line: lineNumber, ch: 0 },
+      { line: lineNumber, ch: lastCh },
+      { readOnly: false, className: "cursor-change" }
+    );
+  } else if (name === "cut") {
+    const lastCh = editor.getLine(lineNumber).length;
+    editor.markText(
+      { line: lineNumber, ch: 0 },
+      { line: lineNumber, ch: lastCh },
+      { readOnly: false, className: "cursor-cut" }
+    );
+  } else if (name === "copy") {
+    console.log(name);
+    const lastCh = editor.getLine(lineNumber).length;
+    editor.markText(
+      { line: lineNumber, ch: 0 },
+      { line: lineNumber, ch: lastCh },
+      { readOnly: false, className: "cursor-copy" }
+    );
+  } else if (name === "paste") {
+  } else if (name === "insert") {
   } else {
     const line = editor.getCursor().line;
     const ch = editor.getCursor().ch;

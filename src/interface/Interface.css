@@ -147,6 +147,18 @@ html, body {
     background: #FC5081;
 }
 
+.cursor-change {
+    background: #4E8DC4;
+}
+
+.cursor-cut {
+    background: #A56FA3;
+}
+
+.cursor-copy {
+    background: #5CB290;
+}
+
 @media (max-width: 960px) { 
     body {
     }

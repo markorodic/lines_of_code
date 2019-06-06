@@ -26,9 +26,9 @@ function GesturePad({ count, containerProperties }) {
     if (mode === "Motion") {
       gestureMatched = gestureComboMatched(newPattern, validGestures, count);
     } else {
-      if (inputIsAnErase(savedPattern, newPattern)) {
-        setSavedPattern([]);
-      }
+      // if (inputIsAnErase(savedPattern, newPattern)) {
+      //   setSavedPattern([]);
+      // }
       gestureMatched = matchMotionGesture(input, validGestures, count);
     }
 

@@ -39,8 +39,60 @@ export const editGestures = {
         ]
       },
       all: [
+        {
+          name: "change",
+          path: ["Down", "Right", "Right", "Up", "Up", "Left"],
+          type: "Operator"
+        },
+        {
+          name: "change",
+          path: ["Down", "Left", "Left", "Up", "Up", "Right"],
+          type: "Operator"
+        },
+        {
+          name: "paste",
+          path: ["Up", "Up", "Right", "Down"],
+          type: "Operator"
+        },
+        {
+          name: "paste",
+          path: ["Up", "Up", "Left", "Down"],
+          type: "Operator"
+        },
+        {
+          name: "cut",
+          path: ["Up", "Left", "Left", "Down"],
+          type: "Operator"
+        },
+        {
+          name: "cut",
+          path: ["Down", "Right", "Right", "Up"],
+          type: "Operator"
+        },
+        {
+          name: "copy",
+          path: ["Left", "Down", "Down", "Right"],
+          type: "Operator"
+        },
+        {
+          name: "copy",
+          path: ["Right", "Down", "Down", "Left"],
+          type: "Operator"
+        },
+        {
+          name: "copy",
+          path: ["Right", "Up", "Up", "Left"],
+          type: "Operator"
+        },
+        {
+          name: "copy",
+          path: ["Left", "Up", "Up", "Right"],
+          type: "Operator"
+        },
         { name: "delete", path: ["Right", "Right", "Up"], type: "Operator" },
-        { name: "delete", path: ["Left", "Left", "Up"], type: "Operator" }
+        { name: "delete", path: ["Left", "Left", "Up"], type: "Operator" },
+        { name: "insert", path: ["Up", "Up", "Right"], type: "Operator" },
+        { name: "insert", path: ["Up", "Up", "Left"], type: "Operator" }
       ]
     },
     motion: {
