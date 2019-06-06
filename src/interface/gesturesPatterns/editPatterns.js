@@ -38,6 +38,51 @@ export const editGestures = {
           { x: 3, y: 3 }
         ]
       },
+      change: {
+        name: "change",
+        type: "Operation",
+        normalisedPositions: [
+          { x: 3, y: 1 },
+          { x: 2, y: 1 },
+          { x: 2, y: 2 },
+          { x: 2, y: 3 },
+          { x: 3, y: 3 }
+        ]
+      },
+      paste: {
+        name: "paste",
+        type: "Operation",
+        normalisedPositions: [
+          { x: 3, y: 1 },
+          { x: 2, y: 1 },
+          { x: 2, y: 2 },
+          { x: 2, y: 3 },
+          { x: 3, y: 3 }
+        ]
+      },
+      cut: {
+        name: "cut",
+        type: "Operation",
+        normalisedPositions: [
+          { x: 3, y: 1 },
+          { x: 2, y: 1 },
+          { x: 2, y: 2 },
+          { x: 2, y: 3 },
+          { x: 3, y: 3 }
+        ]
+      },
+      insert: {
+        name: "insert",
+        type: "Operation",
+        normalisedPositions: [
+          { x: 3, y: 1 },
+          { x: 2, y: 1 },
+          { x: 2, y: 2 },
+          { x: 2, y: 3 },
+          { x: 3, y: 3 }
+        ]
+      },
+      names: ["change", "paste", "cut", "yank", "delete", "insert"],
       all: [
         {
           name: "change",

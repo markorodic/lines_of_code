@@ -1,26 +1,19 @@
+import { validGestures } from "../gesturesPatterns/gesturePatterns";
+import { renderGestureIcon } from "./RenderGestureIcons";
+
 export function clearCanvas(ctx, containerWidth) {
   ctx.clearRect(0, 0, containerWidth, containerWidth);
 }
 
-export function renderPattern(ctx, boxWidth, containerWidth) {
-  drawPatternIcon(ctx, containerWidth);
+export function renderPattern(ctx, boxWidth, containerWidth, gesture) {
+  drawPatternIcon(ctx, containerWidth, gesture);
 }
 
 const boxes = 7;
 
-export function drawPatternIcon(ctx, containerWidth) {
-  drawPatternGrids(ctx, 7, containerWidth);
+export function drawPatternIcon(ctx, containerWidth, gesture) {
+  drawPatternGrids(ctx, 7, containerWidth, gesture);
 }
-
-// function drawPattern(ctx) {
-//   ctx.moveTo(gridPoint.x[1], gridPoint.y[3]);
-//   ctx.lineTo(gridPoint.x[2], gridPoint.y[3]);
-//   ctx.lineTo(gridPoint.x[2], gridPoint.y[2]);
-//   ctx.lineTo(gridPoint.x[3], gridPoint.y[2]);
-//   ctx.lineWidth = 1;
-//   ctx.strokeStyle = "white";
-//   ctx.stroke();
-// }
 
 const patternIconRatios = {
   sideMargins: 3,
@@ -29,7 +22,7 @@ const patternIconRatios = {
   boxWidth: 13
 };
 
-function drawPatternGrids(ctx, numberOfGrids, containerWidth) {
+function drawPatternGrids(ctx, numberOfGrids, containerWidth, gesture) {
   let marginSide, marginBox, widthBox, gridNumber;
   if (containerWidth > 900) {
     marginSide = 10;
@@ -47,10 +40,11 @@ function drawPatternGrids(ctx, numberOfGrids, containerWidth) {
   }
 
   let count = 0;
-  while (count < gridNumber) {
+  while (count < 6) {
     const marginX = marginSide + count * (widthBox + marginBox);
     const marginY = marginSide;
     drawSinglePatternGrid(ctx, marginX, marginY, marginBox, widthBox);
+    renderGestureIcon(ctx, marginX, marginY, widthBox, count, gesture);
     count++;
   }
 }

@@ -7,18 +7,21 @@ function Header(props) {
   const HeaderElement = React.useRef();
   const canvasElement = React.useRef();
   const containerProperties = useContainerProperties(HeaderElement);
-  const { userActive } = useInterfaceState();
+  const { userActive, gesture } = useInterfaceState();
 
   useRenderGestureView(
     containerProperties.width,
     containerProperties.height,
     canvasElement,
-    userActive
+    userActive,
+    gesture
   );
   return (
     <header className="header" ref={HeaderElement}>
-      {!userActive && <p>line</p>}
+      {!userActive && <p>Untitled</p>}
+      {/* <div className="icons"> */}
       <canvas id="canvas" ref={canvasElement} />
+      {/* </div> */}
     </header>
   );
 }
