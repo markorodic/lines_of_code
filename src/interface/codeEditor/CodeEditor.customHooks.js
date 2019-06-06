@@ -1,8 +1,8 @@
 import React from "react";
 import { markGutter, markCursor, relativeLinesOn } from "./CodeEditor.helpers";
-import { executeCommand } from "./CodeEditor.commands";
+import { executeCommand, executeOperatorCommand } from "./CodeEditor.commands";
 
-export function useCursorPosition(editor, gestureActive) {
+export function useCursorPosition(editor, gestureActive, mode, gesture) {
   const [cursorPosition, setCursorPosition] = React.useState({
     lineNumber: 0,
     characterPosition: 0
@@ -15,12 +15,12 @@ export function useCursorPosition(editor, gestureActive) {
   }, [editor]);
 
   React.useEffect(() => {
-    if (editor && !gestureActive) {
+    if (editor && !gestureActive && mode === "Motion") {
       const lineNumber = editor.getCursor().line;
       const characterPosition = editor.getCursor().ch;
       setCursorPosition({ lineNumber, characterPosition });
     }
-  }, [gestureActive, editor]);
+  }, [editor, mode, gesture, gestureActive]);
 
   return cursorPosition;
 }
@@ -34,18 +34,32 @@ export function useMarkGutter(editor, { lineNumber }) {
   }, [editor, lineNumber]);
 }
 
-export function useMarkCursor(editor, cursorPosition, { type }, props) {
+export function useMarkCursor(editor, cursorPosition, { type }, props, mode) {
   React.useEffect(() => {
     if (editor) {
-      markCursor(editor, cursorPosition, type);
+      markCursor(editor, cursorPosition, type, mode);
     }
-  }, [editor, props, cursorPosition, type]);
+  }, [editor, props, cursorPosition, type, mode]);
 }
 
-export function useExecuteCommand(editor, gesture) {
+export function useExecuteMotionCommand(editor, gesture) {
   React.useEffect(() => {
     if (gesture.id) {
       executeCommand(gesture, editor);
     }
   }, [gesture.id, editor, gesture]);
+}
+
+export function useExecuteOperatorCommand(
+  editor,
+  cursorPosition,
+  gesture,
+  userActive,
+  mode
+) {
+  React.useEffect(() => {
+    if (!userActive && mode === "Operator") {
+      executeOperatorCommand(gesture, editor, cursorPosition);
+    }
+  }, [editor, gesture, userActive, mode, cursorPosition]);
 }

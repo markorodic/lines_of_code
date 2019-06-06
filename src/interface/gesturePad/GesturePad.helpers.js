@@ -9,6 +9,11 @@ export function getGesture(validGestures, gestureMatched, count) {
   }
 }
 
+export function inputIsAnErase(savedPattern, input) {
+  let reversedPattern = savedPattern.reverse();
+  return savedPattern.length && _.isEqual(input, reversedPattern);
+}
+
 export function matchMotionGesture(positions, validGestures, count) {
   const path = getPathFrom(positions);
   const gestureMatched = validGestures.edit.motion.all.find(gesture => {
@@ -19,9 +24,9 @@ export function matchMotionGesture(positions, validGestures, count) {
   return gestureMatched;
 }
 
-export function gestureComboMatched(positions, validGestures) {
+export function gestureComboMatched(pattern, validGestures, count) {
   let gestureMatched;
-  const path = getPathFrom(positions);
+  const path = getPathFrom(pattern);
 
   validGestures.edit.allTypes.forEach(gestureType => {
     if (!gestureMatched) {
@@ -31,7 +36,9 @@ export function gestureComboMatched(positions, validGestures) {
       });
     }
   });
-
+  if (gestureMatched) {
+    gestureMatched.id = count;
+  }
   return gestureMatched;
 }
 

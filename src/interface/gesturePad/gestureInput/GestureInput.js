@@ -19,12 +19,13 @@ export default function GestureInput({ count, updateGestureState }) {
   const [pattern, setPattern] = React.useState([]);
   const [timer, setTimer] = React.useState(null);
   const containerProperties = useContainerProperties(GestureInputElement);
-  const { userActive, gestureActive } = useInterfaceState();
+  const { userActive, gestureActive, mode } = useInterfaceState();
   const {
     setUserActive,
     setUserInactive,
     setGestureActive,
-    setGestureInactive
+    setGestureInactive,
+    setMode
   } = useInterfaceDispatch();
 
   const onGesture = event => {
@@ -59,7 +60,28 @@ export default function GestureInput({ count, updateGestureState }) {
   const onGestureEnd = event => {
     event.preventDefault();
     setUserInactive();
+    if (mode === "Operator") {
+      ifInputIsIdle(timer, setTimer, () => {
+        setMode("Motion");
+      });
+    }
   };
+
+  const onClick = event => {
+    event.preventDefault();
+    if (userActive) {
+      setUserInactive();
+      ifInputIsIdle(timer, setTimer, () => {
+        setMode("Motion");
+      });
+    } else {
+      setUserActive();
+    }
+  };
+
+  React.useEffect(() => {
+    console.log(userActive);
+  }, [userActive]);
 
   return (
     <section
@@ -68,16 +90,16 @@ export default function GestureInput({ count, updateGestureState }) {
       onMouseLeave={onGestureEnd}
       onTouchMove={onGesture}
       onTouchEnd={onGestureEnd}
+      onClick={onClick}
       className="gesture-pad"
       data-testid="gesture-pad"
     >
       <GestureView
+        count={count}
         position={position}
         pattern={pattern}
         expiringPositions={expiringPositions}
-        count={count}
         containerWidth={containerProperties.width}
-        gestureActive={gestureActive}
       />
     </section>
   );

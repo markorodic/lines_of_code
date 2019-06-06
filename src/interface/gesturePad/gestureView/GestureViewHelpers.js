@@ -1,4 +1,5 @@
 import { NUMBER_OF_BOXES } from "../../CONSTANTS";
+import { renderInnerLine } from "./GestureViewRenderHelpers";
 
 export function renderGrid(ctx, containerWidth, boxWidth) {
   let count = 0;
@@ -44,13 +45,7 @@ export function renderCurrentBox(ctx, position, boxWidth) {
   }
 }
 
-export function renderExpiredBoxes(
-  ctx,
-  boxWidth,
-  expiringPositions,
-  count,
-  gesture
-) {
+export function renderExpiredBoxes(ctx, boxWidth, expiringPositions, count) {
   if (expiringPositions.length) {
     expiringPositions.forEach(box => {
       const diff = count - box.timeAdded;
@@ -69,4 +64,27 @@ export function renderExpiredBoxes(
 
 export function clearCanvas(ctx, containerWidth) {
   ctx.clearRect(0, 0, containerWidth, containerWidth);
+}
+
+export function renderMatchedPattern(ctx, boxWidth, gesture, mode) {
+  if (mode === "Operator") {
+    gesture.pattern.forEach((position, index) => {
+      const prevDirection = gesture.path[index - 1];
+      const direction = gesture.path[index];
+      const nextDirection = gesture.path[index + 1];
+      const gestureLength = gesture.path.length;
+
+      renderCurrentBox(ctx, position, boxWidth);
+      renderInnerLine(
+        ctx,
+        position,
+        prevDirection,
+        direction,
+        nextDirection,
+        index,
+        gestureLength,
+        boxWidth
+      );
+    });
+  }
 }

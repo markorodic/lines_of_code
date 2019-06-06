@@ -1,5 +1,6 @@
 import {
   SET_GESTURE,
+  ADD_COMBINATION,
   SET_MODE,
   GESTURE_ACTIVE,
   GESTURE_INACTIVE,
@@ -11,6 +12,8 @@ export default function InterfaceReducer(state, action) {
   switch (action.type) {
     case SET_GESTURE:
       return { ...state, gesture: action.gesture };
+    case ADD_COMBINATION:
+      return { ...state, combination: action.pattern };
     case SET_MODE:
       return { ...state, mode: action.mode };
     case GESTURE_ACTIVE:

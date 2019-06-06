@@ -13,17 +13,17 @@ export function renderInnerLine(
   centerPoint = [boxWidth / 2, boxWidth / 2];
 
   if (prevDirection) {
-    startPoint = getBoxPointFromPreviousDirection(direction, boxWidth);
+    startPoint = getBoxPointFromPreviousDirection(prevDirection, boxWidth);
   } else {
     startPoint = centerPoint;
   }
 
-  if (positionIsLast(index, gestureLength)) {
-    endPoint = centerPoint;
+  if (direction) {
+    endPoint = getBoxPointFromCurrentDirection(direction, boxWidth);
   } else {
-    endPoint = getBoxPointFromCurrentDirection(nextDirection, boxWidth);
+    endPoint = centerPoint;
   }
-
+  // debugger;
   canvas.beginPath();
   canvas.moveTo(
     (position.x - 1) * boxWidth + startPoint[0],
@@ -50,7 +50,7 @@ export function renderInnerLine(
 }
 
 function positionIsLast(index, gestureLength) {
-  return index === gestureLength - 1;
+  return index === gestureLength;
 }
 
 function getBoxPointFromCurrentDirection(nextDirection, boxWidth) {

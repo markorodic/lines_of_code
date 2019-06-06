@@ -11,6 +11,7 @@ function showRelativeLines(cm) {
 
 export function markGutter(editor, lineNumber) {
   editor.clearGutter("position");
+  console.log(lineNumber);
   editor.setGutterMarker(lineNumber, "position", makeMarker());
 }
 
@@ -21,18 +22,23 @@ function makeMarker() {
   return marker;
 }
 
-export function markCursor(editor, { lineNumber, characterPosition }, type) {
+export function markCursor(
+  editor,
+  { lineNumber, characterPosition },
+  type,
+  mode
+) {
   if (editor.getAllMarks()[0]) {
     editor.getAllMarks()[0].clear();
   }
 
-  if (type === "Operator") {
+  if (mode === "Operator") {
     const lastCh = editor.getLine(lineNumber).length;
 
     editor.markText(
       { line: lineNumber, ch: 0 },
       { line: lineNumber, ch: lastCh },
-      { readOnly: true, className: "cursor-delete" }
+      { readOnly: false, className: "cursor-delete" }
     );
   } else {
     const line = editor.getCursor().line;

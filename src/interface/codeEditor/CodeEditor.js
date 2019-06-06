@@ -6,22 +6,35 @@ import "codemirror/mode/xml/xml.js";
 import "codemirror/mode/javascript/javascript.js";
 import { UnControlled as CodeMirror } from "react-codemirror2";
 import { initialCodeState } from "./initialCode";
-import {
-  useMarkGutter,
-  useMarkCursor,
-  useExecuteCommand
-} from "./CodeEditor.customHooks";
+import { useMarkGutter, useMarkCursor } from "./CodeEditor.customHooks";
 import { useInterfaceState } from "../Interface.customHooks";
 import { useCursorPosition } from "./CodeEditor.customHooks";
+import { executeCommand, executeOperatorCommand } from "./CodeEditor.commands";
 
 function CodeEditor(props) {
   const [editor, setEditor] = React.useState(null);
-  const { gesture, gestureActive } = useInterfaceState();
-  const cursorPosition = useCursorPosition(editor, gestureActive);
+  const { gesture, gestureActive, userActive, mode } = useInterfaceState();
+  const cursorPosition = useCursorPosition(
+    editor,
+    gestureActive,
+    mode,
+    gesture
+  );
 
-  useExecuteCommand(editor, gesture);
+  React.useEffect(() => {
+    if (gesture.id) {
+      executeCommand(gesture, editor);
+    }
+  }, [gesture.id, editor, gesture]);
+
+  React.useEffect(() => {
+    if (!userActive && mode === "Operator") {
+      executeOperatorCommand(gesture, editor, cursorPosition);
+    }
+  }, [editor, gesture, userActive, mode, cursorPosition]);
+
   useMarkGutter(editor, cursorPosition);
-  useMarkCursor(editor, cursorPosition, gesture, props);
+  useMarkCursor(editor, cursorPosition, gesture, props, mode);
 
   return (
     <div className="code">
