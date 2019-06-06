@@ -18,7 +18,7 @@ function Header(props) {
   );
   return (
     <header className="header" ref={HeaderElement}>
-      {!userActive && <p>Lines of Code</p>}
+      {!userActive && <p>Project 1</p>}
       {/* <div className="icons"> */}
       <canvas id="canvas" ref={canvasElement} />
       {/* </div> */}
