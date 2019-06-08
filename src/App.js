@@ -3,7 +3,7 @@ import Interface from "./interface/Interface";
 import AST from "./ast/AST";
 import { setCSSCustomProperty } from "./utils";
 import { preventRefreshOnMobile } from "./utils";
-import logo from "./splash-logo.svg";
+import logo from "./assets/splash-logo.svg";
 import "./App.css";
 
 class App extends Component {

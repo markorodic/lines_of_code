@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Interface.css";
-import logo from "../logo.svg";
+import logo from "../assets/logo.svg";
 import Header from "./header/Header";
 import CodeEditor from "./codeEditor/CodeEditor";
 import GesturePad from "./gesturePad/GesturePad";

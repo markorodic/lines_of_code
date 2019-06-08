@@ -13,6 +13,7 @@ import { executeCommand, executeOperatorCommand } from "./CodeEditor.commands";
 
 function CodeEditor(props) {
   const [editor, setEditor] = React.useState(null);
+  const [clipBoard, setClipBoard] = React.useState("");
   const { gesture, gestureActive, userActive, mode } = useInterfaceState();
   const cursorPosition = useCursorPosition(
     editor,
@@ -29,12 +30,19 @@ function CodeEditor(props) {
 
   React.useEffect(() => {
     if (!userActive && mode === "Operator") {
-      executeOperatorCommand(gesture, editor, cursorPosition);
+      executeOperatorCommand(gesture, editor, cursorPosition, clipBoard);
     }
-  }, [editor, gesture, userActive, mode, cursorPosition]);
+  }, [editor, gesture, userActive, mode, cursorPosition, clipBoard]);
 
   useMarkGutter(editor, cursorPosition);
   useMarkCursor(editor, cursorPosition, gesture, props, mode);
+
+  React.useEffect(() => {
+    if (gesture.name === "copy" || gesture.name === "cut") {
+      const lineContent = editor.getLine(cursorPosition.lineNumber);
+      setClipBoard(lineContent);
+    }
+  }, [editor, gesture, cursorPosition]);
 
   return (
     <div className="code">

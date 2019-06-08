@@ -17,7 +17,13 @@ export function executeCommand({ name }, editor) {
   }
 }
 
-export function executeOperatorCommand({ name }, editor, { lineNumber }) {
+export function executeOperatorCommand(
+  { name },
+  editor,
+  { lineNumber },
+  clipBoard
+) {
+  console.log(name);
   switch (name) {
     case "delete":
       editor.setCursor({
@@ -25,6 +31,25 @@ export function executeOperatorCommand({ name }, editor, { lineNumber }) {
         ch: 0
       });
       editor.execCommand("deleteLine");
+      break;
+    case "cut":
+      editor.setCursor({
+        line: lineNumber,
+        ch: 0
+      });
+      editor.execCommand("deleteLine");
+      break;
+    case "paste":
+      editor.setCursor({
+        line: lineNumber + 1,
+        ch: 0
+      });
+      editor.execCommand("newlineAndIndent");
+      editor.setCursor({
+        line: lineNumber + 1,
+        ch: 0
+      });
+      editor.replaceSelection(clipBoard);
       break;
     default:
       return;
