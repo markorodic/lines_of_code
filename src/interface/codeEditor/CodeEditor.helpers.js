@@ -54,7 +54,6 @@ export function markCursor(
       { readOnly: false, className: "cursor-cut" }
     );
   } else if (name === "copy") {
-    console.log(name);
     const lastCh = editor.getLine(lineNumber).length;
     editor.markText(
       { line: lineNumber, ch: 0 },

@@ -21,7 +21,6 @@ function Header(props) {
       {!userActive && <p>Project 1</p>}
       {/* <div className="icons"> */}
       <canvas id="canvas" ref={canvasElement} />
-      {/* </div> */}
     </header>
   );
 }

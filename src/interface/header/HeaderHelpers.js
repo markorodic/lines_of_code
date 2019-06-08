@@ -34,6 +34,7 @@ function drawPatternGrids(ctx, numberOfGrids, containerWidth, gesture) {
       containerWidth
     );
     marginSide = sideMargins;
+    marginSide = 10;
     marginBox = boxMargins;
     widthBox = boxWidth;
     gridNumber = numberOfGrids;
@@ -74,8 +75,8 @@ function drawVerticleLines(ctx, marginX, marginY, boxWidth) {
   const lineDistance = boxWidth / 3;
   let x = marginX;
   while (count < 4) {
-    ctx.fillStyle = "#333333";
-    ctx.fillRect(x, marginY, 1, boxWidth);
+    ctx.fillStyle = "#232323";
+    ctx.fillRect(x + 0.5, marginY + 0.5, 1.5, boxWidth + 0.5);
     x += lineDistance;
     count++;
   }
@@ -86,8 +87,8 @@ function drawHorizontalLines(ctx, marginX, marginY, boxWidth) {
   let y = marginY;
   let count = 0;
   while (count < 4) {
-    ctx.fillStyle = "#333333";
-    ctx.fillRect(marginX, y, boxWidth, 1);
+    ctx.fillStyle = "#232323";
+    ctx.fillRect(marginX + 0.5, y + 0.5, boxWidth + 0.5, 1.5);
     y += lineDistance;
     count++;
   }
