@@ -1,4 +1,10 @@
-export function renderGiridPointGuides(ctx, position, boxWidth, gestureActive) {
+export function renderGiridPointGuides(
+  ctx,
+  position,
+  boxWidth,
+  gestureActive,
+  mode
+) {
   if (position.x && gestureActive) {
     const guidePoints = [];
     let x, y;
@@ -36,7 +42,11 @@ export function renderGiridPointGuides(ctx, position, boxWidth, gestureActive) {
     guidePoints.push({ x, y });
 
     guidePoints.forEach(point => {
-      ctx.fillStyle = "#969696";
+      if (mode === "Insert") {
+        ctx.fillStyle = "#707070";
+      } else {
+        ctx.fillStyle = "#969696";
+      }
       ctx.fillRect(point.x - 1, point.y - 1, 2, 2);
     });
   }

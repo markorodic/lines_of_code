@@ -71,29 +71,29 @@ export const editGestures = {
           { x: 3, y: 3 }
         ]
       },
-      insert: {
-        name: "insert",
-        type: "Operation",
-        normalisedPositions: [
-          { x: 3, y: 1 },
-          { x: 2, y: 1 },
-          { x: 2, y: 2 },
-          { x: 2, y: 3 },
-          { x: 3, y: 3 }
-        ]
-      },
+      // insert: {
+      //   name: "insert",
+      //   type: "Operation",
+      //   normalisedPositions: [
+      //     { x: 3, y: 1 },
+      //     { x: 2, y: 1 },
+      //     { x: 2, y: 2 },
+      //     { x: 2, y: 3 },
+      //     { x: 3, y: 3 }
+      //   ]
+      // },
       names: ["change", "paste", "cut", "yank", "delete", "insert"],
       all: [
-        {
-          name: "change",
-          path: ["Down", "Right", "Right", "Up", "Up", "Left"],
-          type: "Operator"
-        },
-        {
-          name: "change",
-          path: ["Down", "Left", "Left", "Up", "Up", "Right"],
-          type: "Operator"
-        },
+        // {
+        //   name: "change",
+        //   path: ["Down", "Right", "Right", "Up", "Up", "Left"],
+        //   type: "Operator"
+        // },
+        // {
+        //   name: "change",
+        //   path: ["Down", "Left", "Left", "Up", "Up", "Right"],
+        //   type: "Operator"
+        // },
         {
           name: "paste",
           path: ["Up", "Up", "Right", "Down"],
@@ -119,25 +119,25 @@ export const editGestures = {
           path: ["Left", "Down", "Down", "Right"],
           type: "Operator"
         },
-        {
-          name: "copy",
-          path: ["Right", "Down", "Down", "Left"],
-          type: "Operator"
-        },
-        {
-          name: "copy",
-          path: ["Right", "Up", "Up", "Left"],
-          type: "Operator"
-        },
+        // {
+        //   name: "copy",
+        //   path: ["Right", "Down", "Down", "Left"],
+        //   type: "Operator"
+        // },
+        // {
+        //   name: "copy",
+        //   path: ["Right", "Up", "Up", "Left"],
+        //   type: "Operator"
+        // },
         {
           name: "copy",
           path: ["Left", "Up", "Up", "Right"],
           type: "Operator"
         },
         { name: "delete", path: ["Right", "Right", "Up"], type: "Operator" },
-        { name: "delete", path: ["Left", "Left", "Up"], type: "Operator" }
-        // { name: "insert", path: ["Up", "Up", "Right"], type: "Operator" },
-        // { name: "insert", path: ["Up", "Up", "Left"], type: "Operator" }
+        { name: "delete", path: ["Left", "Left", "Up"], type: "Operator" },
+        { name: "insert", path: ["Up", "Up", "Right"], type: "Insert" },
+        { name: "insert", path: ["Up", "Up", "Left"], type: "Insert" }
       ]
     },
     motion: {

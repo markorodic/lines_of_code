@@ -13,7 +13,7 @@ import {
 
 function GesturePad({ count, containerProperties }) {
   const { setGesture, setMode } = useInterfaceDispatch();
-  const { gestureActive, mode } = useInterfaceState();
+  const { gestureActive, userActive, mode, gesture } = useInterfaceState();
   const [currentPattern, setCurrentPattern] = React.useState([]);
   const [savedPattern, setSavedPattern] = React.useState([]);
 
@@ -23,17 +23,15 @@ function GesturePad({ count, containerProperties }) {
     const newPattern = [...currentPattern, currentPosition];
     setCurrentPattern(newPattern);
 
-    if (mode === "Motion") {
+    if (mode !== "Insert") {
       gestureMatched = gestureComboMatched(newPattern, validGestures, count);
-    } else {
-      // if (inputIsAnErase(savedPattern, newPattern)) {
-      //   setSavedPattern([]);
-      // }
-      gestureMatched = matchMotionGesture(input, validGestures, count);
     }
 
     if (gestureMatched) {
-      if (gestureMatched.type === "Operator") {
+      if (
+        gestureMatched.type === "Operator" ||
+        gestureMatched.type === "Insert"
+      ) {
         const trimmedPattern = newPattern.slice(
           newPattern.length - gestureMatched.path.length - 1,
           newPattern.length
@@ -42,7 +40,13 @@ function GesturePad({ count, containerProperties }) {
         setSavedPattern(newPattern);
       }
 
-      setMode(gestureMatched.type);
+      // if (gestureMatched.name !== "insert") {
+      console.log(gestureMatched.type, gestureMatched.name);
+      if (gestureMatched.type === "Insert") {
+        setMode("Operator");
+      } else {
+        setMode(gestureMatched.type);
+      }
       setGesture(gestureMatched);
     }
   };
@@ -67,8 +71,13 @@ function GesturePad({ count, containerProperties }) {
     //     }
     //   }
     // }
-    setCurrentPattern([]);
-  }, [gestureActive]);
+    if (!userActive && gesture && gesture.type === "Insert") {
+      setMode(gesture.type);
+    }
+    if (!userActive) {
+      setCurrentPattern([]);
+    }
+  }, [userActive, gesture]);
 
   return (
     <GestureInput

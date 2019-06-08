@@ -7,7 +7,10 @@ import "codemirror/mode/javascript/javascript.js";
 import { UnControlled as CodeMirror } from "react-codemirror2";
 import { initialCodeState } from "./initialCode";
 import { useMarkGutter, useMarkCursor } from "./CodeEditor.customHooks";
-import { useInterfaceState } from "../Interface.customHooks";
+import {
+  useInterfaceState,
+  useInterfaceDispatch
+} from "../Interface.customHooks";
 import { useCursorPosition } from "./CodeEditor.customHooks";
 import { executeCommand, executeOperatorCommand } from "./CodeEditor.commands";
 
@@ -15,6 +18,7 @@ function CodeEditor(props) {
   const [editor, setEditor] = React.useState(null);
   const [clipBoard, setClipBoard] = React.useState("");
   const { gesture, gestureActive, userActive, mode } = useInterfaceState();
+  const { setGesture } = useInterfaceDispatch();
   const cursorPosition = useCursorPosition(
     editor,
     gestureActive,
@@ -28,14 +32,18 @@ function CodeEditor(props) {
     }
   }, [gesture.id, editor, gesture]);
 
+  useMarkGutter(editor, cursorPosition);
+  useMarkCursor(editor, cursorPosition, gesture, props, mode);
+
   React.useEffect(() => {
     if (!userActive && mode === "Operator") {
       executeOperatorCommand(gesture, editor, cursorPosition, clipBoard);
     }
+    return () => {
+      if (mode === "Operator") {
+      }
+    };
   }, [editor, gesture, userActive, mode, cursorPosition, clipBoard]);
-
-  useMarkGutter(editor, cursorPosition);
-  useMarkCursor(editor, cursorPosition, gesture, props, mode);
 
   React.useEffect(() => {
     if (gesture.name === "copy" || gesture.name === "cut") {

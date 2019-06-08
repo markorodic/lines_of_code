@@ -60,10 +60,10 @@ export default function GestureInput({ count, updateGestureState }) {
   const onGestureEnd = event => {
     event.preventDefault();
     setUserInactive();
-    if (mode === "Operator") {
-      ifInputIsIdle(timer, setTimer, () => {
-        setMode("Motion");
-      });
+    if (mode === "Operator" && mode !== "Insert") {
+      // ifInputIsIdle(timer, setTimer, () => {
+      //   setMode("Motion");
+      // });
     }
   };
 
@@ -72,7 +72,9 @@ export default function GestureInput({ count, updateGestureState }) {
     if (userActive) {
       setUserInactive();
       ifInputIsIdle(timer, setTimer, () => {
-        setMode("Motion");
+        // if (gesture.type !== "insert") {
+        //   setMode("Motion");
+        // }
       });
     } else {
       setUserActive();

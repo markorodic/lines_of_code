@@ -6,7 +6,8 @@ import {
   renderCurrentBox,
   renderExpiredBoxes,
   clearCanvas,
-  renderMatchedPattern
+  renderMatchedPattern,
+  renderBG
 } from "./GestureViewHelpers";
 import { renderGiridPointGuides } from "./gestureViewGrid/GestureViewGrid";
 import { NUMBER_OF_BOXES } from "../../CONSTANTS";
@@ -36,12 +37,13 @@ export default function GestureView(props) {
       const boxWidth = containerWidth / NUMBER_OF_BOXES.X;
 
       clearCanvas(ctx, containerWidth);
-      renderGrid(ctx, containerWidth, boxWidth);
-      renderGridPoints(ctx, boxWidth);
-      renderGiridPointGuides(ctx, position, boxWidth, gestureActive);
-      renderCurrentBox(ctx, position, boxWidth);
+      renderBG(ctx, containerWidth, mode);
+      renderGrid(ctx, containerWidth, boxWidth, mode);
+      renderGridPoints(ctx, boxWidth, mode);
+      renderGiridPointGuides(ctx, position, boxWidth, gestureActive, mode);
+      renderCurrentBox(ctx, position, boxWidth, mode);
       renderMatchedPattern(ctx, boxWidth, gesture, mode);
-      renderExpiredBoxes(ctx, boxWidth, expiringPositions, count);
+      renderExpiredBoxes(ctx, boxWidth, expiringPositions, count, mode);
     }
   }, [
     ctx,
@@ -53,6 +55,11 @@ export default function GestureView(props) {
     gesture,
     mode
   ]);
+
+  React.useEffect(() => {
+    if (mode === "Insert") {
+    }
+  }, [mode]);
 
   return <canvas id="canvas" ref={canvasElement} />;
 }

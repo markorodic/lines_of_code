@@ -41,12 +41,12 @@ export function executeOperatorCommand(
       break;
     case "paste":
       editor.setCursor({
-        line: lineNumber + 1,
+        line: lineNumber,
         ch: 0
       });
       editor.execCommand("newlineAndIndent");
       editor.setCursor({
-        line: lineNumber + 1,
+        line: lineNumber,
         ch: 0
       });
       editor.replaceSelection(clipBoard);
