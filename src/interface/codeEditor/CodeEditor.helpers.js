@@ -9,7 +9,7 @@ function showRelativeLines(cm) {
   );
 }
 
-export function markGutter(editor, lineNumber) {
+export function markGutter(editor, { lineNumber }) {
   editor.clearGutter("position");
   editor.setGutterMarker(lineNumber, "position", makeMarker());
 }
@@ -24,7 +24,7 @@ function makeMarker() {
 export function markCursor(
   editor,
   { lineNumber, characterPosition },
-  name,
+  { name },
   mode
 ) {
   if (editor.getAllMarks()[0]) {
