@@ -1,5 +1,5 @@
 import React from "react";
-import { useContainerProperties } from "../customHooks";
+import { useContainerProperties } from "../../sharedCustomHooks";
 import { useRenderGestureView } from "./Header.customHooks";
 import { useInterfaceState } from "../Interface.customHooks";
 

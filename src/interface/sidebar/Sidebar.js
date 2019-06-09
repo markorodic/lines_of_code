@@ -1,5 +1,5 @@
 import React from "react";
-import { useContainerProperties } from "../customHooks";
+import { useContainerProperties } from "../../sharedCustomHooks";
 
 function Sidebar(props) {
   const SidebarElement = React.useRef();

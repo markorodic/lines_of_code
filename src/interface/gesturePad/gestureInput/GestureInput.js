@@ -5,7 +5,7 @@ import {
   positionItem,
   ifInputIsIdle
 } from "./GestureInputHelpers";
-import { useContainerProperties } from "../../customHooks";
+import { useContainerProperties } from "../../../sharedCustomHooks";
 import GestureView from "../gestureView/GestureView";
 import {
   useInterfaceState,
