@@ -10,8 +10,8 @@ import {
   renderBG
 } from "./GestureViewHelpers";
 import { renderGiridPointGuides } from "./gestureViewGrid/GestureViewGrid";
-import { NUMBER_OF_BOXES } from "../../CONSTANTS";
-import { useInterfaceState } from "../../Interface.customHooks";
+import { NUMBER_OF_BOXES } from "../../../CONSTANTS";
+import { useInterfaceState } from "../../../Interface.customHooks";
 
 export default function GestureView(props) {
   // should take props and the context gesture state
@@ -55,11 +55,6 @@ export default function GestureView(props) {
     gesture,
     mode
   ]);
-
-  React.useEffect(() => {
-    if (mode === "Insert") {
-    }
-  }, [mode]);
 
   return <canvas id="canvas" ref={canvasElement} />;
 }

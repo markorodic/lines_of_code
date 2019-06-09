@@ -1,4 +1,4 @@
-import { NUMBER_OF_BOXES } from "../../CONSTANTS";
+import { NUMBER_OF_BOXES } from "../../../CONSTANTS";
 import { renderInnerLine } from "./GestureViewRenderHelpers";
 
 export function renderGrid(ctx, containerWidth, boxWidth, mode) {
@@ -18,11 +18,19 @@ export function renderGrid(ctx, containerWidth, boxWidth, mode) {
   while (NUMBER_OF_BOXES.X > count) {
     const x = 0 * boxWidth;
     const y = count * boxWidth;
-    // ctx.fillStyle = "#f7f7f7";
     ctx.fillRect(x, y, containerWidth, 0.5);
     count = count + 1;
   }
 }
+
+// function drawLine(ctx, start, end) {
+//   ctx.beginPath();
+//   ctx.moveTo(start.x, start.y);
+//   ctx.lineTo(end.x, end.y);
+//   ctx.lineWidth = 2;
+//   ctx.strokeStyle = "white";
+//   ctx.stroke();
+// }
 
 export function renderGridPoints(ctx, boxWidth, mode) {
   if (mode === "Insert") {

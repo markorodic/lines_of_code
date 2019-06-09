@@ -9,23 +9,16 @@ export function getGesture(validGestures, gestureMatched, count) {
   }
 }
 
-export function inputIsAnErase(savedPattern, input) {
-  let reversedPattern = savedPattern.reverse();
-  return savedPattern.length && _.isEqual(input, reversedPattern);
+export function trimPattern(pattern, gesture) {
+  return pattern.slice(
+    pattern.length - gesture.path.length - 1,
+    pattern.length
+  );
 }
 
-export function matchMotionGesture(positions, validGestures, count) {
-  const path = getPathFrom(positions);
-  const gestureMatched = validGestures.edit.motion.all.find(gesture => {
-    const pathTrimmed = trimArray(path, gesture.path.length);
-    return _.isEqual(pathTrimmed, gesture.path);
-  });
-  gestureMatched.id = count;
-  return gestureMatched;
-}
-
-export function gestureComboMatched(pattern, validGestures, count) {
+export function gestureComboMatched(pattern, validGestures, count, mode) {
   let gestureMatched;
+
   const path = getPathFrom(pattern);
 
   validGestures.edit.allTypes.forEach(gestureType => {
@@ -57,28 +50,3 @@ export function getNewPath(path, gestureMatched) {
 
   return newPath;
 }
-
-// export function matchMotionGesture(input, { edit: { motion } }) {
-//   if (input.length > 1) {
-//     const direction = getDirectionFrom(input);
-//     const motionInput = motion.all.find(nav => {
-//       return _.isEqual(direction, nav.path);
-//     });
-//     return motion[motionInput.name];
-//   }
-// }
-
-// function getDirectionFrom(positions) {
-//   if (positions[0].x < positions[1].x) {
-//     return "Right";
-//   }
-//   if (positions[0].x > positions[1].x) {
-//     return "Left";
-//   }
-//   if (positions[0].y < positions[1].y) {
-//     return "Down";
-//   }
-//   if (positions[0].y > positions[1].y) {
-//     return "Up";
-//   }
-// }
