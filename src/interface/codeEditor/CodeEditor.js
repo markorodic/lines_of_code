@@ -21,17 +21,15 @@ function CodeEditor() {
 
   // TODO: userActive should not be passed to CodeMirrorEditor
   return (
-    <div className="code">
-      <CodeMirrorEditor
-        command={command}
-        mode={mode}
-        editor={editor}
-        setEditor={setEditor}
-        cursorPosition={cursorPosition}
-        clipboard={clipboard}
-        userActive={userActive}
-      />
-    </div>
+    <CodeMirrorEditor
+      command={command}
+      mode={mode}
+      editor={editor}
+      setEditor={setEditor}
+      cursorPosition={cursorPosition}
+      clipboard={clipboard}
+      userActive={userActive}
+    />
   );
 }
 

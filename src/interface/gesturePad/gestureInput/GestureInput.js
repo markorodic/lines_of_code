@@ -11,11 +11,11 @@ import {
   useInterfaceState,
   useInterfaceDispatch
 } from "../../Interface.customHooks";
+import styles from "./GestureInput.module.css";
 
 export default function GestureInput({ count, updateGestureState }) {
   const GestureInputElement = React.useRef();
   const containerProperties = useContainerProperties(GestureInputElement);
-
   const [position, setPosition] = React.useState({});
   const [expiringPositions, setExpiringPositions] = React.useState([]);
   const [pattern, setPattern] = React.useState([]);
@@ -80,8 +80,7 @@ export default function GestureInput({ count, updateGestureState }) {
       onTouchMove={onGesture}
       onTouchEnd={onGestureEnd}
       onClick={onClick}
-      className="gesture-pad"
-      data-testid="gesture-pad"
+      className={styles["gesture-input"]}
     >
       <GestureView
         count={count}

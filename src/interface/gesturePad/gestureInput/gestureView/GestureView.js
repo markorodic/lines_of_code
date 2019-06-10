@@ -12,6 +12,7 @@ import {
 import { renderGiridPointGuides } from "./gestureViewGrid/GestureViewGrid";
 import { NUMBER_OF_BOXES } from "../../../../CONSTANTS";
 import { useInterfaceState } from "../../../Interface.customHooks";
+import style from "./GestureView.module.css";
 
 export default function GestureView(props) {
   // should take props and the context gesture state
@@ -56,5 +57,5 @@ export default function GestureView(props) {
     mode
   ]);
 
-  return <canvas id="canvas" ref={canvasElement} />;
+  return <canvas id={style.canvas} ref={canvasElement} />;
 }

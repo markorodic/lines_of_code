@@ -12,6 +12,7 @@ import {
   markText,
   relativeLinesOn
 } from "../CodeMirror.helpers";
+import "./CodeMirrorEditor.css";
 
 function CodeEditor({
   command,
@@ -59,7 +60,7 @@ function CodeEditor({
         editorDidMount={editor => {
           setEditor(editor);
         }}
-        className={"code-editor"}
+        className="code-editor"
       />
     </div>
   );

@@ -3,6 +3,7 @@ import { useContainerProperties } from "../../sharedCustomHooks";
 import { useCreateCanvasContext } from "./Header.customHooks";
 import { useInterfaceState } from "../Interface.customHooks";
 import { displayOperatorPatterns } from "./HeaderHelpers";
+import styles from "./Header.module.css";
 
 function Header() {
   const HeaderElement = React.useRef();
@@ -16,9 +17,9 @@ function Header() {
   }, [ctx, containerProperties, gesture, userActive]);
 
   return (
-    <header className="header" ref={HeaderElement}>
+    <header className={styles.header} ref={HeaderElement}>
       {!userActive && <p>Project 1</p>}
-      <canvas id="canvas" ref={canvasElement} />
+      <canvas id={styles.canvas} ref={canvasElement} />
     </header>
   );
 }
