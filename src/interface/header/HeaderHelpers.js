@@ -1,34 +1,27 @@
-import { validGestures } from "../gesturesPatterns/gesturePatterns";
 import { renderGestureIcon } from "./RenderGestureIcons";
 
+// TODO: Needs to be refactored
+
 export function clearCanvas(ctx, containerWidth) {
-  ctx.clearRect(0, 0, containerWidth, containerWidth);
+  if (ctx) {
+    ctx.clearRect(0, 0, containerWidth, containerWidth);
+  }
 }
 
-export function renderPattern(ctx, boxWidth, containerWidth, gesture) {
-  drawPatternIcon(ctx, containerWidth, gesture);
+export function displayOperatorPatterns(ctx, { width }, gesture, userActive) {
+  clearCanvas(ctx, width);
+  if (userActive) {
+    const dimensions = getDimensions(width);
+    drawPatterns(ctx, dimensions, gesture);
+  }
 }
 
-const boxes = 7;
-
-export function drawPatternIcon(ctx, containerWidth, gesture) {
-  drawPatternGrids(ctx, 7, containerWidth, gesture);
-}
-
-const patternIconRatios = {
-  sideMargins: 3,
-  verticleMargins: 3,
-  boxMargins: 5,
-  boxWidth: 13
-};
-
-function drawPatternGrids(ctx, numberOfGrids, containerWidth, gesture) {
-  let marginSide, marginBox, widthBox, gridNumber;
+function getDimensions(containerWidth) {
+  let marginSide, marginBox, widthBox;
   if (containerWidth > 900) {
     marginSide = 10;
     marginBox = 15;
     widthBox = 35;
-    gridNumber = 19;
   } else {
     const { sideMargins, boxMargins, boxWidth } = getWidthProportions(
       containerWidth
@@ -37,9 +30,15 @@ function drawPatternGrids(ctx, numberOfGrids, containerWidth, gesture) {
     marginSide = 10;
     marginBox = boxMargins;
     widthBox = boxWidth;
-    gridNumber = numberOfGrids;
   }
+  return {
+    marginSide,
+    marginBox,
+    widthBox
+  };
+}
 
+function drawPatterns(ctx, { marginSide, marginBox, widthBox }, gesture) {
   let count = 0;
   while (count < 6) {
     const marginX = marginSide + count * (widthBox + marginBox);
@@ -50,10 +49,12 @@ function drawPatternGrids(ctx, numberOfGrids, containerWidth, gesture) {
   }
 }
 
-function getTotalWidthRatio() {
-  const { sideMargins, boxMargins, boxWidth } = patternIconRatios;
-  return sideMargins * 2 + boxMargins * (boxes - 1) + boxWidth * boxes;
-}
+const patternIconRatios = {
+  sideMargins: 3,
+  verticleMargins: 3,
+  boxMargins: 5,
+  boxWidth: 13
+};
 
 function getWidthProportions(containerWidth) {
   const { sideMargins, boxMargins, boxWidth } = patternIconRatios;
@@ -63,6 +64,11 @@ function getWidthProportions(containerWidth) {
     boxMargins: boxMargins * ratio,
     boxWidth: boxWidth * ratio
   };
+}
+
+function getTotalWidthRatio() {
+  const { sideMargins, boxMargins, boxWidth } = patternIconRatios;
+  return sideMargins * 2 + boxMargins * (7 - 1) + boxWidth * 7;
 }
 
 function drawSinglePatternGrid(ctx, marginX, marginY, boxMargins, boxWidth) {

@@ -1,25 +1,23 @@
 import React from "react";
 import { useContainerProperties } from "../../sharedCustomHooks";
-import { useRenderGestureView } from "./Header.customHooks";
+import { useCreateCanvasContext } from "./Header.customHooks";
 import { useInterfaceState } from "../Interface.customHooks";
+import { clearCanvas, displayOperatorPatterns } from "./HeaderHelpers";
 
 function Header(props) {
   const HeaderElement = React.useRef();
   const canvasElement = React.useRef();
   const containerProperties = useContainerProperties(HeaderElement);
   const { userActive, gesture } = useInterfaceState();
+  const ctx = useCreateCanvasContext(containerProperties, canvasElement);
 
-  useRenderGestureView(
-    containerProperties.width,
-    containerProperties.height,
-    canvasElement,
-    userActive,
-    gesture
-  );
+  React.useEffect(() => {
+    displayOperatorPatterns(ctx, containerProperties, gesture, userActive);
+  }, [ctx, containerProperties, gesture, userActive]);
+
   return (
     <header className="header" ref={HeaderElement}>
       {!userActive && <p>Project 1</p>}
-      {/* <div className="icons"> */}
       <canvas id="canvas" ref={canvasElement} />
     </header>
   );
