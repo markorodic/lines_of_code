@@ -1,3 +1,15 @@
+export function motionHasFinished(editor, gestureActive, mode) {
+  return editor && !gestureActive && mode === "Motion";
+}
+
+export function validExecution({ id, type }, userActive) {
+  const validMotionExecution = id && type === "Motion";
+  const validOperationExecution = !userActive && type === "Operator";
+  return validMotionExecution || validOperationExecution;
+}
+
+// ** Marker Helpers **
+// --------------------
 function showRelativeLines(cm) {
   const lineNum = cm.getCursor().line + 1;
   if (cm.state.curLineNum === lineNum) {

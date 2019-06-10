@@ -1,4 +1,7 @@
 import React from "react";
+import { getExecutionCommandFrom } from "./CodeEditor.commands";
+import { getCursorPosition } from "./CodeEditor.utils";
+import { motionHasFinished, validExecution } from "./CodeMirror.helpers";
 
 export function useCursorPosition(editor, gestureActive, mode, gesture) {
   const [cursorPosition, setCursorPosition] = React.useState({
@@ -22,14 +25,19 @@ export function useCursorPosition(editor, gestureActive, mode, gesture) {
   return cursorPosition;
 }
 
-function motionHasFinished(editor, gestureActive, mode) {
-  return editor && !gestureActive && mode === "Motion";
-}
+export function useCommand(gesture, userActive) {
+  const [name, setName] = React.useState("");
+  const [id, setId] = React.useState(0);
 
-// ** helpers **
-// -------------
-function getCursorPosition(editor) {
-  const lineNumber = editor.getCursor().line;
-  const characterPosition = editor.getCursor().ch;
-  return { lineNumber, characterPosition };
+  React.useEffect(() => {
+    if (validExecution(gesture, userActive)) {
+      setName(getExecutionCommandFrom(gesture));
+      setId(id => id + 1);
+    }
+  }, [gesture, userActive]);
+
+  return {
+    name,
+    id
+  };
 }

@@ -11,7 +11,7 @@ import {
   markGutterIcon,
   markText,
   relativeLinesOn
-} from "../CodeEditor.markerHelpers";
+} from "../CodeMirror.helpers";
 
 function CodeEditor({
   command,
@@ -28,9 +28,9 @@ function CodeEditor({
     // which, due to RAF being in the root if happening on every count
     if (prevCommandId === command.id) {
       executeCommand(editor, command, cursorPosition, clipBoard);
-      setPrevCommandId(prevCommandId + 1);
+      setPrevCommandId(prevCommandId => prevCommandId + 1);
     }
-  }, [editor, command]);
+  }, [editor, command, cursorPosition, clipBoard, prevCommandId]);
 
   React.useEffect(() => {
     relativeLinesOn(editor);
