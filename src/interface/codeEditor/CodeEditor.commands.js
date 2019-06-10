@@ -1,17 +1,11 @@
 export function executeCommand({ name }, editor) {
   if (editor) {
     switch (name) {
-      case "up":
+      case "moveLineUp":
         editor.execCommand("goLineUp");
         break;
-      case "down":
+      case "moveLineDown":
         editor.execCommand("goLineDown");
-        break;
-      case "next":
-        editor.execCommand("goLineDown");
-        break;
-      case "previous":
-        editor.execCommand("goLineUp");
         break;
       default:
         return;
@@ -25,7 +19,6 @@ export function executeOperatorCommand(
   { lineNumber },
   clipBoard
 ) {
-  console.log(name);
   switch (name) {
     case "delete":
       editor.setCursor({

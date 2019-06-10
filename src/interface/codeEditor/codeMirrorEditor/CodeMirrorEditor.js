@@ -22,9 +22,16 @@ function CodeEditor({
   cursorPosition,
   clipBoard
 }) {
+  const [prevCommandId, setPrevCommandId] = React.useState(0);
   React.useEffect(() => {
-    executeCommand(gesture, editor);
-  }, [gesture.id, editor, gesture]);
+    // check the command id against the previous command passed down
+    // otherwise command will execute each time command is passed down
+    // which, due to RAF being in the root if happening on every count
+    if (prevCommandId === command.id) {
+      executeCommand(command, editor);
+      setPrevCommandId(prevCommandId + 1);
+    }
+  }, [editor, command]);
 
   React.useEffect(() => {
     relativeLinesOn(editor);

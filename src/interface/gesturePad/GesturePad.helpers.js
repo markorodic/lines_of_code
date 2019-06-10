@@ -29,9 +29,6 @@ export function gestureComboMatched(pattern, validGestures, count, mode) {
       });
     }
   });
-  if (gestureMatched) {
-    gestureMatched.id = count;
-  }
   return gestureMatched;
 }
 
