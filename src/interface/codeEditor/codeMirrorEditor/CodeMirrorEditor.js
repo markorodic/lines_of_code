@@ -27,7 +27,7 @@ function CodeEditor({
     // otherwise command will execute each time command is passed down
     // which, due to RAF being in the root if happening on every count
     if (prevCommandId === command.id) {
-      executeCommand(command, editor);
+      executeCommand(editor, command, cursorPosition, clipBoard);
       setPrevCommandId(prevCommandId + 1);
     }
   }, [editor, command]);
@@ -62,40 +62,6 @@ function CodeEditor({
       />
     </div>
   );
-}
-
-// ** utils **
-// -----------
-function execute(editor, { name }, { lineNumber }, clipBoard) {
-  switch (name) {
-    case "moveLineUp":
-      editor.execCommand("goLineUp");
-      break;
-    case "moveLineDown":
-      editor.execCommand("goLineDown");
-      break;
-    case "deleteLine":
-      setCursor(editor, lineNumber);
-      editor.execCommand("deleteLine");
-      break;
-    case "pasteFromClipboard":
-      setCursor(editor, lineNumber);
-      editor.execCommand("newlineAndIndent");
-      setCursor(editor, lineNumber);
-      editor.replaceSelection(clipBoard);
-      break;
-    default:
-      return;
-  }
-}
-
-// ** helper functions **
-// ----------------------
-function setCursor(editor, lineNumber) {
-  editor.setCursor({
-    line: lineNumber,
-    ch: 0
-  });
 }
 
 export default CodeEditor;

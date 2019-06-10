@@ -1,52 +1,31 @@
-export function executeCommand({ name }, editor) {
-  if (editor) {
-    switch (name) {
-      case "moveLineUp":
-        editor.execCommand("goLineUp");
-        break;
-      case "moveLineDown":
-        editor.execCommand("goLineDown");
-        break;
-      default:
-        return;
-    }
-  }
-}
-
-export function executeOperatorCommand(
-  { name },
-  editor,
-  { lineNumber },
-  clipBoard
-) {
+export function executeCommand(editor, { name }, { lineNumber }, clipBoard) {
   switch (name) {
-    case "delete":
-      editor.setCursor({
-        line: lineNumber,
-        ch: 0
-      });
+    case "moveLineUp":
+      editor.execCommand("goLineUp");
+      break;
+    case "moveLineDown":
+      editor.execCommand("goLineDown");
+      break;
+    case "deleteLine":
+      setCursor(editor, lineNumber);
       editor.execCommand("deleteLine");
       break;
-    case "cut":
-      editor.setCursor({
-        line: lineNumber,
-        ch: 0
-      });
-      editor.execCommand("deleteLine");
-      break;
-    case "paste":
-      editor.setCursor({
-        line: lineNumber,
-        ch: 0
-      });
+    case "pasteFromClipboard":
+      setCursor(editor, lineNumber);
       editor.execCommand("newlineAndIndent");
-      editor.setCursor({
-        line: lineNumber,
-        ch: 0
-      });
+      setCursor(editor, lineNumber);
       editor.replaceSelection(clipBoard);
       break;
     default:
       return;
   }
+}
+
+// ** helper functions **
+// ----------------------
+function setCursor(editor, lineNumber) {
+  editor.setCursor({
+    line: lineNumber,
+    ch: 0
+  });
 }

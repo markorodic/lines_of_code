@@ -1,5 +1,4 @@
 import React from "react";
-import { executeCommand, executeOperatorCommand } from "./CodeEditor.commands";
 
 export function useCursorPosition(editor, gestureActive, mode, gesture) {
   const [cursorPosition, setCursorPosition] = React.useState({
@@ -21,28 +20,6 @@ export function useCursorPosition(editor, gestureActive, mode, gesture) {
   }, [editor, mode, gesture, gestureActive]);
 
   return cursorPosition;
-}
-
-export function useExecuteMotionCommand(editor, gesture) {
-  React.useEffect(() => {
-    if (gesture.id) {
-      executeCommand(gesture, editor);
-    }
-  }, [gesture.id, editor, gesture]);
-}
-
-export function useExecuteOperatorCommand(
-  editor,
-  cursorPosition,
-  gesture,
-  userActive,
-  mode
-) {
-  React.useEffect(() => {
-    if (!userActive && mode === "Operator") {
-      executeOperatorCommand(gesture, editor, cursorPosition);
-    }
-  }, [editor, gesture, userActive, mode, cursorPosition]);
 }
 
 function motionHasFinished(editor, gestureActive, mode) {
