@@ -1,4 +1,4 @@
-import { NUMBER_OF_BOXES } from "../../../CONSTANTS";
+import { NUMBER_OF_BOXES } from "../../../../CONSTANTS";
 import { renderInnerLine } from "./GestureViewRenderHelpers";
 
 export function renderGrid(ctx, containerWidth, boxWidth, mode) {

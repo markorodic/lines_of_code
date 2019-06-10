@@ -10,7 +10,7 @@ import {
   renderBG
 } from "./GestureViewHelpers";
 import { renderGiridPointGuides } from "./gestureViewGrid/GestureViewGrid";
-import { NUMBER_OF_BOXES } from "../../../CONSTANTS";
+import { NUMBER_OF_BOXES } from "../../../../CONSTANTS";
 import { useInterfaceState } from "../../../Interface.customHooks";
 
 export default function GestureView(props) {

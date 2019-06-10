@@ -1,4 +1,4 @@
-import { MAX_PATH_LENGTH } from "../CONSTANTS";
+import { MAX_PATH_LENGTH } from "../../CONSTANTS";
 import _ from "lodash";
 
 function trim(pattern) {
