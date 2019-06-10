@@ -9,12 +9,16 @@ import { executeCommand, executeOperatorCommand } from "../CodeEditor.commands";
 import { initialCodeState } from "../initialCode";
 import { useCursorPosition } from "../CodeEditor.customHooks";
 import { useInterfaceState } from "../../Interface.customHooks";
-import { markGutter, markCursor, relativeLinesOn } from "../CodeEditor.helpers";
+import {
+  markGutterIcon,
+  markText,
+  relativeLinesOn
+} from "../CodeEditor.markerHelpers";
 
-function CodeEditor({ command }) {
+function CodeEditor({ command, gesture }) {
   const [editor, setEditor] = React.useState(null);
   const [clipBoard, setClipBoard] = React.useState("");
-  const { gesture, gestureActive, userActive, mode } = useInterfaceState();
+  const { gestureActive, userActive, mode } = useInterfaceState();
   const cursorPosition = useCursorPosition(
     editor,
     gestureActive,
@@ -22,50 +26,30 @@ function CodeEditor({ command }) {
     gesture
   );
 
-  // ** mark text **
-  // ---------
-  //   React.useEffect(() => {
-  //     if (editor) {
-  //       relativeLinesOn(editor);
-  //       markGutter(editor, cursorPosition, "cursor");
-  //     }
-  //     if (editor) {
-  //       markCursor(editor, cursorPosition, gesture, mode);
-  //     }
-  //   }, [editor, cursorPosition, gesture, mode]);
+  React.useEffect(() => {
+    executeCommand(gesture, editor);
+  }, [gesture.id, editor, gesture]);
 
   React.useEffect(() => {
-    if (editor) {
-      execute(editor, command, cursorPosition);
-    }
-  }, [editor, command, cursorPosition]);
+    relativeLinesOn(editor);
+  }, [editor]);
 
-  //   // execute commands
-  //   React.useEffect(() => {
-  //     if (gesture.id) {
-  //       executeCommand(gesture, editor);
-  //     }
-  //   }, [gesture.id, editor, gesture]);
+  React.useEffect(() => {
+    markGutterIcon(editor, cursorPosition, "cursor");
+  }, [editor, cursorPosition]);
 
-  //   // execute operator command
-  //   React.useEffect(() => {
-  //     if (!userActive && mode === "Operator") {
-  //       executeOperatorCommand(gesture, editor, cursorPosition, clipBoard);
-  //     }
-  //     return () => {
-  //       if (mode === "Operator") {
-  //       }
-  //     };
-  //   }, [editor, gesture, userActive, mode, cursorPosition, clipBoard]);
+  React.useEffect(() => {
+    markText(editor, mode, cursorPosition, gesture);
+  }, [editor, cursorPosition, gesture, mode]);
 
   // setting clipboard state
   // -----------------------
-  //   React.useEffect(() => {
-  //     if (gesture.name === "copy" || gesture.name === "cut") {
-  //       const lineContent = editor.getLine(cursorPosition.lineNumber);
-  //       setClipBoard(lineContent);
-  //     }
-  //   }, [editor, gesture, cursorPosition]);
+  React.useEffect(() => {
+    if (gesture.name === "copy" || gesture.name === "cut") {
+      const lineContent = editor.getLine(cursorPosition.lineNumber);
+      setClipBoard(lineContent);
+    }
+  }, [editor, gesture, cursorPosition]);
 
   return (
     <div className="code">
@@ -89,8 +73,8 @@ function CodeEditor({ command }) {
 
 // ** utils **
 // -----------
-function execute(editor, command, { lineNumber }, clipBoard) {
-  switch (command) {
+function execute(editor, { name }, { lineNumber }, clipBoard) {
+  switch (name) {
     case "moveLineUp":
       editor.execCommand("goLineUp");
       break;

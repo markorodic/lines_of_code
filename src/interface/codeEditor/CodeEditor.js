@@ -7,11 +7,9 @@ function CodeEditor(props) {
   const { gesture, userActive, mode } = useInterfaceState();
   const command = useCommand(gesture, userActive);
 
-  React.useEffect(() => {}, [gesture]);
-
   return (
     <div className="code">
-      <CodeMirrorEditor command={command} mode={mode} />
+      <CodeMirrorEditor command={command} mode={mode} gesture={gesture} />
     </div>
   );
 }
@@ -19,15 +17,20 @@ function CodeEditor(props) {
 // ** utils **
 // -----------
 function useCommand(gesture, userActive) {
-  const [command, setCommand] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [id, setId] = React.useState(0);
 
   React.useEffect(() => {
     if (validExecution(gesture, userActive)) {
-      setCommand(executionCommand(gesture));
+      setName(executionCommand(gesture));
+      setId(id + 1);
     }
   }, [gesture, userActive]);
 
-  return command;
+  return {
+    name,
+    id
+  };
 }
 
 function validExecution({ id, type }, userActive) {
