@@ -23,15 +23,6 @@ export function renderGrid(ctx, containerWidth, boxWidth, mode) {
   }
 }
 
-// function drawLine(ctx, start, end) {
-//   ctx.beginPath();
-//   ctx.moveTo(start.x, start.y);
-//   ctx.lineTo(end.x, end.y);
-//   ctx.lineWidth = 2;
-//   ctx.strokeStyle = "white";
-//   ctx.stroke();
-// }
-
 export function renderGridPoints(ctx, boxWidth, mode) {
   if (mode === "Insert") {
     ctx.fillStyle = "#545454";
@@ -72,7 +63,6 @@ export function renderExpiredBoxes(
   count,
   mode
 ) {
-  let colourVal;
   if (mode === "Insert") {
     expiringPositions.forEach(box => {
       const diff = count - box.timeAdded;

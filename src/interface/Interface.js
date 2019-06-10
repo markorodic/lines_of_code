@@ -5,31 +5,18 @@ import Header from "./header/Header";
 import CodeEditor from "./codeEditor/CodeEditor";
 import GesturePad from "./gesturePad/GesturePad";
 import { InterfaceProvider } from "./Interface.context";
-import { useAnimationFrame } from "./Interface.customHooks";
 
 export default function Interface() {
-  const [count, setCount] = React.useState(0);
-
-  useAnimationFrame(() => {
-    setCount(count + 1);
-  });
-
   return (
     <div className="interface">
       <img src={logo} alt="" />
       <InterfaceProvider>
         <Header />
-        <Views>
+        <section className="view">
           <CodeEditor />
-          <GesturePad count={count} />
-        </Views>
+          <GesturePad />
+        </section>
       </InterfaceProvider>
     </div>
   );
-}
-
-class Views extends Component {
-  render() {
-    return <div className="views">{this.props.children}</div>;
-  }
 }

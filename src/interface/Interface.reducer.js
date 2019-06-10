@@ -5,7 +5,8 @@ import {
   GESTURE_ACTIVE,
   GESTURE_INACTIVE,
   USER_ACTIVE,
-  USER_INACTIVE
+  USER_INACTIVE,
+  INCREMENT_COUNT
 } from "./Interface.actions";
 
 export default function InterfaceReducer(state, action) {
@@ -24,6 +25,8 @@ export default function InterfaceReducer(state, action) {
       return { ...state, userActive: true };
     case USER_INACTIVE:
       return { ...state, userActive: false };
+    case INCREMENT_COUNT:
+      return { ...state, count: state.count + 1 };
     default:
       throw new Error();
   }

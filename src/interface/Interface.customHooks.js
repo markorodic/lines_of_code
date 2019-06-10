@@ -30,25 +30,6 @@ export const useAnimationFrame = callback => {
   }, []);
 };
 
-// export function useGestureReady(userActive, gestureActive, count) {
-//   const [lastGestureCount, setLastGestureCount] = React.useState(0);
-//   let [gestureReady, setGestureReady] = React.useState(false);
-
-//   React.useEffect(() => {
-//     if (gestureActive) {
-//       setLastGestureCount(count);
-//     }
-
-//     if (userActive && lastGestureCount + 20 < count) {
-//       setGestureReady(true);
-//     } else {
-//       setGestureReady(false);
-//     }
-//   }, [userActive, gestureActive, count, lastGestureCount]);
-
-//   return gestureReady;
-// }
-
 export function useInterfaceState() {
   const context = React.useContext(InterfaceStateContext);
   if (context === undefined) {

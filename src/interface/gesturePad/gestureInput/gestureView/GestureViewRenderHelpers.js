@@ -23,7 +23,7 @@ export function renderInnerLine(
   } else {
     endPoint = centerPoint;
   }
-  // debugger;
+
   canvas.beginPath();
   canvas.moveTo(
     (position.x - 1) * boxWidth + startPoint[0],

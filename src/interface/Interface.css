@@ -89,7 +89,7 @@ html, body {
     height: 100%;
 }
 
-.views {
+.view {
     width: 60rem;
     height: 35rem;
     display: flex;
@@ -164,26 +164,6 @@ html, body {
     background: #5CB290;
 }
 
-@media (max-width: 960px) { 
-    body {
-    }
-
-    .interface {
-    }
-    
-    .header {
-    }
-    
-    .views {
-    }
-
-    .code {
-    }
-
-    .gesture-pad {
-    }
- }
-
 
 @media (max-width: 500px) { 
     body {
@@ -209,7 +189,7 @@ html, body {
         display: none;
     }
     
-    .views {
+    .view {
         display: flex;
         flex-wrap: wrap;
         height: 98vh;

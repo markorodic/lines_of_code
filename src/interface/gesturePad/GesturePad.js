@@ -7,16 +7,16 @@ import {
   useInterfaceState
 } from "../Interface.customHooks";
 
-function GesturePad({ count, containerProperties }) {
+function GesturePad({ containerProperties }) {
   const { setGesture, setMode } = useInterfaceDispatch();
-  const { userActive, mode, gesture } = useInterfaceState();
+  const { userActive, mode, gesture, count } = useInterfaceState();
   const [lastPattern, setLastPattern] = React.useState([]);
 
   const inputAdded = input => {
     const pattern = [...lastPattern, input[1]];
     setLastPattern(pattern);
 
-    const gesture = gestureComboMatched(pattern, validGestures, count, mode);
+    const gesture = gestureComboMatched(pattern, validGestures, mode);
 
     if (gesture) {
       setMode(gesture.type);

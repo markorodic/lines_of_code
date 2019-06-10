@@ -16,7 +16,7 @@ export function trimPattern(pattern, gesture) {
   );
 }
 
-export function gestureComboMatched(pattern, validGestures, count, mode) {
+export function gestureComboMatched(pattern, validGestures, mode) {
   let gestureMatched;
 
   const path = getPathFrom(pattern);
