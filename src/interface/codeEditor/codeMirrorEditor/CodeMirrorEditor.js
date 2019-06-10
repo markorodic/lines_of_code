@@ -5,27 +5,23 @@ import "codemirror/theme/neat.css";
 import "codemirror/mode/xml/xml.js";
 import "codemirror/mode/javascript/javascript.js";
 import { UnControlled as CodeMirror } from "react-codemirror2";
-import { executeCommand, executeOperatorCommand } from "../CodeEditor.commands";
+import { executeCommand } from "../CodeEditor.commands";
 import { initialCodeState } from "../initialCode";
-import { useCursorPosition } from "../CodeEditor.customHooks";
-import { useInterfaceState } from "../../Interface.customHooks";
 import {
   markGutterIcon,
   markText,
   relativeLinesOn
 } from "../CodeEditor.markerHelpers";
 
-function CodeEditor({ command, gesture }) {
-  const [editor, setEditor] = React.useState(null);
-  const [clipBoard, setClipBoard] = React.useState("");
-  const { gestureActive, userActive, mode } = useInterfaceState();
-  const cursorPosition = useCursorPosition(
-    editor,
-    gestureActive,
-    mode,
-    gesture
-  );
-
+function CodeEditor({
+  command,
+  mode,
+  gesture,
+  editor,
+  setEditor,
+  cursorPosition,
+  clipBoard
+}) {
   React.useEffect(() => {
     executeCommand(gesture, editor);
   }, [gesture.id, editor, gesture]);
@@ -41,15 +37,6 @@ function CodeEditor({ command, gesture }) {
   React.useEffect(() => {
     markText(editor, mode, cursorPosition, gesture);
   }, [editor, cursorPosition, gesture, mode]);
-
-  // setting clipboard state
-  // -----------------------
-  React.useEffect(() => {
-    if (gesture.name === "copy" || gesture.name === "cut") {
-      const lineContent = editor.getLine(cursorPosition.lineNumber);
-      setClipBoard(lineContent);
-    }
-  }, [editor, gesture, cursorPosition]);
 
   return (
     <div className="code">
