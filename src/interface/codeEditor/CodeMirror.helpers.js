@@ -2,10 +2,8 @@ export function motionHasFinished(editor, gestureActive, mode) {
   return editor && !gestureActive && mode === "Motion";
 }
 
-export function validExecution({ id, type }, userActive) {
-  const validMotionExecution = id && type === "Motion";
-  const validOperationExecution = !userActive && type === "Operator";
-  return validMotionExecution || validOperationExecution;
+export function validExecution({ type }) {
+  return type === "Motion" || type === "Operator";
 }
 
 // ** Marker Helpers **
@@ -39,11 +37,11 @@ export function markGutterIcon(editor, cursorPosition) {
   }
 }
 
-export function markText(editor, mode, cursorPosition, command) {
+export function markText(editor, mode, cursorPosition, command, userActive) {
   if (editor) {
     clearMarks(editor);
     markCursor(editor, mode);
-    markLine(editor, cursorPosition, command);
+    markLine(editor, cursorPosition, command, userActive);
   }
 }
 
@@ -68,13 +66,15 @@ function markCursor(editor, mode) {
   }
 }
 
-function markLine(editor, { lineNumber }, { name }) {
-  const lastCh = editor.getLine(lineNumber).length;
-  editor.markText(
-    { line: lineNumber, ch: 0 },
-    { line: lineNumber, ch: lastCh },
-    { readOnly: false, className: `cursor-${name}` }
-  );
+function markLine(editor, { lineNumber }, { name }, userActive) {
+  if (userActive) {
+    const lastCh = editor.getLine(lineNumber).length;
+    editor.markText(
+      { line: lineNumber, ch: 0 },
+      { line: lineNumber, ch: lastCh },
+      { readOnly: false, className: `cursor-${name}` }
+    );
+  }
 }
 
 export function relativeLinesOn(editor) {

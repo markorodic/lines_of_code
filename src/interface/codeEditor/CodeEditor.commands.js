@@ -21,7 +21,13 @@ export function getExecutionCommandFrom({ name }) {
   }
 }
 
-export function executeCommand(editor, { name }, { lineNumber }, clipBoard) {
+export function executeCommand(
+  editor,
+  { name },
+  { lineNumber },
+  clipBoard,
+  userActive
+) {
   switch (name) {
     case "moveLineUp":
       editor.execCommand("goLineUp");
@@ -30,14 +36,20 @@ export function executeCommand(editor, { name }, { lineNumber }, clipBoard) {
       editor.execCommand("goLineDown");
       break;
     case "deleteLine":
-      setCursor(editor, lineNumber);
-      editor.execCommand("deleteLine");
+      // move this check somewhere else
+      if (!userActive) {
+        setCursor(editor, lineNumber);
+        editor.execCommand("deleteLine");
+      }
       break;
     case "pasteFromClipboard":
-      setCursor(editor, lineNumber);
-      editor.execCommand("newlineAndIndent");
-      setCursor(editor, lineNumber);
-      editor.replaceSelection(clipBoard);
+      // and this one
+      if (!userActive) {
+        setCursor(editor, lineNumber);
+        editor.execCommand("newlineAndIndent");
+        setCursor(editor, lineNumber);
+        editor.replaceSelection(clipBoard);
+      }
       break;
     default:
       return;

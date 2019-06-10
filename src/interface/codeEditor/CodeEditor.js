@@ -24,6 +24,7 @@ function CodeEditor() {
         setEditor={setEditor}
         cursorPosition={cursorPosition}
         clipBoard={clipBoard}
+        userActive={userActive}
       />
     </div>
   );
