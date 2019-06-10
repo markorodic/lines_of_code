@@ -148,19 +148,19 @@ html, body {
     height: 2rem;
 }
 
-.cursor-delete {
+.cursor-deleteLine {
     background: #FC5081;
 }
 
-.cursor-change {
+.cursor-changeLine {
     background: #4E8DC4;
 }
 
-.cursor-cut {
+.cursor-cutLine {
     background: #A56FA3;
 }
 
-.cursor-copy {
+.cursor-copyToClipboard {
     background: #5CB290;
 }
 

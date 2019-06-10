@@ -27,11 +27,11 @@ export function markGutterIcon(editor, cursorPosition) {
   }
 }
 
-export function markText(editor, mode, cursorPosition, gesture) {
+export function markText(editor, mode, cursorPosition, command) {
   if (editor) {
     clearMarks(editor);
     markCursor(editor, mode);
-    markLine(editor, cursorPosition, gesture);
+    markLine(editor, cursorPosition, command);
   }
 }
 
@@ -56,7 +56,7 @@ function markCursor(editor, mode) {
   }
 }
 
-function markLine(editor, { lineNumber, characterPosition }, { name }) {
+function markLine(editor, { lineNumber }, { name }) {
   const lastCh = editor.getLine(lineNumber).length;
   editor.markText(
     { line: lineNumber, ch: 0 },

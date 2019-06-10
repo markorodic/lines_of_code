@@ -16,7 +16,6 @@ import {
 function CodeEditor({
   command,
   mode,
-  gesture,
   editor,
   setEditor,
   cursorPosition,
@@ -42,8 +41,8 @@ function CodeEditor({
   }, [editor, cursorPosition]);
 
   React.useEffect(() => {
-    markText(editor, mode, cursorPosition, gesture);
-  }, [editor, cursorPosition, gesture, mode]);
+    markText(editor, mode, cursorPosition, command);
+  }, [editor, cursorPosition, command, mode]);
 
   return (
     <div className="code">

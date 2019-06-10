@@ -20,7 +20,6 @@ function CodeEditor(props) {
       <CodeMirrorEditor
         command={command}
         mode={mode}
-        gesture={gesture}
         editor={editor}
         setEditor={setEditor}
         cursorPosition={cursorPosition}
@@ -31,15 +30,15 @@ function CodeEditor(props) {
 }
 
 function useClipboard(editor, gesture, cursorPosition) {
-  const [clipBoard, setClipBoard] = React.useState("");
-  React.useEffect(() => {
-    if (gesture.name === "copy" || gesture.name === "cut") {
-      const lineContent = editor.getLine(cursorPosition.lineNumber);
-      setClipBoard(lineContent);
-    }
-  }, [editor, gesture, cursorPosition]);
+  // const [clipBoard, setClipBoard] = React.useState("");
+  // React.useEffect(() => {
+  //   if (gesture.name === "copy" || gesture.name === "cut") {
+  //     const lineContent = editor.getLine(cursorPosition.lineNumber);
+  //     setClipBoard(lineContent);
+  //   }
+  // }, [editor, gesture, cursorPosition]);
 
-  return clipBoard;
+  return "";
 }
 
 // ** utils **
