@@ -25,7 +25,7 @@ export function executeCommand(
   editor,
   { name },
   { lineNumber },
-  clipBoard,
+  clipboard,
   userActive
 ) {
   switch (name) {
@@ -48,7 +48,7 @@ export function executeCommand(
         setCursor(editor, lineNumber);
         editor.execCommand("newlineAndIndent");
         setCursor(editor, lineNumber);
-        editor.replaceSelection(clipBoard);
+        editor.replaceSelection(clipboard);
       }
       break;
     default:

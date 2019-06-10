@@ -41,3 +41,15 @@ export function useCommand(gesture, userActive) {
     id
   };
 }
+
+export function useClipboard(editor, gesture, cursorPosition) {
+  const [clipBoard, setClipBoard] = React.useState("");
+  React.useEffect(() => {
+    if (gesture.name === "copy" || gesture.name === "cut") {
+      const lineContent = editor.getLine(cursorPosition.lineNumber);
+      setClipBoard(lineContent);
+    }
+  }, [editor, gesture, cursorPosition]);
+
+  return clipBoard;
+}

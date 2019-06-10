@@ -19,7 +19,7 @@ function CodeEditor({
   editor,
   setEditor,
   cursorPosition,
-  clipBoard,
+  clipboard,
   userActive
 }) {
   const [prevCommandId, setPrevCommandId] = React.useState(0);
@@ -28,10 +28,10 @@ function CodeEditor({
     // otherwise command will execute each time command is passed down
     // which, due to RAF being in the root if happening on every count
     if (prevCommandId === command.id) {
-      executeCommand(editor, command, cursorPosition, clipBoard, userActive);
+      executeCommand(editor, command, cursorPosition, clipboard, userActive);
       setPrevCommandId(prevCommandId => prevCommandId + 1);
     }
-  }, [editor, command, cursorPosition, clipBoard, prevCommandId, userActive]);
+  }, [editor, command, cursorPosition, clipboard, prevCommandId, userActive]);
 
   React.useEffect(() => {
     relativeLinesOn(editor);

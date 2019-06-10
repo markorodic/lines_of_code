@@ -1,7 +1,11 @@
 import React from "react";
 import CodeMirrorEditor from "./codeMirrorEditor/CodeMirrorEditor";
 import { useInterfaceState } from "../Interface.customHooks";
-import { useCursorPosition, useCommand } from "./CodeEditor.customHooks";
+import {
+  useCursorPosition,
+  useCommand,
+  useClipboard
+} from "./CodeEditor.customHooks";
 
 function CodeEditor() {
   const { gesture, userActive, mode, gestureActive } = useInterfaceState();
@@ -13,8 +17,9 @@ function CodeEditor() {
     mode,
     gesture
   );
-  const clipBoard = useClipboard(editor, gesture, cursorPosition);
+  const clipboard = useClipboard(editor, gesture, cursorPosition);
 
+  // TODO: userActive should not be passed to CodeMirrorEditor
   return (
     <div className="code">
       <CodeMirrorEditor
@@ -23,26 +28,11 @@ function CodeEditor() {
         editor={editor}
         setEditor={setEditor}
         cursorPosition={cursorPosition}
-        clipBoard={clipBoard}
+        clipboard={clipboard}
         userActive={userActive}
       />
     </div>
   );
 }
-
-function useClipboard(editor, gesture, cursorPosition) {
-  // const [clipBoard, setClipBoard] = React.useState("");
-  // React.useEffect(() => {
-  //   if (gesture.name === "copy" || gesture.name === "cut") {
-  //     const lineContent = editor.getLine(cursorPosition.lineNumber);
-  //     setClipBoard(lineContent);
-  //   }
-  // }, [editor, gesture, cursorPosition]);
-
-  return "";
-}
-
-// ** utils **
-// -----------
 
 export default CodeEditor;
