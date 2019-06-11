@@ -1,8 +1,9 @@
 import React from "react";
 import {
-  InterfaceStateContext,
-  InterfaceDispatchContext
-} from "./Interface.context";
+  InterfaceGestureStateContext,
+  InterfaceGestureDispatchContext
+} from "./Interface.gestureContext";
+import { InterfaceCountStateContext } from "./Interface.countContext";
 import {
   SET_GESTURE,
   ADD_COMBINATION,
@@ -30,8 +31,8 @@ export const useAnimationFrame = callback => {
   }, []);
 };
 
-export function useInterfaceState() {
-  const context = React.useContext(InterfaceStateContext);
+export function useInterfaceGestureState() {
+  const context = React.useContext(InterfaceGestureStateContext);
   if (context === undefined) {
     throw new Error(
       "useInterfaceState must be used within a InterfaceProvider"
@@ -40,8 +41,8 @@ export function useInterfaceState() {
   return context;
 }
 
-export function useInterfaceDispatch() {
-  const dispatch = React.useContext(InterfaceDispatchContext);
+export function useInterfaceGestureDispatch() {
+  const dispatch = React.useContext(InterfaceGestureDispatchContext);
   if (dispatch === undefined) {
     throw new Error(
       "useInterfaceDispatch must be used within a InterfaceProvider"
@@ -64,4 +65,14 @@ export function useInterfaceDispatch() {
     setMode,
     addCombination
   };
+}
+
+export function useInterfaceCountState() {
+  const context = React.useContext(InterfaceCountStateContext);
+  if (context === undefined) {
+    throw new Error(
+      "useInterfaceGestureState must be used within a InterfaceProvider"
+    );
+  }
+  return context;
 }

@@ -1,14 +1,15 @@
 import React from "react";
+import styles from "./Header.module.css";
 import { useContainerProperties } from "../../sharedCustomHooks";
 import { useCreateCanvasContext } from "./Header.customHooks";
-import { useInterfaceState } from "../Interface.customHooks";
+import { useInterfaceGestureState } from "../Interface.customHooks";
 import { displayOperatorPatterns } from "./HeaderHelpers";
 
 function Header() {
   const HeaderElement = React.useRef();
   const canvasElement = React.useRef();
   const containerProperties = useContainerProperties(HeaderElement);
-  const { userActive, gesture } = useInterfaceState();
+  const { userActive, gesture } = useInterfaceGestureState();
   const ctx = useCreateCanvasContext(containerProperties, canvasElement);
 
   React.useEffect(() => {
@@ -16,9 +17,9 @@ function Header() {
   }, [ctx, containerProperties, gesture, userActive]);
 
   return (
-    <header className="header" ref={HeaderElement}>
+    <header className={styles.header} ref={HeaderElement}>
       {!userActive && <p>Project 1</p>}
-      <canvas id="canvas" ref={canvasElement} />
+      <canvas id={styles.canvas} ref={canvasElement} />
     </header>
   );
 }

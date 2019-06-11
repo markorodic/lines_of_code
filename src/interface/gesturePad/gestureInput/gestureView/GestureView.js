@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./GestureView.module.css";
 import { useCreateCanvasContext } from "./GestureView.customHooks";
 import {
   renderGrid,
@@ -11,7 +12,7 @@ import {
 } from "./GestureViewHelpers";
 import { renderGiridPointGuides } from "./gestureViewGrid/GestureViewGrid";
 import { NUMBER_OF_BOXES } from "../../../CONSTANTS";
-import { useInterfaceState } from "../../../Interface.customHooks";
+import { useInterfaceGestureState } from "../../../Interface.customHooks";
 
 export default function GestureView(props) {
   // should take props and the context gesture state
@@ -29,7 +30,7 @@ export default function GestureView(props) {
   React.useEffect(() => {});
   const canvasElement = React.useRef();
   const ctx = useCreateCanvasContext(props, canvasElement);
-  const { gesture, gestureActive, mode } = useInterfaceState();
+  const { gesture, gestureActive, mode } = useInterfaceGestureState();
   const { position, expiringPositions, count, containerWidth } = props;
 
   React.useEffect(() => {
@@ -56,5 +57,5 @@ export default function GestureView(props) {
     mode
   ]);
 
-  return <canvas id="canvas" ref={canvasElement} />;
+  return <canvas id={style.canvas} ref={canvasElement} />;
 }

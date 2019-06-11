@@ -1,22 +1,25 @@
-import React, { Component } from "react";
-import "./Interface.css";
+import React from "react";
+import styles from "./Interface.module.css";
 import logo from "../assets/logo.svg";
 import Header from "./header/Header";
 import CodeEditor from "./codeEditor/CodeEditor";
 import GesturePad from "./gesturePad/GesturePad";
-import { InterfaceProvider } from "./Interface.context";
+import { InterfaceGestureProvider } from "./Interface.gestureContext";
+import { InterfaceCountProvider } from "./Interface.countContext";
 
 export default function Interface() {
   return (
-    <div className="interface">
+    <div className={styles.interface}>
       <img src={logo} alt="" />
-      <InterfaceProvider>
-        <Header />
-        <section className="view">
-          <CodeEditor />
-          <GesturePad />
-        </section>
-      </InterfaceProvider>
+      <InterfaceCountProvider>
+        <InterfaceGestureProvider>
+          <Header />
+          <section className={styles.view}>
+            <CodeEditor />
+            <GesturePad />
+          </section>
+        </InterfaceGestureProvider>
+      </InterfaceCountProvider>
     </div>
   );
 }

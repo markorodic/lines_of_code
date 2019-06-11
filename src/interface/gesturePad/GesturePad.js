@@ -3,13 +3,13 @@ import GestureInput from "./gestureInput/GestureInput";
 import { validGestures } from "../gesturesPatterns/gesturePatterns";
 import { gestureComboMatched, trimPattern } from "./GesturePad.helpers";
 import {
-  useInterfaceDispatch,
-  useInterfaceState
+  useInterfaceGestureState,
+  useInterfaceGestureDispatch
 } from "../Interface.customHooks";
 
 function GesturePad({ containerProperties }) {
-  const { setGesture, setMode } = useInterfaceDispatch();
-  const { userActive, mode, gesture, count } = useInterfaceState();
+  const { setGesture, setMode } = useInterfaceGestureDispatch();
+  const { userActive, mode, gesture } = useInterfaceGestureState();
   const [lastPattern, setLastPattern] = React.useState([]);
 
   const inputAdded = input => {
@@ -36,7 +36,6 @@ function GesturePad({ containerProperties }) {
   return (
     <GestureInput
       updateGestureState={inputAdded}
-      count={count}
       containerProperties={containerProperties}
     />
   );

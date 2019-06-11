@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./GestureInput.module.css";
 import {
   getGridPosition,
   gridPositionHasChanged,
@@ -8,11 +9,12 @@ import {
 import { useContainerProperties } from "../../../sharedCustomHooks";
 import GestureView from "./gestureView/GestureView";
 import {
-  useInterfaceState,
-  useInterfaceDispatch
+  useInterfaceGestureState,
+  useInterfaceGestureDispatch,
+  useInterfaceCountState
 } from "../../Interface.customHooks";
 
-export default function GestureInput({ count, updateGestureState }) {
+export default function GestureInput({ updateGestureState }) {
   const GestureInputElement = React.useRef();
   const containerProperties = useContainerProperties(GestureInputElement);
 
@@ -20,14 +22,14 @@ export default function GestureInput({ count, updateGestureState }) {
   const [expiringPositions, setExpiringPositions] = React.useState([]);
   const [pattern, setPattern] = React.useState([]);
   const [timer, setTimer] = React.useState(null);
-
-  const { userActive, gestureActive } = useInterfaceState();
+  const count = useInterfaceCountState();
+  const { userActive, gestureActive } = useInterfaceGestureState();
   const {
     setUserActive,
     setUserInactive,
     setGestureActive,
     setGestureInactive
-  } = useInterfaceDispatch();
+  } = useInterfaceGestureDispatch();
 
   const onGesture = event => {
     event.preventDefault();
@@ -80,8 +82,7 @@ export default function GestureInput({ count, updateGestureState }) {
       onTouchMove={onGesture}
       onTouchEnd={onGestureEnd}
       onClick={onClick}
-      className="gesture-pad"
-      data-testid="gesture-pad"
+      className={styles["gesture-input"]}
     >
       <GestureView
         count={count}

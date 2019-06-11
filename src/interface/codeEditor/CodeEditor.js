@@ -1,6 +1,6 @@
 import React from "react";
 import CodeMirrorEditor from "./codeMirrorEditor/CodeMirrorEditor";
-import { useInterfaceState } from "../Interface.customHooks";
+import { useInterfaceGestureState } from "../Interface.customHooks";
 import {
   useCursorPosition,
   useCommand,
@@ -8,7 +8,12 @@ import {
 } from "./CodeEditor.customHooks";
 
 function CodeEditor() {
-  const { gesture, userActive, mode, gestureActive } = useInterfaceState();
+  const {
+    gesture,
+    userActive,
+    mode,
+    gestureActive
+  } = useInterfaceGestureState();
   const [editor, setEditor] = React.useState(null);
   const command = useCommand(gesture, userActive);
   const cursorPosition = useCursorPosition(
