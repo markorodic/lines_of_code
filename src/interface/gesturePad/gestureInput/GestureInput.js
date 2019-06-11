@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./GestureInput.module.css";
 import {
   getGridPosition,
   gridPositionHasChanged,
@@ -80,8 +81,7 @@ export default function GestureInput({ count, updateGestureState }) {
       onTouchMove={onGesture}
       onTouchEnd={onGestureEnd}
       onClick={onClick}
-      className="gesture-pad"
-      data-testid="gesture-pad"
+      className={styles["gesture-input"]}
     >
       <GestureView
         count={count}

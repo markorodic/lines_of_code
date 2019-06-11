@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./GestureView.module.css";
 import { useCreateCanvasContext } from "./GestureView.customHooks";
 import {
   renderGrid,
@@ -56,5 +57,5 @@ export default function GestureView(props) {
     mode
   ]);
 
-  return <canvas id="canvas" ref={canvasElement} />;
+  return <canvas id={style.canvas} ref={canvasElement} />;
 }

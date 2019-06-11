@@ -1,0 +1,66 @@
+.code {
+    height: 35rem;
+    width: 25rem;
+}
+
+.code-editor {
+    background: #F9F9F9;
+    padding-top: 0.5rem;
+}
+
+.code-editor .CodeMirror {
+    height: 100%;
+    background: #F9F9F9;
+}
+
+.code-editor .CodeMirror-gutters {
+    border: none;
+    background: none;
+}
+
+.selected-text { 
+    background: #FC5081
+}
+
+.current-task {
+    color: black
+}
+
+.cursor {
+    background: black;
+    color: white;
+}
+
+.position {
+    width: 0.5rem;
+}
+
+.position-gutter-marker {
+    width: 1rem;
+    height: 2rem;
+}
+
+.cursor-deleteLine {
+    background: #FC5081;
+}
+
+.cursor-changeLine {
+    background: #4E8DC4;
+}
+
+.cursor-cutLine {
+    background: #A56FA3;
+}
+
+.cursor-copyToClipboard {
+    background: #5CB290;
+}
+
+@media (max-width: 500px) { 
+    .code {
+        position: relative;
+        width: 100%;
+        height: calc(100vh - 123vw);
+        
+    }
+ }
