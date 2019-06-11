@@ -3,7 +3,6 @@ import Interface from "./interface/Interface";
 import AST from "./ast/AST";
 import { setCSSCustomProperty } from "./utils";
 import { preventRefreshOnMobile } from "./utils";
-import logo from "./assets/splash-logo.svg";
 import "./App.css";
 
 class App extends Component {
@@ -35,11 +34,7 @@ class App extends Component {
 }
 
 function SplashScreen(props) {
-  return (
-    <div className="splash-screen">
-      <img src={logo} alt="" />{" "}
-    </div>
-  );
+  return <div className="splash-screen" />;
 }
 
 export default App;
