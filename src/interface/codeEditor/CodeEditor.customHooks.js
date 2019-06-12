@@ -30,7 +30,7 @@ export function useCommand(gesture, userActive) {
   const [id, setId] = React.useState(0);
 
   React.useEffect(() => {
-    if (validExecution(gesture)) {
+    if (validExecution(gesture, userActive)) {
       setName(getExecutionCommandFrom(gesture));
       setId(id => id + 1);
     }
