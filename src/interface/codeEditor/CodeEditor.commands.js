@@ -16,6 +16,8 @@ export function getExecutionCommandFrom({ name }) {
       return "pasteFromClipboard";
     case "copy":
       return "copyToClipboard";
+    case "undo":
+      return "undoLastCommand";
     default:
       return;
   }
@@ -26,7 +28,9 @@ export function executeCommand(
   { name },
   { lineNumber },
   clipboard,
-  userActive
+  userActive,
+  history,
+  setHistory
 ) {
   switch (name) {
     case "moveLineUp":
@@ -40,6 +44,7 @@ export function executeCommand(
       if (!userActive) {
         setCursor(editor, lineNumber);
         editor.execCommand("deleteLine");
+        setHistory(editor.getHistory());
       }
       break;
     case "pasteFromClipboard":
@@ -49,6 +54,15 @@ export function executeCommand(
         editor.execCommand("newlineAndIndent");
         setCursor(editor, lineNumber);
         editor.replaceSelection(clipboard);
+        setHistory(editor.getHistory());
+      }
+      break;
+    case "undoLastCommand":
+      // and this
+      if (!userActive && history) {
+        editor.setHistory(history);
+        editor.undo();
+        setHistory(null);
       }
       break;
     default:
@@ -64,3 +78,5 @@ function setCursor(editor, lineNumber) {
     ch: 0
   });
 }
+
+function currentHistory() {}

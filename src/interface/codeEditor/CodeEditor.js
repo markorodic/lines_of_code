@@ -15,6 +15,7 @@ function CodeEditor({ setTaskCompleted }) {
     gestureActive
   } = useInterfaceGestureState();
   const [editor, setEditor] = React.useState(null);
+  const [history, setHistory] = React.useState(null);
   const command = useCommand(gesture, userActive);
   const cursorPosition = useCursorPosition(
     editor,
@@ -36,6 +37,8 @@ function CodeEditor({ setTaskCompleted }) {
         clipboard={clipboard}
         userActive={userActive}
         setTaskCompleted={setTaskCompleted}
+        history={history}
+        setHistory={setHistory}
       />
     </div>
   );

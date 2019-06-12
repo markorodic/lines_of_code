@@ -106,7 +106,7 @@ export const editGestures = {
         },
         {
           name: "cut",
-          path: ["Up", "Left", "Left", "Down"],
+          path: ["Down", "Left", "Left", "Up"],
           type: "Operator"
         },
         {
@@ -132,6 +132,11 @@ export const editGestures = {
         {
           name: "copy",
           path: ["Left", "Up", "Up", "Right"],
+          type: "Operator"
+        },
+        {
+          name: "undo",
+          path: ["Right", "Up", "Left", "Left"],
           type: "Operator"
         },
         { name: "delete", path: ["Right", "Right", "Up"], type: "Operator" },
