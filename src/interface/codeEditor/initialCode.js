@@ -1,30 +1,50 @@
-export const initialCodeState = `Task 1 - Delete all comments
-------------------------------------
-// delete  commented lines
-const arr = ['foo', 'bar', 'baz'] // like this one
-const obj = { one: 1, two: 2, three: 3 }
-// and these...
-// two
-const obj = { one: 1, two: 2, three: 3 }
+export const initialCodeState = ` 
+** GESTURAL CODE EDITOR TASK **
+ 
+-------------------------------
+ 
+Read the instructions and then complete the task.
+ 
+# INSTRUCTIONS
+ 
+On your mobile, swipe around the gesture pad below to navigate the document.
+    - Left -> Swipe Left
+    - Right -> Swipe Right
+    - Up -> Swipe Up
+    - Down -> Swipe Down
+ 
+Enter a valid gesture to perform actions such as:
+    - Delete
+    - Copy
+    - Paste
 
-Task 2 - Change arrays to strings and
-objects to integers
-------------------------------------
-const arr = ['foo', 'bar', 'baz']
-const anotherArr = ['foofoo', 'barbar',
-'bazbaz']
-const obj = { one: 1, two: 2, three: 3 }
+Valid gestures are displayed in the header when you begin moving. Once a gesture is matched, both the gesture and line are highlighted Release your finger to execute the action.
+ 
+# TASK
+ 
+Final result should look like the following code:
 
-Task 3 - Change arrays to strings and
-objects to integers
-------------------------------------
-const str = "foo
-const anotherStr = "bar"
-const int = 1
+const strOne = "lines"
+const strTwo = "of"
+const strThree = "code"
 
-Final result
-------------------------------------
-const int = 1
-const str = "foo"
-const anotherStr = "bar"
-`;
+To acheive this:
+
+1. remove all the comments
+2. Move the strings to create the following result:
+ 
+----------------
+ 
+** EDIT THIS CODE **
+ 
+-------------------------------------------
+ 
+// delete all commented lines
+const strThree = "code"
+const strOne = "lines"
+// like this one
+// and this one two
+const strTwo = "of"
+// aaaaaannnnnd this one!
+
+-------------------------------------------`;

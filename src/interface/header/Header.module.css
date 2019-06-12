@@ -9,8 +9,9 @@
 }
 
 .header p {
-    font-size: 0.9rem;
-    color: white;
+    font-size: 0.8rem;
+    color: #f7f7f7;
+    text-transform: uppercase;
 }
 
 .icons {

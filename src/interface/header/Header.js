@@ -18,7 +18,7 @@ function Header() {
 
   return (
     <header className={styles.header} ref={HeaderElement}>
-      {!userActive && <p>Project 1</p>}
+      {!userActive && <p>Lines</p>}
       <canvas id={styles.canvas} ref={canvasElement} />
     </header>
   );
