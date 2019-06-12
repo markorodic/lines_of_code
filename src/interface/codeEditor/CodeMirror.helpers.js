@@ -40,7 +40,7 @@ export function markGutterIcon(editor, cursorPosition) {
 export function markText(editor, mode, cursorPosition, command, userActive) {
   if (editor) {
     clearMarks(editor);
-    markCursor(editor, mode);
+    markCursor(editor, mode, userActive);
     markLine(editor, cursorPosition, command, userActive);
   }
 }
@@ -51,13 +51,13 @@ function clearMarks(editor) {
   }
 }
 
-function markCursor(editor, mode) {
+function markCursor(editor, mode, userActive) {
   // investigate why removing this causes cursor not to be reset, since we do this in markText();
   clearMarks(editor);
   const line = editor.getCursor().line;
   const ch = editor.getCursor().ch;
 
-  if (mode === "Motion") {
+  if (mode === "Motion" || (mode = "Operation" && !userActive)) {
     editor.markText(
       { line, ch },
       { line, ch: ch + 1 },
