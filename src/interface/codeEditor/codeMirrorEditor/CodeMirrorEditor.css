@@ -4,13 +4,16 @@
 }
 
 .code-editor {
-    background: #F9F9F9;
-    padding-top: 0.5rem;
+    height: 100%;
 }
 
 .code-editor .CodeMirror {
     height: 100%;
-    background: #F9F9F9;
+}
+
+.code-editor .CodeMirror-sizer {
+    height: 100% !important;
+    min-height: 100% !important;
 }
 
 .code-editor .CodeMirror-gutters {
@@ -56,11 +59,10 @@
     background: #5CB290;
 }
 
-@media (max-width: 500px) { 
+@media (max-width: 600px) { 
     .code {
         position: relative;
         width: 100%;
-        height: calc(100vh - 123vw);
-        
+        height: calc(var(--vh, 1vh) * 100 - 100vw - 9vh);
     }
  }

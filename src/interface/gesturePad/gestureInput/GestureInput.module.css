@@ -10,11 +10,11 @@
         position: absolute;
         width: 100vw;
         height: 100vw;
-        top: 100vh; /* Fallback for browsers that do not support Custom Properties */
+        top: 100vh; /* Fallback for browsers that don't support Custom Properties */
         top: calc(var(--vh, 1vh) * 100 - 100vw);
         overflow-y: hidden;
         overscroll-behavior: none;
         touch-action: none;
-        background: #fdfdfd;
+        background: white
     }
  }
