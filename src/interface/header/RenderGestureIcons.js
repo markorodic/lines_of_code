@@ -11,23 +11,23 @@ export function renderGestureIcon(
   const mid = boxWidth / 6;
   ctx.beginPath();
   switch (count) {
+    // case 0:
+    //   ctx.moveTo(marginX + mid * 3, marginY + mid * 5);
+    //   ctx.lineTo(marginX + mid * 3, marginY + mid * 1);
+    //   ctx.lineTo(marginX + mid * 5, marginY + mid * 1);
+    //   ctx.lineWidth = 1;
+    //   if (gesture.name === "insert") {
+    //     ctx.fillStyle = "red";
+    //     ctx.strokeStyle = "red";
+    //   } else {
+    //     ctx.fillStyle = "white";
+    //     ctx.strokeStyle = "white";
+    //   }
+    //   ctx.stroke();
+    //   ctx.font = "lighter 8px Futura";
+    //   ctx.fillText("INSERT", marginX, marginY + mid * 8);
+    //   break;
     case 0:
-      ctx.moveTo(marginX + mid * 3, marginY + mid * 5);
-      ctx.lineTo(marginX + mid * 3, marginY + mid * 1);
-      ctx.lineTo(marginX + mid * 5, marginY + mid * 1);
-      ctx.lineWidth = 1;
-      if (gesture.name === "insert") {
-        ctx.fillStyle = "red";
-        ctx.strokeStyle = "red";
-      } else {
-        ctx.fillStyle = "white";
-        ctx.strokeStyle = "white";
-      }
-      ctx.stroke();
-      ctx.font = "lighter 8px Futura";
-      ctx.fillText("INSERT", marginX, marginY + mid * 8);
-      break;
-    case 1:
       ctx.moveTo(marginX + mid, marginY + mid * 5);
       ctx.lineTo(marginX + mid * 5, marginY + mid * 5);
       ctx.lineTo(marginX + mid * 5, marginY + mid * 3);
@@ -43,7 +43,7 @@ export function renderGestureIcon(
       ctx.font = "lighter 8px Futura";
       ctx.fillText("DELETE", marginX, marginY + mid * 8);
       break;
-    case 2:
+    case 1:
       ctx.moveTo(marginX + mid * 3, marginY + mid * 1);
       ctx.lineTo(marginX + mid * 1, marginY + mid * 1);
       ctx.lineTo(marginX + mid * 1, marginY + mid * 5);
@@ -60,7 +60,7 @@ export function renderGestureIcon(
       ctx.font = "lighter 8px Futura";
       ctx.fillText("YANK", marginX, marginY + mid * 8);
       break;
-    case 3:
+    case 2:
       ctx.moveTo(marginX + mid * 3, marginY + mid * 5);
       ctx.lineTo(marginX + mid * 3, marginY + mid * 1);
       ctx.lineTo(marginX + mid * 5, marginY + mid * 1);
@@ -76,7 +76,7 @@ export function renderGestureIcon(
       ctx.font = "lighter 8px Futura";
       ctx.fillText("PASTE", marginX, marginY + mid * 8);
       break;
-    case 4:
+    case 3:
       ctx.moveTo(marginX + mid * 1, marginY + mid * 3);
       ctx.lineTo(marginX + mid * 1, marginY + mid * 5);
       ctx.lineTo(marginX + mid * 5, marginY + mid * 5);
@@ -93,24 +93,24 @@ export function renderGestureIcon(
       ctx.font = "lighter 8px Futura";
       ctx.fillText("CUT", marginX, marginY + mid * 8);
       break;
-    case 5:
-      ctx.moveTo(marginX + mid * 1, marginY + mid * 3);
-      ctx.lineTo(marginX + mid * 1, marginY + mid * 5);
-      ctx.lineTo(marginX + mid * 5, marginY + mid * 5);
-      ctx.lineTo(marginX + mid * 5, marginY + mid * 1);
-      ctx.lineTo(marginX + mid * 3, marginY + mid * 1);
-      ctx.lineWidth = 1;
-      if (gesture.name === "change") {
-        ctx.fillStyle = "#4E8DC4";
-        ctx.strokeStyle = "#4E8DC4";
-      } else {
-        ctx.fillStyle = "white";
-        ctx.strokeStyle = "white";
-      }
-      ctx.stroke();
-      ctx.font = "lighter 8px Futura";
-      ctx.fillText("CHANGE", marginX, marginY + mid * 8);
-      break;
+    // case 5:
+    //   ctx.moveTo(marginX + mid * 1, marginY + mid * 3);
+    //   ctx.lineTo(marginX + mid * 1, marginY + mid * 5);
+    //   ctx.lineTo(marginX + mid * 5, marginY + mid * 5);
+    //   ctx.lineTo(marginX + mid * 5, marginY + mid * 1);
+    //   ctx.lineTo(marginX + mid * 3, marginY + mid * 1);
+    //   ctx.lineWidth = 1;
+    //   if (gesture.name === "change") {
+    //     ctx.fillStyle = "#4E8DC4";
+    //     ctx.strokeStyle = "#4E8DC4";
+    //   } else {
+    //     ctx.fillStyle = "white";
+    //     ctx.strokeStyle = "white";
+    //   }
+    //   ctx.stroke();
+    //   ctx.font = "lighter 8px Futura";
+    //   ctx.fillText("CHANGE", marginX, marginY + mid * 8);
+    //   break;
     default:
       return;
   }

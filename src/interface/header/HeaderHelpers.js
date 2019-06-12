@@ -40,7 +40,7 @@ function getDimensions(containerWidth) {
 
 function drawPatterns(ctx, { marginSide, marginBox, widthBox }, gesture) {
   let count = 0;
-  while (count < 6) {
+  while (count < 4) {
     const marginX = marginSide + count * (widthBox + marginBox);
     const marginY = marginSide;
     drawSinglePatternGrid(ctx, marginX, marginY, marginBox, widthBox);

@@ -46,6 +46,12 @@ function CodeEditor({
     markText(editor, mode, cursorPosition, command, userActive);
   }, [editor, cursorPosition, command, mode, userActive]);
 
+  React.useEffect(() => {
+    if (!userActive && editor) {
+      console.log(editor.getValue());
+    }
+  }, [editor, userActive]);
+
   return (
     <div className="code">
       <CodeMirror

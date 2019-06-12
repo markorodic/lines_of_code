@@ -135,9 +135,9 @@ export const editGestures = {
           type: "Operator"
         },
         { name: "delete", path: ["Right", "Right", "Up"], type: "Operator" },
-        { name: "delete", path: ["Left", "Left", "Up"], type: "Operator" },
-        { name: "insert", path: ["Up", "Up", "Right"], type: "Insert" },
-        { name: "insert", path: ["Up", "Up", "Left"], type: "Insert" }
+        { name: "delete", path: ["Left", "Left", "Up"], type: "Operator" }
+        // { name: "insert", path: ["Up", "Up", "Right"], type: "Insert" },
+        // { name: "insert", path: ["Up", "Up", "Left"], type: "Insert" }
       ]
     },
     motion: {
