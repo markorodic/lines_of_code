@@ -7,7 +7,7 @@ import {
   useClipboard
 } from "./CodeEditor.customHooks";
 
-function CodeEditor() {
+function CodeEditor({ setTaskCompleted }) {
   const {
     gesture,
     userActive,
@@ -35,6 +35,7 @@ function CodeEditor() {
         cursorPosition={cursorPosition}
         clipboard={clipboard}
         userActive={userActive}
+        setTaskCompleted={setTaskCompleted}
       />
     </div>
   );
