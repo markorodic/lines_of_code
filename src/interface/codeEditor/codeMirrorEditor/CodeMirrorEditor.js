@@ -26,6 +26,7 @@ function CodeEditor({
   history,
   setHistory
 }) {
+  console.log("Code Mirror Editor rerender");
   const [prevCommandId, setPrevCommandId] = React.useState(0);
   React.useEffect(() => {
     // check the command id against the previous command passed down

@@ -14,7 +14,10 @@ import {
   useInterfaceCountState
 } from "../../Interface.customHooks";
 
-export default function GestureInput({ updateGestureState }) {
+export default function GestureInput({
+  updateGestureState,
+  lastMatchedGesture
+}) {
   const GestureInputElement = React.useRef();
   const containerProperties = useContainerProperties(GestureInputElement);
 
@@ -90,6 +93,7 @@ export default function GestureInput({ updateGestureState }) {
         pattern={pattern}
         expiringPositions={expiringPositions}
         containerWidth={containerProperties.width}
+        lastMatchedGesture={lastMatchedGesture}
       />
     </section>
   );

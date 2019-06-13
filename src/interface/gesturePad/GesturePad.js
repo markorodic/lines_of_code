@@ -11,6 +11,7 @@ function GesturePad({ containerProperties }) {
   const { setGesture, setMode } = useInterfaceGestureDispatch();
   const { userActive, mode, gesture } = useInterfaceGestureState();
   const [lastPattern, setLastPattern] = React.useState([]);
+  const [lastMatchedGesture, setLastMatchedGesture] = React.useState([]);
 
   const inputAdded = input => {
     const pattern = [...lastPattern, input[1]];
@@ -21,6 +22,10 @@ function GesturePad({ containerProperties }) {
     if (gesture) {
       setMode(gesture.type);
       setGesture({ ...gesture, pattern: trimPattern(pattern, gesture) });
+      setLastMatchedGesture({
+        ...gesture,
+        pattern: trimPattern(pattern, gesture)
+      });
     }
   };
 
@@ -30,6 +35,7 @@ function GesturePad({ containerProperties }) {
     }
     if (!userActive) {
       setLastPattern([]);
+      setGesture({});
     }
   }, [userActive, gesture]);
 
@@ -37,6 +43,7 @@ function GesturePad({ containerProperties }) {
     <GestureInput
       updateGestureState={inputAdded}
       containerProperties={containerProperties}
+      lastMatchedGesture={lastMatchedGesture}
     />
   );
 }

@@ -30,7 +30,7 @@ export default function GestureView(props) {
   React.useEffect(() => {});
   const canvasElement = React.useRef();
   const ctx = useCreateCanvasContext(props, canvasElement);
-  const { gesture, gestureActive, mode } = useInterfaceGestureState();
+  const { gestureActive, mode } = useInterfaceGestureState();
   const { position, expiringPositions, count, containerWidth } = props;
 
   React.useEffect(() => {
@@ -43,7 +43,7 @@ export default function GestureView(props) {
       renderGridPoints(ctx, boxWidth, mode);
       renderGiridPointGuides(ctx, position, boxWidth, gestureActive, mode);
       renderCurrentBox(ctx, position, boxWidth, mode);
-      renderMatchedPattern(ctx, boxWidth, gesture, mode);
+      renderMatchedPattern(ctx, boxWidth, props.lastMatchedGesture, mode);
       renderExpiredBoxes(ctx, boxWidth, expiringPositions, count, mode);
     }
   }, [
@@ -53,7 +53,7 @@ export default function GestureView(props) {
     expiringPositions,
     position,
     gestureActive,
-    gesture,
+    props.lastMatchedGesture,
     mode
   ]);
 
