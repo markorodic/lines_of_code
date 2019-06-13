@@ -71,16 +71,20 @@ function getDirectionsFrom(trimmedPattern) {
     if (firstPosition.y === secondPosition.y) {
       if (firstPosition.x - secondPosition.x === 1) {
         stringPath.push("Left");
-      } else {
+      }
+      if (firstPosition.x - secondPosition.x === -1) {
         stringPath.push("Right");
       }
-    } else {
+    }
+    if (firstPosition.x === secondPosition.x) {
       if (firstPosition.y - secondPosition.y === 1) {
         stringPath.push("Up");
-      } else {
+      }
+      if (firstPosition.y - secondPosition.y === -1) {
         stringPath.push("Down");
       }
     }
+
     count++;
   }
   return stringPath;
