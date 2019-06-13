@@ -7,7 +7,11 @@ import "codemirror/mode/xml/xml.js";
 import "codemirror/mode/javascript/javascript.js";
 import { UnControlled as CodeMirror } from "react-codemirror2";
 import { executeCommand } from "../CodeEditor.commands";
-import { initialCodeState, finalCodeState } from "../initialCode";
+import {
+  initialCodeState,
+  finalCodeState,
+  taskCompleteCodeText
+} from "../initialCode";
 import {
   markGutterIcon,
   markText,
@@ -24,7 +28,9 @@ function CodeEditor({
   userActive,
   setTaskCompleted,
   history,
-  setHistory
+  setHistory,
+  resetCodeText,
+  setResetCodeText
 }) {
   const [prevCommandId, setPrevCommandId] = React.useState(0);
   React.useEffect(() => {
@@ -69,10 +75,17 @@ function CodeEditor({
   React.useEffect(() => {
     if (editor) {
       if (editor.getValue() === finalCodeState) {
-        setTaskCompleted(true);
+        editor.setValue(taskCompleteCodeText);
       }
     }
   }, [editor, command]);
+
+  React.useEffect(() => {
+    if (editor && resetCodeText) {
+      editor.setValue(initialCodeState);
+      setResetCodeText();
+    }
+  }, [editor, resetCodeText]);
 
   return (
     <div className="code">

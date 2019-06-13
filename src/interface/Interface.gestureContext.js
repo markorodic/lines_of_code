@@ -1,5 +1,6 @@
 import React from "react";
 import InterfaceReducer from "./Interface.reducer";
+import { initialCodeState } from "./codeEditor/initialCode";
 
 const InterfaceGestureStateContext = React.createContext();
 const InterfaceGestureDispatchContext = React.createContext();
@@ -9,7 +10,8 @@ const initialState = {
   combination: [],
   mode: "Motion",
   userActive: false,
-  gestureActive: false
+  gestureActive: false,
+  resetCodeText: false
 };
 
 function InterfaceGestureProvider({ children }) {

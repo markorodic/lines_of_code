@@ -8,6 +8,32 @@
     align-items: center;
 }
 
+.header section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1000;
+}
+
+.header button {
+    position: absolute;
+    left: 1rem;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: none;
+    margin: 0;
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+}
+
+.header button:focus {
+    outline: none;
+}
+
 .header p {
     font-size: 0.8rem;
     color: #f7f7f7;

@@ -8,7 +8,7 @@
     box-shadow: 2px 2px 15px #dadada;
 }
 
-.interface img {
+.interface .bg-logo {
     position: absolute;
     top: 1rem;
     left: 1rem;
@@ -50,7 +50,7 @@
         width: 100%
     }
 
-    .interface img {
+    .interface .bg-logo {
         display: none;
     }
     

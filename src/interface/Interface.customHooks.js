@@ -11,7 +11,8 @@ import {
   USER_INACTIVE,
   GESTURE_ACTIVE,
   GESTURE_INACTIVE,
-  SET_MODE
+  SET_MODE,
+  RESET_CODE_TEXT
 } from "./Interface.actions";
 
 export const useAnimationFrame = callback => {
@@ -56,6 +57,9 @@ export function useInterfaceGestureDispatch() {
   const addCombination = pattern =>
     dispatch({ type: ADD_COMBINATION, pattern });
   const setMode = mode => dispatch({ type: SET_MODE, mode });
+  const setResetCodeText = newCodeText =>
+    dispatch({ type: RESET_CODE_TEXT, newCodeText });
+
   return {
     setUserActive,
     setUserInactive,
@@ -63,7 +67,8 @@ export function useInterfaceGestureDispatch() {
     setGestureInactive,
     setGesture,
     setMode,
-    addCombination
+    addCombination,
+    setResetCodeText
   };
 }
 

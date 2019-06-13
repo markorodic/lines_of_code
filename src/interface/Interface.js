@@ -13,7 +13,7 @@ export default function Interface() {
 
   return (
     <div className={styles.interface}>
-      <img src={logo} alt="" />
+      <img className={styles["bg-logo"]} src={logo} alt="" />
       <InterfaceCountProvider>
         {taskCompleted && <ModalTaskCompleted />}
         <InterfaceGestureProvider>

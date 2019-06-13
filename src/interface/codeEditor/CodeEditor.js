@@ -1,6 +1,9 @@
 import React from "react";
 import CodeMirrorEditor from "./codeMirrorEditor/CodeMirrorEditor";
-import { useInterfaceGestureState } from "../Interface.customHooks";
+import {
+  useInterfaceGestureState,
+  useInterfaceGestureDispatch
+} from "../Interface.customHooks";
 import {
   useCursorPosition,
   useCommand,
@@ -12,8 +15,10 @@ function CodeEditor({ setTaskCompleted }) {
     gesture,
     userActive,
     mode,
-    gestureActive
+    gestureActive,
+    resetCodeText
   } = useInterfaceGestureState();
+  const { setResetCodeText } = useInterfaceGestureDispatch();
   const [editor, setEditor] = React.useState(null);
   const [history, setHistory] = React.useState(null);
   const command = useCommand(gesture, userActive);
@@ -39,6 +44,8 @@ function CodeEditor({ setTaskCompleted }) {
         setTaskCompleted={setTaskCompleted}
         history={history}
         setHistory={setHistory}
+        resetCodeText={resetCodeText}
+        setResetCodeText={setResetCodeText}
       />
     </div>
   );

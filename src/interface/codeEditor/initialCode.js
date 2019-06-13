@@ -2,7 +2,7 @@ export const initialCodeState = `
 ** GESTURAL CODE EDITOR TASK **
  
 -------------------------------
- 
+ 🥳
 Read the instructions and then complete the task.
  
 # INSTRUCTIONS
@@ -53,7 +53,7 @@ export const finalCodeState = `
 ** GESTURAL CODE EDITOR TASK **
  
 -------------------------------
- 
+
 Read the instructions and then complete the task.
  
 # INSTRUCTIONS
@@ -95,3 +95,9 @@ const strTwo = "of"
 const strThree = "code"
 
 --------------------`;
+
+export const taskCompleteCodeText = `
+Great Job!
+----------
+
+Thanks for completing the task! We will let you once the Lines editor is ready to ship. In the mean time if you have questions or comments please shoot me an email: mrmarkorodic@gmail.com`;
