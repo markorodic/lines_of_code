@@ -11,7 +11,8 @@ const initialState = {
   mode: "Motion",
   userActive: false,
   gestureActive: false,
-  resetCodeText: false
+  resetCodeText: false,
+  codeState: "Instructions"
 };
 
 function InterfaceGestureProvider({ children }) {

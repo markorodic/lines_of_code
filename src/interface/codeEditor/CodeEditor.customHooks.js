@@ -3,7 +3,13 @@ import { getExecutionCommandFrom } from "./CodeEditor.commands";
 import { getCursorPosition } from "./CodeEditor.utils";
 import { motionHasFinished, validExecution } from "./CodeMirror.helpers";
 
-export function useCursorPosition(editor, gestureActive, mode, gesture) {
+export function useCursorPosition(
+  editor,
+  gestureActive,
+  mode,
+  gesture,
+  codeState
+) {
   const [cursorPosition, setCursorPosition] = React.useState({
     lineNumber: 0,
     characterPosition: 0

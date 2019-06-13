@@ -8,7 +8,8 @@ import "codemirror/mode/javascript/javascript.js";
 import { UnControlled as CodeMirror } from "react-codemirror2";
 import { executeCommand } from "../CodeEditor.commands";
 import {
-  initialCodeState,
+  instructionsText,
+  initialCodeText,
   finalCodeState,
   taskCompleteCodeText
 } from "../initialCode";
@@ -26,11 +27,12 @@ function CodeEditor({
   cursorPosition,
   clipboard,
   userActive,
-  setTaskCompleted,
   history,
   setHistory,
   resetCodeText,
-  setResetCodeText
+  setResetCodeText,
+  codeState,
+  setCodeState
 }) {
   const [prevCommandId, setPrevCommandId] = React.useState(0);
   React.useEffect(() => {
@@ -75,22 +77,45 @@ function CodeEditor({
   React.useEffect(() => {
     if (editor) {
       if (editor.getValue() === finalCodeState) {
-        editor.setValue(taskCompleteCodeText);
+        setCodeState("Completed");
       }
     }
   }, [editor, command]);
 
   React.useEffect(() => {
     if (editor && resetCodeText) {
-      editor.setValue(initialCodeState);
+      editor.setValue(initialCodeText);
       setResetCodeText();
     }
   }, [editor, resetCodeText]);
 
+  React.useEffect(() => {
+    if (editor) {
+      console.log(codeState);
+      switch (codeState) {
+        case "Instructions":
+          console.log("instructions");
+          editor.setValue(instructionsText);
+          break;
+        case "Code":
+          console.log("code");
+          editor.setValue(initialCodeText);
+          break;
+        case "Completed":
+          editor.setValue(taskCompleteCodeText);
+          console.log("completed");
+          break;
+        default:
+          break;
+      }
+    }
+    // setResetCodeText();
+  }, [editor, codeState]);
+
   return (
     <div className="code">
       <CodeMirror
-        value={initialCodeState}
+        value={instructionsText}
         options={{
           lineNumbers: true,
           autofocus: true,

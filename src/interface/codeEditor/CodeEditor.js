@@ -10,15 +10,16 @@ import {
   useClipboard
 } from "./CodeEditor.customHooks";
 
-function CodeEditor({ setTaskCompleted }) {
+function CodeEditor() {
   const {
     gesture,
     userActive,
     mode,
     gestureActive,
-    resetCodeText
+    resetCodeText,
+    codeState
   } = useInterfaceGestureState();
-  const { setResetCodeText } = useInterfaceGestureDispatch();
+  const { setResetCodeText, setCodeState } = useInterfaceGestureDispatch();
   const [editor, setEditor] = React.useState(null);
   const [history, setHistory] = React.useState(null);
   const command = useCommand(gesture, userActive);
@@ -26,7 +27,8 @@ function CodeEditor({ setTaskCompleted }) {
     editor,
     gestureActive,
     mode,
-    gesture
+    gesture,
+    codeState
   );
   const clipboard = useClipboard(editor, gesture, cursorPosition);
 
@@ -41,11 +43,12 @@ function CodeEditor({ setTaskCompleted }) {
         cursorPosition={cursorPosition}
         clipboard={clipboard}
         userActive={userActive}
-        setTaskCompleted={setTaskCompleted}
         history={history}
         setHistory={setHistory}
         resetCodeText={resetCodeText}
         setResetCodeText={setResetCodeText}
+        codeState={codeState}
+        setCodeState={setCodeState}
       />
     </div>
   );

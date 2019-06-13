@@ -67,7 +67,7 @@ function markCursor(editor, mode, userActive) {
 }
 
 function markLine(editor, { lineNumber }, { name }, userActive) {
-  if (userActive) {
+  if (userActive && editor.getLine(lineNumber)) {
     const lastCh = editor.getLine(lineNumber).length;
     editor.markText(
       { line: lineNumber, ch: 0 },

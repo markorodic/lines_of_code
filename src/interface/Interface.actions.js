@@ -6,3 +6,4 @@ export const GESTURE_INACTIVE = "GESTURE_INACTIVE";
 export const USER_ACTIVE = "USER_ACTIVE";
 export const USER_INACTIVE = "USER_INACTIVE";
 export const RESET_CODE_TEXT = "RESET_CODE_TEXT";
+export const SET_CODE_STATE = "SET_CODE_STATE";
