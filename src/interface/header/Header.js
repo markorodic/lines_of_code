@@ -1,4 +1,5 @@
 import React from "react";
+import { Mixpanel } from "../mixpanel";
 import styles from "./Header.module.css";
 import { useContainerProperties } from "../../sharedCustomHooks";
 import { useCreateCanvasContext } from "./Header.customHooks";
@@ -29,6 +30,8 @@ function Header() {
           {codeState === "Instructions" ? (
             <button
               onClick={() => {
+                console.log("mixpanel");
+                Mixpanel.track("Video play");
                 setCodeState("Code");
               }}
             >

@@ -91,19 +91,15 @@ function CodeEditor({
 
   React.useEffect(() => {
     if (editor) {
-      console.log(codeState);
       switch (codeState) {
         case "Instructions":
-          console.log("instructions");
           editor.setValue(instructionsText);
           break;
         case "Code":
-          console.log("code");
           editor.setValue(initialCodeText);
           break;
         case "Completed":
           editor.setValue(taskCompleteCodeText);
-          console.log("completed");
           break;
         default:
           break;
