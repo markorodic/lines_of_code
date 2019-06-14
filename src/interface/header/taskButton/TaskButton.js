@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "../Header.module.css";
 import { Mixpanel } from "../../mixpanel";
 import restartIcon from "../../../assets/restart_icon.svg";
 import playIcon from "../../../assets/play_icon.svg";
 import finishIcon from "../../../assets/finish_icon.svg";
+import emailIcon from "../../../assets/email_icon.svg";
 
 function TaskButton({ codeState, setCodeState, setResetCodeText }) {
   switch (codeState) {
@@ -45,11 +45,15 @@ function TaskButton({ codeState, setCodeState, setResetCodeText }) {
       return (
         <button
           onClick={() => {
-            console.log("Start over");
+            console.log("Email");
             setCodeState("Instructions");
           }}
         >
-          <img src={restartIcon} alt="" />
+          <a
+            href={`mailto:mrmarkorodic@gmail.com?subject=Hey 👋&body=Question 1%20%3A%0D%0AQuestion 2%20%3A%0D%0AQuestion 3%20%3A`}
+          >
+            <img src={emailIcon} alt="" />
+          </a>
         </button>
       );
     default:
