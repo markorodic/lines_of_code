@@ -16,6 +16,7 @@ function Header() {
   const { userActive, gesture, codeState } = useInterfaceGestureState();
   const { setResetCodeText, setCodeState } = useInterfaceGestureDispatch();
   const ctx = useCreateCanvasContext(containerProperties, canvasElement);
+  const [time, setTime] = React.useState(null);
 
   React.useEffect(() => {
     displayOperatorPatterns(ctx, containerProperties, gesture, userActive);
@@ -29,6 +30,8 @@ function Header() {
             codeState={codeState}
             setCodeState={setCodeState}
             setResetCodeText={setResetCodeText}
+            time={time}
+            setTime={setTime}
           />
           <p>Lines</p>
         </section>

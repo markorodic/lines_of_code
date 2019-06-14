@@ -1,8 +1,7 @@
 import mixpanel from "mixpanel-browser";
-mixpanel.init("cf303273423cd6a034ea0721e12d5b14");
+mixpanel.init("9f3a0f00fb59f93316bb8ac8e25d5613");
 
 let env_check = process.env.NODE_ENV === "production";
-env_check = true;
 
 let actions = {
   identify: id => {
@@ -13,6 +12,9 @@ let actions = {
   },
   track: (name, props) => {
     if (env_check) mixpanel.track(name, props);
+  },
+  time_event: (name, props) => {
+    if (env_check) mixpanel.time_event(name);
   },
   people: {
     set: props => {

@@ -5,14 +5,21 @@ import playIcon from "../../../assets/play_icon.svg";
 import finishIcon from "../../../assets/finish_icon.svg";
 import emailIcon from "../../../assets/email_icon.svg";
 
-function TaskButton({ codeState, setCodeState, setResetCodeText }) {
+function TaskButton({
+  codeState,
+  setCodeState,
+  setResetCodeText,
+  time,
+  setTime
+}) {
   switch (codeState) {
     case "Instructions":
       return (
         <button
           onClick={() => {
-            console.log("Start");
-            Mixpanel.track("Video play");
+            Mixpanel.track("Start Challenge");
+            const duration = new Date().getTime();
+            setTime(duration);
             setCodeState("Code");
           }}
         >
@@ -23,7 +30,11 @@ function TaskButton({ codeState, setCodeState, setResetCodeText }) {
       return (
         <button
           onClick={() => {
-            console.log("Restart code");
+            const duration = new Date().getTime() - time;
+            const durationInSeconds = Math.floor(duration / 1000);
+            Mixpanel.track("Restart Challenge", {
+              Duration: durationInSeconds
+            });
             setResetCodeText();
           }}
         >
@@ -34,7 +45,11 @@ function TaskButton({ codeState, setCodeState, setResetCodeText }) {
       return (
         <button
           onClick={() => {
-            console.log("End");
+            const duration = new Date().getTime() - time;
+            const durationInSeconds = Math.floor(duration / 1000);
+            Mixpanel.track("End Challenge", {
+              Duration: durationInSeconds
+            });
             setCodeState("Completed");
           }}
         >
@@ -45,7 +60,6 @@ function TaskButton({ codeState, setCodeState, setResetCodeText }) {
       return (
         <button
           onClick={() => {
-            console.log("Email");
             setCodeState("Instructions");
           }}
         >
