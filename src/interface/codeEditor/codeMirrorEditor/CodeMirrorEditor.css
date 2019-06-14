@@ -9,6 +9,7 @@
 
 .code-editor .CodeMirror {
     height: 100%;
+    background: #fdfdfd;
 }
 
 .code-editor .CodeMirror-sizer {
@@ -57,6 +58,10 @@
 
 .cursor-copyToClipboard {
     background: #5CB290;
+}
+
+.text-title {
+    background: black;
 }
 
 @media (max-width: 600px) { 

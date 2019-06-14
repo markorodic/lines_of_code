@@ -1,79 +1,119 @@
 export const instructionsText = ` 
-** GESTURAL CODE EDITOR TASK **
  
--------------------------------
- 🥳
-Read the instructions and then complete the task.
- 
-# INSTRUCTIONS
- 
-On your mobile, swipe around the gesture pad below to navigate the document.
-    - Left -> Swipe Left
-    - Right -> Swipe Right
-    - Up -> Swipe Up
-    - Down -> Swipe Down
- 
-Enter a valid gesture to perform actions such as:
-    - Delete
-    - Copy
-    - Paste
+** Gesture code editing challenge **
 
-Valid gestures are displayed in the header when you begin moving. Once a gesture is matched, both the gesture and line are highlighted Release your finger to execute the action.
+------------------------------------
+
+Hello 👋, this is a short coding challenge similar to vim golf - but using a gestural interface. Please use on mobile.
  
-# TASK
+Begin by scrolling down 👇 using the gesture pad.
+
+-----------------
  
-Final result should look like the following code:
+# INSTRUCTIONS 📝
+ 
+## Motions
+
+Move up a line:
+    - swipe up or left
+    
+Move down a line:
+    - swipe down or right
+
+## Operations
+
+Perform an operation on a line by entering a valid pattern and then releasing your finger to execute it.
+
+Valid gestures are displayed in the header when you begin moving. They are:
+    - delete
+    - copy
+    - paste
+ 
+--------------
+
+# Challenge 🎯
+ 
+Edit the start text to match the text labelled end.
+
+Only edit the code between the the two lines.
+
+Restart the challenge by pressing: 🔄
+Once your code is correct press: ✔️
+
+Great! Press the play button in the header to get started.
+
+--------------`;
+
+export const initialCodeText = `
+** RESULT **
+
+----------------------
 
 const strOne = "lines"
 const strTwo = "of"
 const strThree = "code"
 
-To acheive this:
+----------------------
 
-1. remove all the comments
-2. Move the strings to create the following result:
- 
--------------------- 
+** START (to edit) **
 
-** EDIT THIS CODE **
- 
---------------------
- 
-// delete all commented lines
+----------------------
+
+// delete all the commented lines
+const strOne = "lines"
+const strTwo = "of"
 const strThree = "code"
+
+----------------------`;
+
+// export const initialCodeText = `
+// ** RESULT **
+
+// ----------------------
+
+// const strOne = "lines"
+// const strTwo = "of"
+// const strThree = "code"
+
+// ----------------------
+
+// ** START (to edit) **
+
+// ----------------------
+
+// const strOne = "lines"
+// const strTwo = "of"
+// const strThree = "code"
+
+// ----------------------`;
+
+export const finalCodeState = `
+** RESULT **
+
+----------------------
+
 const strOne = "lines"
-// like this one
-// and this one two
 const strTwo = "of"
-// aaaaaannnnnd this one!
+const strThree = "code"
 
---------------------`;
+----------------------
 
-export const initialCodeText = ` 
--------------------- 
+** START (to edit) **
 
-** EDIT THIS CODE **
- 
---------------------
- 
-const strOne = "lines"
-// commented line
-const strTwo = "of"
-const strThree = "code"`;
+----------------------
 
-export const finalCodeState = ` 
--------------------- 
-
-** EDIT THIS CODE **
- 
---------------------
- 
 const strOne = "lines"
 const strTwo = "of"
-const strThree = "code"`;
+const strThree = "code"
+
+----------------------`;
 
 export const taskCompleteCodeText = `
-Great Job!
-----------
+** You've completed the task 🥳 **
+----------------------------------
 
-Thanks for completing the task! We will let you once the Lines editor is ready to ship. In the mean time if you have questions or comments please shoot me an email: mrmarkorodic@gmail.com`;
+This is a project I was working on at the Recurse Center. It would be really helpful if you could answer a few questions, just hit the 📧 button above.
+
+You can also message me on zulip @Marko Rodic.
+
+Thank you!`;
