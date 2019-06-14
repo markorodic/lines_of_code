@@ -1,5 +1,4 @@
 import React from "react";
-import { Mixpanel } from "../mixpanel";
 import styles from "./Header.module.css";
 import { useContainerProperties } from "../../sharedCustomHooks";
 import { useCreateCanvasContext } from "./Header.customHooks";
@@ -8,8 +7,7 @@ import {
   useInterfaceGestureDispatch
 } from "../Interface.customHooks";
 import { displayOperatorPatterns } from "./HeaderHelpers";
-import restartIcon from "../../assets/restart_icon.svg";
-import playIcon from "../../assets/play_icon.svg";
+import TaskButton from "./taskButton/TaskButton";
 
 function Header() {
   const HeaderElement = React.useRef();
@@ -27,33 +25,11 @@ function Header() {
     <header className={styles.header} ref={HeaderElement}>
       {!userActive && (
         <section>
-          {codeState === "Instructions" ? (
-            <button
-              onClick={() => {
-                console.log("mixpanel");
-                Mixpanel.track("Video play");
-                setCodeState("Code");
-              }}
-            >
-              <img className={styles["play-button"]} src={playIcon} alt="" />
-            </button>
-          ) : codeState === "Code" ? (
-            <button onClick={() => setResetCodeText()}>
-              <img
-                className={styles["restart-button"]}
-                src={restartIcon}
-                alt=""
-              />
-            </button>
-          ) : (
-            <button onClick={() => setCodeState("Instructions")}>
-              <img
-                className={styles["restart-button"]}
-                src={restartIcon}
-                alt=""
-              />
-            </button>
-          )}
+          <TaskButton
+            codeState={codeState}
+            setCodeState={setCodeState}
+            setResetCodeText={setResetCodeText}
+          />
           <p>Lines</p>
         </section>
       )}

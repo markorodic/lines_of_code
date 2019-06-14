@@ -59,7 +59,8 @@ function CodeEditor({
     prevCommandId,
     userActive,
     history,
-    setHistory
+    setHistory,
+    codeState
   ]);
 
   React.useEffect(() => {
@@ -76,11 +77,11 @@ function CodeEditor({
 
   React.useEffect(() => {
     if (editor) {
-      if (editor.getValue() === finalCodeState) {
-        setCodeState("Completed");
+      if (editor.getValue() === finalCodeState && codeState === "Code") {
+        setCodeState("Finished");
       }
     }
-  }, [editor, command]);
+  }, [editor, command, codeState]);
 
   React.useEffect(() => {
     if (editor && resetCodeText) {
