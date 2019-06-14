@@ -134,11 +134,11 @@ export const editGestures = {
           path: ["Left", "Up", "Up", "Right"],
           type: "Operator"
         },
-        {
-          name: "undo",
-          path: ["Right", "Up", "Left", "Left"],
-          type: "Operator"
-        },
+        // {
+        //   name: "undo",
+        //   path: ["Right", "Up", "Left", "Left"],
+        //   type: "Operator"
+        // },
         { name: "delete", path: ["Right", "Right", "Up"], type: "Operator" },
         { name: "delete", path: ["Left", "Left", "Up"], type: "Operator" }
         // { name: "insert", path: ["Up", "Up", "Right"], type: "Insert" },
