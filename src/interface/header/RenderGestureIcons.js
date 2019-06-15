@@ -31,11 +31,12 @@ export function renderGestureIcon(
       ctx.moveTo(marginX + mid, marginY + mid * 5);
       ctx.lineTo(marginX + mid * 5, marginY + mid * 5);
       ctx.lineTo(marginX + mid * 5, marginY + mid * 3);
-      ctx.lineWidth = 1;
       if (gesture.name === "delete") {
+        ctx.lineWidth = 2;
         ctx.fillStyle = "#FC5081";
         ctx.strokeStyle = "#FC5081";
       } else {
+        ctx.lineWidth = 1;
         ctx.fillStyle = "white";
         ctx.strokeStyle = "white";
       }
@@ -48,27 +49,30 @@ export function renderGestureIcon(
       ctx.lineTo(marginX + mid * 1, marginY + mid * 1);
       ctx.lineTo(marginX + mid * 1, marginY + mid * 5);
       ctx.lineTo(marginX + mid * 3, marginY + mid * 5);
-      ctx.lineWidth = 1;
       if (gesture.name === "copy") {
+        ctx.lineWidth = 2;
         ctx.fillStyle = "#5CB290";
         ctx.strokeStyle = "#5CB290";
       } else {
+        ctx.lineWidth = 1;
         ctx.fillStyle = "white";
         ctx.strokeStyle = "white";
       }
       ctx.stroke();
       ctx.font = "lighter 8px Futura";
-      ctx.fillText("YANK", marginX, marginY + mid * 8);
+      ctx.fillText("COPY", marginX, marginY + mid * 8);
       break;
     case 2:
       ctx.moveTo(marginX + mid * 3, marginY + mid * 5);
       ctx.lineTo(marginX + mid * 3, marginY + mid * 1);
       ctx.lineTo(marginX + mid * 5, marginY + mid * 1);
       ctx.lineTo(marginX + mid * 5, marginY + mid * 3);
-      ctx.lineWidth = 1;
       if (gesture.name === "paste") {
-        ctx.strokeStyle = "red";
+        ctx.lineWidth = 2;
+        ctx.fillStyle = "#FEDD32";
+        ctx.strokeStyle = "#FEDD32";
       } else {
+        ctx.lineWidth = 1;
         ctx.fillStyle = "white";
         ctx.strokeStyle = "white";
       }
@@ -81,11 +85,12 @@ export function renderGestureIcon(
       ctx.lineTo(marginX + mid * 1, marginY + mid * 5);
       ctx.lineTo(marginX + mid * 5, marginY + mid * 5);
       ctx.lineTo(marginX + mid * 5, marginY + mid * 3);
-      ctx.lineWidth = 1;
       if (gesture.name === "cut") {
+        ctx.lineWidth = 2;
         ctx.fillStyle = "#A56FA3";
         ctx.strokeStyle = "#A56FA3";
       } else {
+        ctx.lineWidth = 1;
         ctx.fillStyle = "white";
         ctx.strokeStyle = "white";
       }

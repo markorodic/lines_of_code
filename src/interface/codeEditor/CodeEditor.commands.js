@@ -11,7 +11,7 @@ export function getExecutionCommandFrom({ name }) {
     case "delete":
       return "deleteLine";
     case "cut":
-      return "deleteLine";
+      return "cutLine";
     case "paste":
       return "pasteFromClipboard";
     case "copy":
