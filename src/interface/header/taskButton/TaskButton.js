@@ -4,6 +4,7 @@ import restartIcon from "../../../assets/restart_icon.svg";
 import playIcon from "../../../assets/play_icon.svg";
 import finishIcon from "../../../assets/finish_icon.svg";
 import emailIcon from "../../../assets/email_icon.svg";
+import { question } from "./emailQuestions/EmailQuestions";
 
 function TaskButton({
   codeState,
@@ -64,7 +65,17 @@ function TaskButton({
           }}
         >
           <a
-            href={`mailto:mrmarkorodic@gmail.com?subject=Hey 👋&body=Question 1%20%3A%0D%0AQuestion 2%20%3A%0D%0AQuestion 3%20%3A`}
+            href={`mailto:mrmarkorodic@gmail.com?subject=Hey 👋&body=${
+              question.one
+            }%0D%0A%0D%0A${question.two}%20%3A%0D%0A${
+              question.three
+            }%20%3A%0D%0A${question.four}%20%3A%0D%0A${
+              question.five
+            }%20%3A%0D%0A${question.six}%20%3A%0D%0A${
+              question.seven
+            }%20%3A%0D%0A${question.eight}%20%3A%0D%0A${
+              question.nine
+            }%20%3A%0D%0A${question.ten}%20%3A%0D%0A${question.nine}%20%3A`}
           >
             <img src={emailIcon} alt="" />
           </a>

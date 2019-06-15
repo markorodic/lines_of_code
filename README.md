@@ -5,9 +5,9 @@
 ## Lines of Code
 
 This the lines of code project which is currently in progress.
-[Here's a link to the current working version](https://alineofco.de)!
+[Here's a link to the current working version](https://drawlin.es)!
 
-## Pre-Workshop Instructions/Requirements
+## Background
 
 Line of code is a gestural code editor that runs in the browser - for mobile. It is built with React and uses Canvas for rendering. The current functionality allows the user to edit code/text using gestures à la vim commands. This inludes:
 
@@ -78,17 +78,17 @@ Displays suggested gestures in the form of mini icons using Canvas.
 
 ## Currently in development
 
-- Add general test coverage
+- Fix performance issues caused by the implementation of the CodeEditor component
 
-- Change request animation to use memo - avoid passing count state to, and rerending, components that are not using canvas
+- Add tests
 
 - Allow gestures to be combined, i.e. delete + 2 lines down, paste + above, move to + line 5
 
 - Add side bar that shows the combined gestures
 
-- Add a parser layer that receives a valid gesture and creates an AST with the current code state. The gesture and code view will then read this on each render.
+- Add a parser layer that receives a valid gesture and creates a current code state. This should act as the single source of truth for the gesture and code views.
 
-- Add insert operation to write primitives, data structures and define fuctions
+- Add insert operation to write primitives, data structures and define fuctions.
 
 ## Running the app
 

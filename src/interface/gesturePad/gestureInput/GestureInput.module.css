@@ -1,7 +1,7 @@
 .gesture-input {
     width: 35rem;
     height: 35rem;
-    z-index: 100;
+    z-index: 10000;
 }
 
 @media (max-width: 500px) { 
@@ -15,6 +15,6 @@
         overflow-y: hidden;
         overscroll-behavior: none;
         touch-action: none;
-        background: white
+        background: white;
     }
  }
