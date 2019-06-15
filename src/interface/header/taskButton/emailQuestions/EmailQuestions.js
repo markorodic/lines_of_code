@@ -9,8 +9,5 @@ export const question = {
     "How did you find using the operation gestures: delete, copy, paste, cut?",
   seven:
     "Which operation gestures do these two patterns refer to: |__| and __|",
-  eight:
-    "What happens if you enter a delete gesture without letting go of the gesture pad?",
-  nine: "What information was displayed in the header?",
   ten: "What was your overall experience using this editor?"
 };

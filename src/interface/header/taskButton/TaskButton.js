@@ -73,9 +73,7 @@ function TaskButton({
               question.five
             }%20%3A%0D%0A${question.six}%20%3A%0D%0A${
               question.seven
-            }%20%3A%0D%0A${question.eight}%20%3A%0D%0A${
-              question.nine
-            }%20%3A%0D%0A${question.ten}%20%3A%0D%0A${question.nine}%20%3A`}
+            }%20%3A%0D%0A${question.ten}%20%3A`}
           >
             <img src={emailIcon} alt="" />
           </a>

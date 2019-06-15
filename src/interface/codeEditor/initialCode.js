@@ -11,6 +11,8 @@ The editor is comprised of a code view and a gesture pad. Begin by scrolling dow
  
 # INSTRUCTIONS 📝
  
+There are two types of gestures: motions and operations.
+  
 ## Motions
  
 Move up a line:
@@ -31,7 +33,7 @@ Valid gestures are displayed in the header when you begin moving. They are:
  
 Try moving around the gesture pad to get a feel for how the cursor moves.
 
-Once you've got that, create a gesture but don't let go. When a gesture is matched, the line will be highlighted in the code and then drawn in the gesture pad.
+Once you've got that, create an operation gesture but don't let go. When an operation gesture is matched, the line will be highlighted in the code and drawn in the gesture pad. Now let go and the operation will be executed.
  
 --------------
  
