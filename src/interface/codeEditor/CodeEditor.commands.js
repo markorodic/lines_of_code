@@ -47,6 +47,14 @@ export function executeCommand(
         setHistory(editor.getHistory());
       }
       break;
+    case "cutLine":
+      // move this check somewhere else
+      if (!userActive) {
+        setCursor(editor, lineNumber);
+        editor.execCommand("deleteLine");
+        setHistory(editor.getHistory());
+      }
+      break;
     case "pasteFromClipboard":
       // and this one
       if (!userActive) {
