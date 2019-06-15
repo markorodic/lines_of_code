@@ -81,7 +81,7 @@ function drawVerticleLines(ctx, marginX, marginY, boxWidth) {
   const lineDistance = boxWidth / 3;
   let x = marginX;
   while (count < 4) {
-    ctx.fillStyle = "#232323";
+    ctx.fillStyle = "#2d2d2d";
     ctx.fillRect(x + 0.5, marginY + 0.5, 1.5, boxWidth + 0.5);
     x += lineDistance;
     count++;
@@ -93,7 +93,7 @@ function drawHorizontalLines(ctx, marginX, marginY, boxWidth) {
   let y = marginY;
   let count = 0;
   while (count < 4) {
-    ctx.fillStyle = "#232323";
+    ctx.fillStyle = "#2d2d2d";
     ctx.fillRect(marginX + 0.5, y + 0.5, boxWidth + 0.5, 1.5);
     y += lineDistance;
     count++;

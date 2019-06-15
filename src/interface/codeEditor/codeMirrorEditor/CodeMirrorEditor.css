@@ -48,6 +48,10 @@
     background: #FC5081;
 }
 
+.cursor-pasteFromClipboard {
+    background:#FEDD32;
+}
+
 .cursor-changeLine {
     background: #4E8DC4;
 }
