@@ -2,14 +2,14 @@
   <a href="https://alineofco.de"><img src="src/assets/readme-logo.svg" alt="Line of Code" width="100" height="100"/></a>
 </h1>
 
-## Lines of Code
+## Lines
 
-This the lines of code project which is currently in progress.
+This is the lines project which is currently in progress.
 [Here's a link to the current working version](https://drawlin.es)!
 
 ## Background
 
-Line of code is a gestural code editor that runs in the browser - for mobile. It is built with React and uses Canvas for rendering. The current functionality allows the user to edit code/text using gestures à la vim commands. This inludes:
+Lines is a gestural code editor that runs in the browser - for mobile. It is built with React and uses Canvas for rendering. The current functionality allows the user to edit code/text using gestures - similar to vim commands. This inludes:
 
 - Navigating the document
 - Deleting a line
@@ -17,9 +17,29 @@ Line of code is a gestural code editor that runs in the browser - for mobile. It
 - Pasting the clipboard
 - Cutting a line
 
-This is an initial readme. More information to follow.
 
 ## Currently in development
+
+- Tests
+
+- Combine operations and motions, i.e. delete + 2 lines down, paste + above, move to + line 5
+
+- Importing files from a repository
+
+- Offline mode
+
+- Gesture autocorrection
+
+- Insertion mode. This will require building a parser layer that receives a valid gestures and maintains an internal copy of the code state. This should act as the single source of truth for the gesture and code views.
+
+- A backend for saving files
+
+- Collaborative real-time editing
+
+- Switching to WebGL for rendering
+
+
+## The Structure 
 
 The application can be broken down into three parts:
 
@@ -76,19 +96,6 @@ Uses CodeMirror - an browser code editor library.
 
 Displays suggested gestures in the form of mini icons using Canvas.
 
-## Currently in development
-
-- Fix performance issues caused by the implementation of the CodeEditor component
-
-- Add tests
-
-- Allow gestures to be combined, i.e. delete + 2 lines down, paste + above, move to + line 5
-
-- Add side bar that shows the combined gestures
-
-- Add a parser layer that receives a valid gesture and creates a current code state. This should act as the single source of truth for the gesture and code views.
-
-- Add insert operation to write primitives, data structures and define fuctions.
 
 ## Running the app
 
