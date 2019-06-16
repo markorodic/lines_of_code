@@ -1,6 +1,5 @@
 import React from "react";
 import InterfaceReducer from "./Interface.reducer";
-import { initialCodeState } from "./codeEditor/initialCode";
 
 const InterfaceGestureStateContext = React.createContext();
 const InterfaceGestureDispatchContext = React.createContext();

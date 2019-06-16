@@ -1,39 +1,49 @@
 import React from "react";
-import "./CodeMirrorEditor.css";
+import "./CodeEditor.css";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material.css";
 import "codemirror/theme/neat.css";
 import "codemirror/mode/xml/xml.js";
 import "codemirror/mode/javascript/javascript.js";
 import { UnControlled as CodeMirror } from "react-codemirror2";
-import { executeCommand } from "../CodeEditor.commands";
+import { executeCommand } from "../Code.commands";
 import {
   instructionsText,
   initialCodeText,
   finalCodeState,
   taskCompleteCodeText
-} from "../initialCode";
+} from "./codeText";
 import {
   markGutterIcon,
   markText,
   relativeLinesOn
-} from "../CodeMirror.helpers";
+} from "./CodeEditor.helpers";
+import { useCursorPosition, useClipboard } from "../Code.customHooks";
+import {
+  useInterfaceGestureState,
+  useInterfaceGestureDispatch
+} from "../../Interface.customHooks";
 
-function CodeEditor({
-  command,
-  mode,
-  editor,
-  setEditor,
-  cursorPosition,
-  clipboard,
-  userActive,
-  history,
-  setHistory,
-  resetCodeText,
-  setResetCodeText,
-  codeState,
-  setCodeState
-}) {
+function CodeEditor({ command, history, setHistory }) {
+  const {
+    gesture,
+    userActive,
+    mode,
+    gestureActive,
+    resetCodeText,
+    codeState
+  } = useInterfaceGestureState();
+  const { setResetCodeText, setCodeState } = useInterfaceGestureDispatch();
+
+  const [editor, setEditor] = React.useState(null);
+  const cursorPosition = useCursorPosition(
+    editor,
+    gestureActive,
+    mode,
+    gesture
+  );
+  const clipboard = useClipboard(editor, gesture, cursorPosition);
+
   const [prevCommandId, setPrevCommandId] = React.useState(0);
   React.useEffect(() => {
     // check the command id against the previous command passed down
