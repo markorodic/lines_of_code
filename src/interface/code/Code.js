@@ -4,8 +4,8 @@ import { useInterfaceGestureState } from "../Interface.customHooks";
 import { useCommand } from "./Code.customHooks";
 
 function CodeCommands() {
-  const { gesture, userActive } = useInterfaceGestureState();
-  const command = useCommand(gesture, userActive);
+  const { gesture } = useInterfaceGestureState();
+  const command = useCommand(gesture);
   const [history, setHistory] = React.useState(null);
 
   return (

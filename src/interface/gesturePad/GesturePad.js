@@ -6,6 +6,7 @@ import {
   useInterfaceGestureState,
   useInterfaceGestureDispatch
 } from "../Interface.customHooks";
+import _ from "lodash";
 
 function getNewPattern(input, lastPattern) {
   let pattern;
@@ -44,7 +45,7 @@ function GesturePad({ containerProperties }) {
     if (!userActive && gesture && gesture.type === "Insert") {
       setMode(gesture.type);
     }
-    if (!userActive) {
+    if (!userActive && !_.isEmpty(gesture)) {
       setLastPattern([]);
       setGesture({});
     }

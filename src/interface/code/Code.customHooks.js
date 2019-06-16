@@ -28,16 +28,16 @@ export function useCursorPosition(editor, gestureActive, mode, gesture) {
   return cursorPosition;
 }
 
-export function useCommand(gesture, userActive) {
+export function useCommand(gesture) {
   const [name, setName] = React.useState("");
   const [id, setId] = React.useState(0);
 
   React.useEffect(() => {
-    if (validExecution(gesture, userActive)) {
+    if (validExecution(gesture)) {
       setName(getExecutionCommandFrom(gesture));
       setId(id => id + 1);
     }
-  }, [gesture, userActive]);
+  }, [gesture]);
 
   return {
     name,

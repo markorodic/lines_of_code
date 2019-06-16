@@ -7,7 +7,7 @@ const InterfaceGestureDispatchContext = React.createContext();
 const initialState = {
   gesture: {},
   combination: [],
-  mode: "Motion",
+  mode: "Inactive",
   userActive: false,
   gestureActive: false,
   resetCodeText: false,

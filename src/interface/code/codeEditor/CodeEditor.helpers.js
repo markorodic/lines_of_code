@@ -2,8 +2,8 @@ export function motionHasFinished(editor, gestureActive, mode) {
   return editor && !gestureActive && mode === "Motion";
 }
 
-export function validExecution({ type }, userActive) {
-  return (userActive && type === "Motion") || type === "Operator";
+export function validExecution({ type }) {
+  return type === "Motion" || type === "Operator";
 }
 
 // ** Marker Helpers **

@@ -31,7 +31,8 @@ export default function GestureInput({
     setUserActive,
     setUserInactive,
     setGestureActive,
-    setGestureInactive
+    setGestureInactive,
+    setMode
   } = useInterfaceGestureDispatch();
 
   const onGesture = event => {
@@ -51,6 +52,7 @@ export default function GestureInput({
 
     if (!userActive) {
       setUserActive();
+      setMode("Motion");
     }
 
     if (!gestureActive) {
@@ -66,6 +68,7 @@ export default function GestureInput({
   const onGestureEnd = event => {
     event.preventDefault();
     setUserInactive();
+    setMode("Inactive");
   };
 
   const onClick = event => {
