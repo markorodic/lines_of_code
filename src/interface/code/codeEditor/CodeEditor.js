@@ -1,11 +1,4 @@
 import React from "react";
-import "./CodeEditor.css";
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/material.css";
-import "codemirror/theme/neat.css";
-import "codemirror/mode/xml/xml.js";
-import "codemirror/mode/javascript/javascript.js";
-import { UnControlled as CodeMirror } from "react-codemirror2";
 import { executeCommand } from "../Code.commands";
 import {
   instructionsText,
@@ -23,6 +16,7 @@ import {
   useInterfaceGestureState,
   useInterfaceGestureDispatch
 } from "../../Interface.customHooks";
+import CodeView from "./codeView/CodeView";
 
 function CodeEditor({ command, history, setHistory }) {
   const {
@@ -121,20 +115,7 @@ function CodeEditor({ command, history, setHistory }) {
 
   return (
     <div className="code">
-      <CodeMirror
-        value={instructionsText}
-        options={{
-          lineNumbers: true,
-          autofocus: true,
-          lineWrapping: true,
-          gutters: ["CodeMirror-linenumbers", "position"]
-        }}
-        onChange={() => {}}
-        editorDidMount={editor => {
-          setEditor(editor);
-        }}
-        className={"code-editor"}
-      />
+      <CodeView setEditor={setEditor} />
     </div>
   );
 }

@@ -17,6 +17,8 @@ const initialState = {
 function InterfaceGestureProvider({ children }) {
   const [state, dispatch] = React.useReducer(InterfaceReducer, initialState);
 
+  // the state value here needs to memoized to prevent rerenders on state property changes
+
   return (
     <InterfaceGestureStateContext.Provider value={state}>
       <InterfaceGestureDispatchContext.Provider value={dispatch}>
