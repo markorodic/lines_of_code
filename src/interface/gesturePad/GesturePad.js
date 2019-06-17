@@ -1,22 +1,17 @@
 import React from "react";
 import GestureInput from "./gestureInput/GestureInput";
 import { validGestures } from "../gesturesPatterns/gesturePatterns";
-import { gestureComboMatched, trimPattern } from "./GesturePad.helpers";
+import {
+  gestureComboMatched,
+  trimPattern,
+  userHasBeenActive,
+  getNewPattern
+} from "./GesturePad.helpers";
 import {
   useInterfaceGestureState,
   useInterfaceGestureDispatch
 } from "../Interface.customHooks";
 import _ from "lodash";
-
-function getNewPattern(input, lastPattern) {
-  let pattern;
-  if (lastPattern.length) {
-    pattern = [...lastPattern, input[1]];
-  } else {
-    pattern = [...lastPattern, input[0], input[1]];
-  }
-  return pattern;
-}
 
 function GesturePad({ containerProperties }) {
   const { setGesture, setMode } = useInterfaceGestureDispatch();
@@ -25,10 +20,7 @@ function GesturePad({ containerProperties }) {
   const [lastMatchedGesture, setLastMatchedGesture] = React.useState([]);
 
   const inputAdded = input => {
-    let pattern = getNewPattern(input, lastPattern);
-
-    setLastPattern(pattern);
-
+    const pattern = getNewPattern(input, lastPattern);
     const gesture = gestureComboMatched(pattern, validGestures, mode);
 
     if (gesture) {
@@ -39,13 +31,11 @@ function GesturePad({ containerProperties }) {
         pattern: trimPattern(pattern, gesture)
       });
     }
+    setLastPattern(pattern);
   };
 
   React.useEffect(() => {
-    if (!userActive && gesture && gesture.type === "Insert") {
-      setMode(gesture.type);
-    }
-    if (!userActive && !_.isEmpty(gesture)) {
+    if (userHasBeenActive(gesture, userActive)) {
       setLastPattern([]);
       setGesture({});
     }

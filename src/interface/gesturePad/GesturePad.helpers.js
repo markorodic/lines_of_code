@@ -94,3 +94,17 @@ export function getPathFrom(pattern) {
   const trimmedPattern = trim(pattern);
   return getDirectionsFrom(trimmedPattern);
 }
+
+export function userHasBeenActive(gesture, userActive) {
+  return !userActive && !_.isEmpty(gesture);
+}
+
+export function getNewPattern(input, lastPattern) {
+  let pattern;
+  if (lastPattern.length) {
+    pattern = [...lastPattern, input[1]];
+  } else {
+    pattern = [...lastPattern, input[0], input[1]];
+  }
+  return pattern;
+}

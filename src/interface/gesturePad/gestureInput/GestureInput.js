@@ -20,7 +20,6 @@ export default function GestureInput({
 }) {
   const GestureInputElement = React.useRef();
   const containerProperties = useContainerProperties(GestureInputElement);
-
   const [position, setPosition] = React.useState({});
   const [expiringPositions, setExpiringPositions] = React.useState([]);
   const [pattern, setPattern] = React.useState([]);
@@ -37,7 +36,6 @@ export default function GestureInput({
 
   const onGesture = event => {
     event.preventDefault();
-
     const newPosition = getGridPosition(event, containerProperties);
 
     if (gridPositionHasChanged(position, newPosition)) {

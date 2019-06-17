@@ -14,24 +14,17 @@ import { renderGiridPointGuides } from "./gestureViewGrid/GestureViewGrid";
 import { NUMBER_OF_BOXES } from "../../../CONSTANTS";
 import { useInterfaceGestureState } from "../../../Interface.customHooks";
 
-export default function GestureView(props) {
-  // should take props and the context gesture state
-  // create a matrix of the grid
-  // [
-  //  [0,0,0,0,0,0,0],
-  //  [0,0,0,0,0,0,0],
-  //  [0,0,0,0,0,0,0],
-  //  [0,0,0,0,0,0,0],
-  //  [0,0,0,0,0,0,0],
-  //  [0,0,0,0,0,0,0],
-  //  [0,0,0,0,0,0,0]
-  // ]
-
+export default function GestureView({
+  position,
+  expiringPositions,
+  count,
+  containerWidth,
+  lastMatchedGesture
+}) {
   React.useEffect(() => {});
   const canvasElement = React.useRef();
-  const ctx = useCreateCanvasContext(props, canvasElement);
+  const ctx = useCreateCanvasContext(containerWidth, canvasElement);
   const { gestureActive, mode } = useInterfaceGestureState();
-  const { position, expiringPositions, count, containerWidth } = props;
 
   React.useEffect(() => {
     if (ctx) {
@@ -43,7 +36,7 @@ export default function GestureView(props) {
       renderGridPoints(ctx, boxWidth, mode);
       renderGiridPointGuides(ctx, position, boxWidth, gestureActive, mode);
       renderCurrentBox(ctx, position, boxWidth, mode);
-      renderMatchedPattern(ctx, boxWidth, props.lastMatchedGesture, mode);
+      renderMatchedPattern(ctx, boxWidth, lastMatchedGesture, mode);
       renderExpiredBoxes(ctx, boxWidth, expiringPositions, count, mode);
     }
   }, [
@@ -53,7 +46,7 @@ export default function GestureView(props) {
     expiringPositions,
     position,
     gestureActive,
-    props.lastMatchedGesture,
+    lastMatchedGesture,
     mode
   ]);
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-export function useCreateCanvasContext({ containerWidth }, canvasElement) {
+export function useCreateCanvasContext(containerWidth, canvasElement) {
   const [ctx, setCtx] = React.useState(null);
   React.useEffect(() => {
     const canvas = canvasElement.current;
