@@ -1,10 +1,6 @@
 import React from "react";
-import { getExecutionCommandFrom } from "./Code.commands";
 import { getCursorPosition } from "./Code.utils";
-import {
-  motionHasFinished,
-  validExecution
-} from "./codeEditor/CodeEditor.helpers";
+import { motionHasFinished } from "./codeEditor/CodeEditor.helpers";
 
 export function useCursorPosition(editor, gestureActive, mode, gesture) {
   const [cursorPosition, setCursorPosition] = React.useState({
@@ -26,23 +22,6 @@ export function useCursorPosition(editor, gestureActive, mode, gesture) {
   }, [editor, mode, gesture, gestureActive]);
 
   return cursorPosition;
-}
-
-export function useCommand(gesture) {
-  const [name, setName] = React.useState("");
-  const [id, setId] = React.useState(0);
-
-  React.useEffect(() => {
-    if (validExecution(gesture)) {
-      setName(getExecutionCommandFrom(gesture));
-      setId(id => id + 1);
-    }
-  }, [gesture]);
-
-  return {
-    name,
-    id
-  };
 }
 
 export function useClipboard(editor, gesture, cursorPosition) {

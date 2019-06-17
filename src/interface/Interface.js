@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Interface.module.css";
 import logo from "../assets/logo.svg";
 import Header from "./header/Header";
-import Code from "./code/Code";
+import CodeEditor from "./code/codeEditor/CodeEditor";
 import GesturePad from "./gesturePad/GesturePad";
 import { InterfaceGestureProvider } from "./Interface.gestureContext";
 import { InterfaceCountProvider } from "./Interface.countContext";
@@ -15,7 +15,7 @@ export default function Interface() {
         <InterfaceGestureProvider>
           <Header />
           <section className={styles.view}>
-            <Code />
+            <CodeEditor />
             <GesturePad />
           </section>
         </InterfaceGestureProvider>

@@ -44,23 +44,23 @@
     height: 2rem;
 }
 
-.cursor-deleteLine {
+.cursor-delete {
     background: #FC5081;
 }
 
-.cursor-pasteFromClipboard {
+.cursor-paste {
     background:#FEDD32;
 }
 
-.cursor-changeLine {
+.cursor-change {
     background: #4E8DC4;
 }
 
-.cursor-cutLine {
+.cursor-cut {
     background: #A56FA3;
 }
 
-.cursor-copyToClipboard {
+.cursor-copy {
     background: #5CB290;
 }
 

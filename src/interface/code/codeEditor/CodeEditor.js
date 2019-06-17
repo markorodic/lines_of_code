@@ -1,11 +1,8 @@
 import React from "react";
-import { executeCommand } from "../Code.commands";
 import {
-  instructionsText,
-  initialCodeText,
-  finalCodeState,
-  taskCompleteCodeText
-} from "./codeText";
+  executeOperationCommand,
+  executeMotionCommand
+} from "../Code.commands";
 import {
   markGutterIcon,
   markText,
@@ -17,18 +14,18 @@ import {
   useInterfaceGestureDispatch
 } from "../../Interface.customHooks";
 import CodeView from "./codeView/CodeView";
+import { finalCodeState } from "./codeText";
 
-function CodeEditor({ command, history, setHistory }) {
+function CodeEditor() {
   const {
-    gesture,
     userActive,
     mode,
     gestureActive,
     resetCodeText,
-    codeState
+    codeState,
+    gesture
   } = useInterfaceGestureState();
   const { setResetCodeText, setCodeState } = useInterfaceGestureDispatch();
-
   const [editor, setEditor] = React.useState(null);
   const cursorPosition = useCursorPosition(
     editor,
@@ -38,35 +35,22 @@ function CodeEditor({ command, history, setHistory }) {
   );
   const clipboard = useClipboard(editor, gesture, cursorPosition);
 
-  const [prevCommandId, setPrevCommandId] = React.useState(0);
+  // execute commands
   React.useEffect(() => {
-    // check the command id against the previous command passed down
-    // otherwise command will execute each time command is passed down
-    // which, due to RAF being in the root if happening on every count
-    if (prevCommandId === command.id) {
-      executeCommand(
-        editor,
-        command,
-        cursorPosition,
-        clipboard,
-        userActive,
-        history,
-        setHistory
-      );
-      setPrevCommandId(prevCommandId => prevCommandId + 1);
-    }
-  }, [
-    editor,
-    command,
-    cursorPosition,
-    clipboard,
-    prevCommandId,
-    userActive,
-    history,
-    setHistory,
-    codeState
-  ]);
+    executeMotionCommand(editor, gesture);
+  }, [editor, gesture]);
 
+  React.useEffect(() => {
+    executeOperationCommand(
+      editor,
+      gesture,
+      cursorPosition,
+      clipboard,
+      userActive
+    );
+  }, [editor, gesture, cursorPosition, clipboard, userActive]);
+
+  // mark text
   React.useEffect(() => {
     relativeLinesOn(editor);
   }, [editor]);
@@ -76,46 +60,27 @@ function CodeEditor({ command, history, setHistory }) {
   }, [editor, cursorPosition]);
 
   React.useEffect(() => {
-    markText(editor, mode, cursorPosition, command, userActive);
-  }, [editor, cursorPosition, command, mode, userActive]);
+    markText(editor, mode, cursorPosition, gesture, userActive);
+  }, [editor, cursorPosition, gesture, mode, userActive]);
 
+  // check text value
   React.useEffect(() => {
     if (editor) {
       if (editor.getValue() === finalCodeState && codeState === "Code") {
         setCodeState("Finished");
       }
     }
-  }, [editor, command, codeState]);
-
-  React.useEffect(() => {
-    if (editor && resetCodeText) {
-      editor.setValue(initialCodeText);
-      setResetCodeText();
-    }
-  }, [editor, resetCodeText]);
-
-  React.useEffect(() => {
-    if (editor) {
-      switch (codeState) {
-        case "Instructions":
-          editor.setValue(instructionsText);
-          break;
-        case "Code":
-          editor.setValue(initialCodeText);
-          break;
-        case "Completed":
-          editor.setValue(taskCompleteCodeText);
-          break;
-        default:
-          break;
-      }
-    }
-    // setResetCodeText();
-  }, [editor, codeState]);
+  }, [editor, gesture, codeState]);
 
   return (
     <div className="code">
-      <CodeView setEditor={setEditor} />
+      <CodeView
+        setEditor={setEditor}
+        editor={editor}
+        codeState={codeState}
+        resetCodeText={resetCodeText}
+        setResetCodeText={setResetCodeText}
+      />
     </div>
   );
 }

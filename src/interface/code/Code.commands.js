@@ -1,77 +1,63 @@
-export function getExecutionCommandFrom({ name }) {
+export function executeMotionCommand(editor, { name }) {
   switch (name) {
     case "up":
-      return "moveLineUp";
+      editor.execCommand("goLineUp");
+      break;
     case "down":
-      return "moveLineDown";
-    case "next":
-      return "moveLineDown";
+      editor.execCommand("goLineDown");
+      break;
     case "previous":
-      return "moveLineUp";
-    case "delete":
-      return "deleteLine";
-    case "cut":
-      return "cutLine";
-    case "paste":
-      return "pasteFromClipboard";
-    case "copy":
-      return "copyToClipboard";
-    case "undo":
-      return "undoLastCommand";
+      editor.execCommand("goLineUp");
+      break;
+    case "next":
+      editor.execCommand("goLineDown");
+      break;
     default:
       return;
   }
 }
 
-export function executeCommand(
+export function executeOperationCommand(
   editor,
   { name },
   { lineNumber },
   clipboard,
-  userActive,
-  history,
-  setHistory
+  userActive
 ) {
   switch (name) {
-    case "moveLineUp":
-      editor.execCommand("goLineUp");
-      break;
-    case "moveLineDown":
-      editor.execCommand("goLineDown");
-      break;
-    case "deleteLine":
+    case "delete":
       // move this check somewhere else
       if (!userActive) {
         setCursor(editor, lineNumber);
         editor.execCommand("deleteLine");
-        setHistory(editor.getHistory());
+        // setHistory(editor.getHistory());
       }
       break;
-    case "cutLine":
+    case "cut":
       // move this check somewhere else
       if (!userActive) {
         setCursor(editor, lineNumber);
         editor.execCommand("deleteLine");
-        setHistory(editor.getHistory());
+        // setHistory(editor.getHistory());
       }
       break;
-    case "pasteFromClipboard":
+    case "paste":
       // and this one
       if (!userActive) {
         setCursor(editor, lineNumber);
         editor.execCommand("newlineAndIndent");
         setCursor(editor, lineNumber);
         editor.replaceSelection(clipboard);
-        setHistory(editor.getHistory());
+        // setHistory(editor.getHistory());
       }
       break;
-    case "undoLastCommand":
-      // and this
-      if (!userActive && history) {
-        editor.setHistory(history);
-        editor.undo();
-        setHistory(null);
-      }
+      // case "undo":
+      //   // and this
+      //   if (!userActive && history) {
+      //     editor.setHistory(history);
+      //     editor.undo();
+      //     setHistory(null);
+      //   }
       break;
     default:
       return;

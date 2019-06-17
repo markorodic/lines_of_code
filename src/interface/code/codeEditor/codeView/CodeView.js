@@ -6,9 +6,32 @@ import "codemirror/theme/neat.css";
 import "codemirror/mode/xml/xml.js";
 import "codemirror/mode/javascript/javascript.js";
 import { UnControlled as CodeMirror } from "react-codemirror2";
-import { instructionsText } from "../codeText";
+import {
+  instructionsText,
+  initialCodeText,
+  taskCompleteCodeText
+} from "../codeText";
 
-function CodeView({ setEditor }) {
+function CodeView({
+  editor,
+  setEditor,
+  codeState,
+  resetCodeText,
+  setResetCodeText
+}) {
+  React.useEffect(() => {
+    if (editor) {
+      const editorText = textToDisplay(editor, codeState);
+      editor.setValue(editorText);
+    }
+  }, [editor, codeState]);
+  React.useEffect(() => {
+    if (editor && resetCodeText) {
+      editor.setValue(initialCodeText);
+      setResetCodeText();
+    }
+  }, [editor, resetCodeText]);
+
   return (
     <div className="code">
       <CodeMirror
@@ -27,6 +50,19 @@ function CodeView({ setEditor }) {
       />
     </div>
   );
+}
+
+function textToDisplay(editor, codeState) {
+  switch (codeState) {
+    case "Instructions":
+      return instructionsText;
+    case "Code":
+      return initialCodeText;
+    case "Completed":
+      return taskCompleteCodeText;
+    default:
+      return "";
+  }
 }
 
 export default CodeView;

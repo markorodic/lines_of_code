@@ -1,5 +1,5 @@
 export function motionHasFinished(editor, gestureActive, mode) {
-  return editor && !gestureActive && mode === "Motion";
+  return editor && !gestureActive && (mode === "Inactive" || mode === "Motion");
 }
 
 export function validExecution({ type }) {
