@@ -23,7 +23,7 @@ Move down a line:
  
 ## Operations
  
-Operations are performed on entire lines and will only be executed when you release your finger.
+Operations are performed on entire lines and will only be executed when you release your finger on mobile and click on desktop.
  
 Valid gestures are displayed in the header when you begin moving. They are:
 - delete
