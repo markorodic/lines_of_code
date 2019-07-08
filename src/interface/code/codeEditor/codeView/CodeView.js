@@ -58,7 +58,7 @@ function textToDisplay(editor, codeState) {
       return instructionsText;
     case "Code":
       return initialCodeText;
-    case "Completed":
+    case "Finished":
       return taskCompleteCodeText;
     default:
       return "";
