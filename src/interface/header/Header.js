@@ -4,7 +4,7 @@ import { useContainerProperties } from "../../sharedCustomHooks";
 import { useCreateCanvasContext } from "./Header.customHooks";
 import {
   useInterfaceGestureState,
-  useInterfaceGestureDispatch
+  useInterfaceGestureDispatch,
 } from "../Interface.customHooks";
 import { displayOperatorPatterns } from "./HeaderHelpers";
 import TaskButton from "./taskButton/TaskButton";
@@ -14,7 +14,10 @@ function Header() {
   const canvasElement = React.useRef();
   const containerProperties = useContainerProperties(HeaderElement);
   const { userActive, gesture, codeState } = useInterfaceGestureState();
-  const { setResetCodeText, setCodeState } = useInterfaceGestureDispatch();
+  // const {
+  //   // setResetCodeText,
+  //   setCodeState,
+  // } = useInterfaceGestureDispatch();
   const ctx = useCreateCanvasContext(containerProperties, canvasElement);
   const [time, setTime] = React.useState(null);
 
@@ -28,8 +31,8 @@ function Header() {
         <section>
           <TaskButton
             codeState={codeState}
-            setCodeState={setCodeState}
-            setResetCodeText={setResetCodeText}
+            // setCodeState={setCodeState}
+            // setResetCodeText={setResetCodeText}
             time={time}
             setTime={setTime}
           />

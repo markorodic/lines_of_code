@@ -5,13 +5,12 @@ import {
   gestureComboMatched,
   trimPattern,
   userHasBeenActive,
-  getNewPattern
+  getNewPattern,
 } from "./GesturePad.helpers";
 import {
   useInterfaceGestureState,
-  useInterfaceGestureDispatch
+  useInterfaceGestureDispatch,
 } from "../Interface.customHooks";
-import _ from "lodash";
 
 function GesturePad({ containerProperties }) {
   const { setGesture, setMode } = useInterfaceGestureDispatch();
@@ -19,7 +18,7 @@ function GesturePad({ containerProperties }) {
   const [lastPattern, setLastPattern] = React.useState([]);
   const [lastMatchedGesture, setLastMatchedGesture] = React.useState([]);
 
-  const inputAdded = input => {
+  const inputAdded = (input) => {
     const pattern = getNewPattern(input, lastPattern);
     const gesture = gestureComboMatched(pattern, validGestures, mode);
 
@@ -28,7 +27,7 @@ function GesturePad({ containerProperties }) {
       setGesture({ ...gesture, pattern: trimPattern(pattern, gesture) });
       setLastMatchedGesture({
         ...gesture,
-        pattern: trimPattern(pattern, gesture)
+        pattern: trimPattern(pattern, gesture),
       });
     }
     setLastPattern(pattern);
@@ -39,7 +38,7 @@ function GesturePad({ containerProperties }) {
       setLastPattern([]);
       setGesture({});
     }
-  }, [userActive, gesture]);
+  }, [userActive, gesture, setGesture]);
 
   return (
     <GestureInput

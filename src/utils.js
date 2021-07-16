@@ -8,9 +8,9 @@ export function setCSSCustomProperty() {
 export function preventRefreshOnMobile() {
   document.addEventListener(
     "touchmove",
-    function(event) {
+    function (event) {
       event.preventDefault();
     },
-    { passive: false }
+    { passive: false },
   );
 }

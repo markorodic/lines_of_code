@@ -10,8 +10,8 @@ const initialState = {
   mode: "Inactive",
   userActive: false,
   gestureActive: false,
-  resetCodeText: false,
-  codeState: "Instructions"
+  // resetCodeText: false,
+  codeState: "Instructions",
 };
 
 function InterfaceGestureProvider({ children }) {
@@ -29,5 +29,5 @@ function InterfaceGestureProvider({ children }) {
 export {
   InterfaceGestureProvider,
   InterfaceGestureStateContext,
-  InterfaceGestureDispatchContext
+  InterfaceGestureDispatchContext,
 };

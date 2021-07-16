@@ -7,7 +7,6 @@
     "codemirror": "^5.46.0",
     "gh-pages": "^3.2.0",
     "lodash": "^4.17.11",
-    "mixpanel-browser": "^2.29.0",
     "react": "^16.8.6",
     "react-codemirror2": "^6.0.0",
     "react-dom": "^16.8.6",

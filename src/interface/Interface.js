@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Interface.module.css";
 import logo from "../assets/logo.svg";
 import Header from "./header/Header";
-import CodeEditor from "./code/codeEditor/CodeEditor";
+import CodeEditor from "./codeEditor";
 import GesturePad from "./gesturePad/GesturePad";
 import { InterfaceGestureProvider } from "./Interface.gestureContext";
 import { InterfaceCountProvider } from "./Interface.countContext";

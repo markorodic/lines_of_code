@@ -1,18 +1,12 @@
 import React from "react";
-import { getCursorPosition } from "./Code.utils";
-import { motionHasFinished } from "./codeEditor/CodeEditor.helpers";
+import { getCursorPosition } from "./utils";
+import { motionHasFinished } from "./codeEditor/helpers";
 
 export function useCursorPosition(editor, gestureActive, mode, gesture) {
   const [cursorPosition, setCursorPosition] = React.useState({
     lineNumber: 0,
-    characterPosition: 0
+    characterPosition: 0,
   });
-
-  React.useEffect(() => {
-    if (editor) {
-      editor.setCursor({ line: 0, ch: 0 });
-    }
-  }, [editor]);
 
   React.useEffect(() => {
     if (motionHasFinished(editor, gestureActive, mode)) {

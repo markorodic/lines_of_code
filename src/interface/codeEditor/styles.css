@@ -1,0 +1,77 @@
+.code {
+  height: 35rem;
+  width: 25rem;
+}
+
+.code-editor {
+  height: 100%;
+}
+
+.code-editor .CodeMirror {
+  height: 100%;
+  background: #fdfdfd;
+}
+
+.code-editor .CodeMirror-sizer {
+  height: 100% !important;
+  min-height: 100% !important;
+}
+
+.code-editor .CodeMirror-gutters {
+  border: none;
+  background: none;
+}
+
+.selected-text {
+  background: #fc5081;
+}
+
+.current-task {
+  color: black;
+}
+
+.cursor {
+  background: black;
+  color: white;
+}
+
+.position {
+  width: 0.5rem;
+}
+
+.position-gutter-marker {
+  width: 1rem;
+  height: 2rem;
+}
+
+.cursor-delete {
+  background: #fc5081;
+}
+
+.cursor-paste {
+  background: #fedd32;
+}
+
+.cursor-change {
+  background: #4e8dc4;
+}
+
+.cursor-cut {
+  background: #a56fa3;
+}
+
+.cursor-copy {
+  background: #5cb290;
+}
+
+.text-title {
+  background: black;
+}
+
+@media (max-width: 600px) {
+  .code {
+    position: relative;
+    width: 100%;
+    height: calc(var(--vh, 1vh) * 100 - 100vw - 9vh);
+  }
+}

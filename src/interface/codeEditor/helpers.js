@@ -1,5 +1,5 @@
-export function motionHasFinished(editor, gestureActive, mode) {
-  return editor && !gestureActive && (mode === "Inactive" || mode === "Motion");
+export function motionHasFinished(gestureActive, mode) {
+  return !gestureActive && (mode === "Inactive" || mode === "Motion");
 }
 
 export function validExecution({ type }) {
@@ -14,8 +14,8 @@ function showRelativeLines(cm) {
     return;
   }
   cm.state.curLineNum = lineNum;
-  cm.setOption("lineNumberFormatter", l =>
-    l === lineNum ? lineNum : Math.abs(lineNum - l)
+  cm.setOption("lineNumberFormatter", (l) =>
+    l === lineNum ? lineNum : Math.abs(lineNum - l),
   );
 }
 
@@ -61,7 +61,7 @@ function markCursor(editor, mode, userActive) {
     editor.markText(
       { line, ch },
       { line, ch: ch + 1 },
-      { readOnly: true, className: "cursor" }
+      { readOnly: true, className: "cursor" },
     );
   }
 }
@@ -72,7 +72,7 @@ function markLine(editor, { lineNumber }, { name }, userActive) {
     editor.markText(
       { line: lineNumber, ch: 0 },
       { line: lineNumber, ch: lastCh },
-      { readOnly: false, className: `cursor-${name}` }
+      { readOnly: false, className: `cursor-${name}` },
     );
   }
 }
@@ -81,4 +81,11 @@ export function relativeLinesOn(editor) {
   if (editor) {
     editor.on("cursorActivity", showRelativeLines);
   }
+}
+
+export function setCursor(editor, lineNumber) {
+  editor.setCursor({
+    line: lineNumber,
+    ch: 0,
+  });
 }

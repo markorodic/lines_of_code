@@ -7,7 +7,7 @@ import {
   USER_ACTIVE,
   USER_INACTIVE,
   RESET_CODE_TEXT,
-  SET_CODE_STATE
+  SET_CODE_STATE,
 } from "./Interface.actions";
 
 export default function InterfaceReducer(state, action) {
@@ -26,8 +26,8 @@ export default function InterfaceReducer(state, action) {
       return { ...state, userActive: true };
     case USER_INACTIVE:
       return { ...state, userActive: false };
-    case RESET_CODE_TEXT:
-      return { ...state, resetCodeText: !state.resetCodeText };
+    // case RESET_CODE_TEXT:
+    //   return { ...state, resetCodeText: !state.resetCodeText };
     case SET_CODE_STATE:
       return { ...state, codeState: action.newState };
     default:

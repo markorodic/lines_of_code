@@ -1,4 +1,4 @@
-export const instructionsText = ` 
+export const codeEditorText = ` 
 ** Gesture code editing challenge **
  
 ------------------------------------
@@ -46,59 +46,3 @@ And once your code is correct press: ✔️
 Great! Press the ▶️ button in the header to get started.
  
 --------------`;
-
-export const initialCodeText = `# Delete the commented lines and rearrange the string variables
-
-** END 🏁 **
-----------------------
-
-const strOne = "lines"
-const strTwo = "of"
-const strThree = "code"
-
-----------------------
-
-** START ✏️ (to edit) **
-------------------------
-
-// this is a commented line
-// this is another commented line
-const strThree = "code"
-// and this one
-const strOne = "lines"
-// aaaannnd this one!
-const strTwo = "of"
-
-------------------------`;
-
-export const finalCodeState = `# Delete the commented lines and rearrange the string variables
-
-** END 🏁 **
-----------------------
-
-const strOne = "lines"
-const strTwo = "of"
-const strThree = "code"
-
-----------------------
-
-** START ✏️ (to edit) **
-------------------------
-
-const strOne = "lines"
-const strTwo = "of"
-const strThree = "code"
-
-------------------------`;
-
-export const taskCompleteCodeText = `
-** Great stuff! Challenge completed 🥳 **
-----------------------------------
-
-This is a project I was working on at the Recurse Center. It would be really helpful to get your thoughts and ask you some questions!
-
-Hit the 📧 button above to send me an email or you can message me on zulip @Marko Rodic
-
-
-
-Thank you!`;
