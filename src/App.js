@@ -8,7 +8,7 @@ import Header from "./components/header";
 import CodeEditor from "./components/codeEditor";
 import GesturePad from "./components/gesturePad";
 import { InterfaceGestureProvider } from "./provider/gestureContext";
-import { InterfaceCountProvider } from "./provider/countContext";
+// import { InterfaceCountProvider } from "./provider/countContext";
 
 // rework this to a function component with hooks
 const App = () => {
@@ -22,15 +22,15 @@ const App = () => {
   return (
     <div className={styles.interface}>
       <img className={styles["bg-logo"]} src={logo} alt="" />
-      <InterfaceCountProvider>
-        <InterfaceGestureProvider>
-          <Header />
-          <section className={styles.view}>
-            <CodeEditor />
-            <GesturePad />
-          </section>
-        </InterfaceGestureProvider>
-      </InterfaceCountProvider>
+      {/* <InterfaceCountProvider> */}
+      <InterfaceGestureProvider>
+        <Header />
+        <section className={styles.view}>
+          <CodeEditor />
+          <GesturePad />
+        </section>
+      </InterfaceGestureProvider>
+      {/* </InterfaceCountProvider> */}
     </div>
   );
 };

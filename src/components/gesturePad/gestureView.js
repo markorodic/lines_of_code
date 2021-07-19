@@ -14,15 +14,21 @@ import { renderGiridPointGuides } from "./helpers/grid";
 import { NUMBER_OF_BOXES } from "./CONSTANTS";
 import {
   useInterfaceGestureState,
-  useInterfaceCountState,
+  // useInterfaceCountState,
+  useAnimationFrame,
 } from "../../provider/customHooks";
 
 const GestureView = ({ position, containerWidth, matchedGesture, isOnPad }) => {
-  const count = useInterfaceCountState();
+  // const count = useInterfaceCountState();
   const [expiringPositions, setExpiringPositions] = React.useState([]);
   const canvasElement = React.useRef();
   const ctx = useCreateCanvasContext(containerWidth, canvasElement);
   const { gestureActive, mode } = useInterfaceGestureState();
+  const [count, setCount] = React.useState(0);
+
+  useAnimationFrame(() => {
+    setCount((count) => count + 1);
+  });
 
   // Disabling the hook dependency rule as passing count causes
   // an error

@@ -69,14 +69,6 @@ export function ifInputIsIdle(timer, setTimer, dispatchCallBack) {
 
 /// pad helpers
 
-export function getGesture(gestureMatched, count) {
-  const gesture = validGestures.edit[gestureMatched.type][gestureMatched.name];
-  if (gestureMatched.type === "motion") {
-    gesture.id = count;
-    return gesture;
-  }
-}
-
 export function trimPattern(pattern, gesture) {
   return pattern.slice(
     pattern.length - gesture.path.length - 1,
@@ -119,6 +111,7 @@ function trim(pattern) {
   return trimmedPattern;
 }
 
+// TODO: Refactor
 function getDirectionsFrom(trimmedPattern) {
   let count = 0;
   let stringPath = [];

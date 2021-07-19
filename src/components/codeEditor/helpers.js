@@ -66,5 +66,6 @@ export const highlightLine = (
   }
 };
 
+// TODO: Fix bug - cursor is moved at the end of each motion command
 export const shouldUpdateCursor = (gestureActive, mode, gesture) =>
   !gestureActive && mode === "Motion" && gesture.type !== "Operator";
