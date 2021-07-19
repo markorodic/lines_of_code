@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import style from "./GestureView.module.css";
+import { Canvas } from "./styles";
 import { useCreateCanvasContext } from "./customHooks";
 import {
   renderGrid,
@@ -65,7 +65,7 @@ const GestureView = ({ position, containerWidth, matchedGesture, isOnPad }) => {
     isOnPad,
   ]);
 
-  return <canvas id={style.canvas} ref={canvasElement} />;
+  return <Canvas ref={canvasElement} />;
 };
 
 export default GestureView;

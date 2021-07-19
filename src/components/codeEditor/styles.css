@@ -64,9 +64,9 @@
   background: #5cb290;
 }
 
-.text-title {
+/* .text-title {
   background: black;
-}
+} */
 
 @media (max-width: 600px) {
   .code {

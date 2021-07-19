@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import _ from "lodash";
-import styles from "./GestureInput.module.css";
+import React from "react";
+import { Section } from "./styles";
 import {
   getGridPosition,
   gridPositionHasChanged,
@@ -62,13 +61,12 @@ const GesturePad = () => {
   };
 
   return (
-    <section
+    <Section
       ref={inputElement}
       onMouseMove={onMove}
       onMouseLeave={onMoveEnd}
       onTouchMove={onMove}
       onTouchEnd={onMoveEnd}
-      className={styles["gesture-input"]}
     >
       <GestureView
         position={position}
@@ -76,7 +74,7 @@ const GesturePad = () => {
         containerWidth={containerProperties.width}
         matchedGesture={matchedGesture}
       />
-    </section>
+    </Section>
   );
 };
 
