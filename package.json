@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://markorodic.github.io/lines_of_code/",
   "dependencies": {
+    "@emotion/react": "^11.4.0",
     "codemirror": "^5.46.0",
     "gh-pages": "^3.2.0",
     "lodash": "^4.17.11",
