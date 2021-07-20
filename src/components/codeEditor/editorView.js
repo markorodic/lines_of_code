@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import "./styles.css";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material.css";

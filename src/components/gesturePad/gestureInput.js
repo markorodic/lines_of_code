@@ -2,8 +2,7 @@ import React, { useRef } from "react";
 import { Section } from "./styles";
 import GestureView from "./gestureView";
 import { useGestureState } from "../../provider/customHooks";
-import { useContainerProperties } from "../../customHooks";
-import { useHandleInput } from "./customHooks";
+import { useHandleInput, useContainerProperties } from "./customHooks";
 
 const GestureInput = () => {
   const { mode } = useGestureState();

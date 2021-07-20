@@ -4,7 +4,6 @@ import {
   getGridPosition,
   gridPositionHasChanged,
   ifInputIsIdle,
-  trimPattern,
 } from "./helpers/gesture";
 import { useGestureDispatch } from "../../provider/customHooks";
 import { MODE } from "./CONSTANTS";
@@ -59,4 +58,23 @@ export function useCreateCanvasContext(containerWidth, canvasElement) {
   }, [containerWidth, canvasElement]);
 
   return ctx;
+}
+
+export function useContainerProperties(element) {
+  const [containerProperties, setContainerProperties] = useState({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
+  useEffect(() => {
+    const { x, y, width, height } = element.current.getBoundingClientRect();
+    setContainerProperties({
+      x,
+      y,
+      width,
+      height,
+    });
+  }, [element]);
+  return containerProperties;
 }

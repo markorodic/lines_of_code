@@ -1,6 +1,3 @@
-import { validGestures } from "../gesturesPatterns/gesturePatterns";
-import { gestureComboMatched } from "../components/gesturePad/helpers/gesture";
-
 export const SET_GESTURE = "SET_GESTURE";
 export const ADD_COMBINATION = "ADD_COMBINATION";
 export const SET_MODE = "SET_MODE";

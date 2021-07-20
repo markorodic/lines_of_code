@@ -16,8 +16,7 @@ export const useAnimationFrame = (callback) => {
   const callbackRef = useRef(callback);
   const loop = useCallback(() => {
     frameRef.current = requestAnimationFrame(loop);
-    const cb = callbackRef.current;
-    cb();
+    callbackRef.current();
   }, [callbackRef]);
   const frameRef = React.useRef();
 
