@@ -12,18 +12,13 @@ import {
 } from "./helpers/view";
 import { renderGiridPointGuides } from "./helpers/grid";
 import { NUMBER_OF_BOXES } from "./CONSTANTS";
-import {
-  useInterfaceGestureState,
-  // useInterfaceCountState,
-  useAnimationFrame,
-} from "../../provider/customHooks";
+import { useGestureState, useAnimationFrame } from "../../provider/customHooks";
 
 const GestureView = ({ position, containerWidth, matchedGesture, isOnPad }) => {
-  // const count = useInterfaceCountState();
   const [expiringPositions, setExpiringPositions] = React.useState([]);
   const canvasElement = React.useRef();
   const ctx = useCreateCanvasContext(containerWidth, canvasElement);
-  const { gestureActive, mode } = useInterfaceGestureState();
+  const { gestureActive, mode } = useGestureState();
   const [count, setCount] = React.useState(0);
 
   useAnimationFrame(() => {

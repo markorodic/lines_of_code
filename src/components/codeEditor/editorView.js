@@ -13,7 +13,7 @@ import {
   addOperationCursor,
   highlightLine,
 } from "./helpers";
-import { useInterfaceGestureState } from "../../provider/customHooks";
+import { useGestureState } from "../../provider/customHooks";
 import { codeEditorText } from "./codeText";
 import { useCursorPosition } from "./customHooks";
 
@@ -25,7 +25,7 @@ const options = {
 };
 
 const EditorView = ({ editor, setEditor, cursorPosition }) => {
-  const { mode, gestureActive, gesture } = useInterfaceGestureState();
+  const { mode, gestureActive, gesture } = useGestureState();
 
   useEffect(() => {
     setInitialCusor(editor);

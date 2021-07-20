@@ -147,9 +147,18 @@ export function getPathFrom(pattern) {
 }
 
 export function getNewPattern(position, newPosition, pattern) {
+  let newPattern;
   if (pattern.length > 0) {
-    return pattern.concat(newPosition);
+    newPattern = pattern.concat(newPosition);
   } else {
-    return pattern.concat(position, newPosition);
+    if (_.isEmpty(position)) {
+      newPattern = pattern.concat(
+        { ...newPosition, y: newPosition.y - 1 },
+        newPosition,
+      );
+    } else {
+      newPattern = pattern.concat(position, newPosition);
+    }
   }
+  return newPattern;
 }

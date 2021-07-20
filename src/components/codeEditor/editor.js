@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./styles.css";
-import { useInterfaceGestureState } from "../../provider/customHooks";
+import { useGestureState } from "../../provider/customHooks";
 import { useGetCursorPosition } from "./customHooks";
 import EditorView from "./editorView";
 import { executeCommand, setCursorPosition } from "./helpers";
 
-function CodeEditor() {
-  const { mode, gestureActive, gesture } = useInterfaceGestureState();
+function Editor() {
+  const { mode, gestureActive, gesture } = useGestureState();
   const [editor, setEditor] = useState(null);
   const cursorPosition = useGetCursorPosition(
     editor,
@@ -62,4 +62,4 @@ function CodeEditor() {
   );
 }
 
-export default CodeEditor;
+export default Editor;

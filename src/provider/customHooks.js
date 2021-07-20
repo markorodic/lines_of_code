@@ -31,10 +31,9 @@ export const useAnimationFrame = (callback) => {
   }, [loop]);
 };
 
-export const useInterfaceGestureState = () =>
-  useContext(InterfaceGestureStateContext);
+export const useGestureState = () => useContext(InterfaceGestureStateContext);
 
-export function useInterfaceGestureDispatch() {
+export function useGestureDispatch() {
   const dispatch = useContext(InterfaceGestureDispatchContext);
 
   return {

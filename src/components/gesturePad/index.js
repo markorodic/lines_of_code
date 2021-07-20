@@ -1,3 +1,3 @@
-import GesturePad from "./gesturePad";
+import GestureInput from "./gestureInput";
 
-export default GesturePad;
+export default GestureInput;
