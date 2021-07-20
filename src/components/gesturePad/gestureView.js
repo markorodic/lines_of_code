@@ -14,11 +14,11 @@ import { renderGiridPointGuides } from "./helpers/grid";
 import { NUMBER_OF_BOXES } from "./CONSTANTS";
 import { useGestureState, useAnimationFrame } from "../../provider/customHooks";
 
-const GestureView = ({ position, containerWidth, matchedGesture, isOnPad }) => {
+const GestureView = ({ position, containerWidth, isOnPad }) => {
   const [expiringPositions, setExpiringPositions] = React.useState([]);
   const canvasElement = React.useRef();
   const ctx = useCreateCanvasContext(containerWidth, canvasElement);
-  const { gestureActive, mode } = useGestureState();
+  const { gestureActive, mode, gesture } = useGestureState();
   const [count, setCount] = React.useState(0);
 
   useAnimationFrame(() => {
@@ -45,7 +45,7 @@ const GestureView = ({ position, containerWidth, matchedGesture, isOnPad }) => {
       renderGridPoints(ctx, boxWidth, mode);
       renderGiridPointGuides(ctx, position, boxWidth, gestureActive, mode);
       renderCurrentBox(ctx, position, boxWidth, mode, isOnPad);
-      renderMatchedPattern(ctx, boxWidth, matchedGesture, mode, gestureActive);
+      renderMatchedPattern(ctx, boxWidth, gesture, mode, gestureActive);
       renderExpiredBoxes(ctx, boxWidth, expiringPositions, count, mode);
     }
   }, [
@@ -55,7 +55,7 @@ const GestureView = ({ position, containerWidth, matchedGesture, isOnPad }) => {
     expiringPositions,
     position,
     gestureActive,
-    matchedGesture,
+    gesture,
     mode,
     isOnPad,
   ]);

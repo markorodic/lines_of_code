@@ -4,48 +4,35 @@ import {
   getGridPosition,
   gridPositionHasChanged,
   ifInputIsIdle,
-  gestureComboMatched,
   trimPattern,
-  getNewPattern,
 } from "./helpers/gesture";
-import {
-  useGestureState,
-  useGestureDispatch,
-} from "../../provider/customHooks";
+import { useGestureDispatch } from "../../provider/customHooks";
+import { MODE } from "./CONSTANTS";
+import { parse } from "./parse";
 
 export const useHandleInput = (containerProperties) => {
   // TODO: Remove mode state and just use gesture type instead
-  const { mode, gesture: foo } = useGestureState();
   const { setGestureActive, setMode, setGesture } = useGestureDispatch();
 
   const [position, setPosition] = useState({});
-  const [timer, setTimer] = useState(null);
-  const [matchedGesture, setMatchedGesture] = useState([]);
   const [pattern, setPattern] = useState([]);
+  const [timer, setTimer] = useState(null);
 
   const onMove = (event) => {
     const newPosition = getGridPosition(event, containerProperties);
 
     if (gridPositionHasChanged(position, newPosition)) {
+      const { gesture, newPattern } = parse(position, newPosition, pattern);
+
       setPosition(newPosition);
-
-      const newPattern = getNewPattern(position, newPosition, pattern);
-      const gesture = gestureComboMatched(newPattern, mode);
-
-      if (gesture) {
-        setPattern(newPattern);
-        setMode(gesture.type);
-        setGesture({ ...gesture, pattern: trimPattern(newPattern, gesture) });
-        setMatchedGesture({
-          ...gesture,
-          pattern: trimPattern(newPattern, gesture),
-        });
-        setGestureActive(true);
-      }
+      setPattern(newPattern);
+      setMode(gesture.type);
+      setGesture(gesture);
+      setGestureActive(true);
     }
 
     ifInputIsIdle(timer, setTimer, () => {
-      setMode("Motion");
+      setMode(MODE.motion);
       setGestureActive(false);
       setPattern([]);
     });
@@ -53,12 +40,11 @@ export const useHandleInput = (containerProperties) => {
 
   const onMoveEnd = () => {
     setPattern([]);
-    setMode("Inactive");
+    setMode(MODE.inactive);
   };
 
   return {
     position,
-    matchedGesture,
     onMove,
     onMoveEnd,
   };

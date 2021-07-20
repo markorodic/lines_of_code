@@ -76,11 +76,12 @@ export function trimPattern(pattern, gesture) {
   );
 }
 
-export const gestureComboMatched = (pattern, mode) =>
-  validGestures.edit2.allPaths.find((gesture) => {
+export const gestureComboMatched = (pattern) => {
+  return validGestures.edit2.allPaths.find((gesture) => {
     const pathTrimmed = trimArray(getPathFrom(pattern), gesture.path.length);
     return _.isEqual(pathTrimmed, gesture.path);
   });
+};
 
 function trimArray(array, length) {
   return array.slice(array.length - length, array.length);
@@ -119,21 +120,14 @@ function getDirectionsFrom(trimmedPattern) {
     const firstPosition = trimmedPattern[count];
     const secondPosition = trimmedPattern[count + 1];
 
-    if (firstPosition.y === secondPosition.y) {
-      if (firstPosition.x - secondPosition.x === 1) {
-        stringPath.push("Left");
-      }
-      if (firstPosition.x - secondPosition.x === -1) {
-        stringPath.push("Right");
-      }
-    }
-    if (firstPosition.x === secondPosition.x) {
-      if (firstPosition.y - secondPosition.y === 1) {
-        stringPath.push("Up");
-      }
-      if (firstPosition.y - secondPosition.y === -1) {
-        stringPath.push("Down");
-      }
+    if (firstPosition.x - secondPosition.x >= 1) {
+      stringPath.push("Left");
+    } else if (firstPosition.x - secondPosition.x <= -1) {
+      stringPath.push("Right");
+    } else if (firstPosition.y - secondPosition.y >= 1) {
+      stringPath.push("Up");
+    } else if (firstPosition.y - secondPosition.y <= -1) {
+      stringPath.push("Down");
     }
 
     count++;

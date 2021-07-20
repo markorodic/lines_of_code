@@ -10,8 +10,7 @@ const GestureInput = () => {
   const inputElement = useRef(null);
   const containerProperties = useContainerProperties(inputElement);
 
-  const { position, matchedGesture, onMove, onMoveEnd } =
-    useHandleInput(containerProperties);
+  const { position, onMove, onMoveEnd } = useHandleInput(containerProperties);
 
   return (
     <Section
@@ -25,7 +24,6 @@ const GestureInput = () => {
         position={position}
         isOnPad={mode !== "Inactive"}
         containerWidth={containerProperties.width}
-        matchedGesture={matchedGesture}
       />
     </Section>
   );

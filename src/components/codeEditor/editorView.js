@@ -15,7 +15,6 @@ import {
 } from "./helpers";
 import { useGestureState } from "../../provider/customHooks";
 import { codeEditorText } from "./codeText";
-import { useCursorPosition } from "./customHooks";
 
 const options = {
   lineNumbers: true,
