@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 
 import { shouldUpdateCursor } from "./helpers";
 
-export function useGetCursorPosition(editor, gestureActive, mode, gesture) {
+export function useGetCursorPosition(editor, gestureActive, gesture) {
   const [cursorPosition, setCursorPosition] = useState(0);
 
   useEffect(() => {
-    if (editor && shouldUpdateCursor(gestureActive, mode, gesture)) {
+    if (editor && shouldUpdateCursor(gestureActive, gesture)) {
       const cursorPosition = editor.getCursor().line;
       setCursorPosition(cursorPosition);
     }
-  }, [editor, gestureActive, mode, gesture]);
+  }, [editor, gestureActive, gesture]);
 
   return cursorPosition;
 }

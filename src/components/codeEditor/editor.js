@@ -6,14 +6,9 @@ import EditorView from "./editorView";
 import { executeCommand, setCursorPosition } from "./helpers";
 
 function Editor() {
-  const { mode, gestureActive, gesture } = useGestureState();
+  const { gestureActive, gesture } = useGestureState();
   const [editor, setEditor] = useState(null);
-  const cursorPosition = useGetCursorPosition(
-    editor,
-    gestureActive,
-    mode,
-    gesture,
-  );
+  const cursorPosition = useGetCursorPosition(editor, gestureActive, gesture);
 
   const updateCursor = useCallback(
     (cursorPosition) => {

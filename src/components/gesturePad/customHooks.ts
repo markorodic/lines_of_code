@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, MouseEvent, TouchEvent } from "react";
 import {
   getGridPosition,
   gridPositionHasChanged,
@@ -8,16 +7,26 @@ import {
 import { useGestureDispatch } from "../../provider/customHooks";
 import { MODE } from "./CONSTANTS";
 import { parse } from "./parse";
+import { Position, Pattern } from "./parse";
 
-export const useHandleInput = (containerProperties) => {
+export interface ContainerProperties {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export const useHandleInput = (containerProperties: ContainerProperties) => {
   // TODO: Remove mode state and just use gesture type instead
   const { setGestureActive, setMode, setGesture } = useGestureDispatch();
 
-  const [position, setPosition] = useState({});
-  const [pattern, setPattern] = useState([]);
+  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [pattern, setPattern] = useState<Pattern>([]);
   const [timer, setTimer] = useState(null);
 
-  const onMove = (event) => {
+  type Event = MouseEvent<HTMLElement> | TouchEvent<HTMLElement>;
+
+  const onMove = (event: Event) => {
     const newPosition = getGridPosition(event, containerProperties);
 
     if (gridPositionHasChanged(position, newPosition)) {
@@ -49,7 +58,10 @@ export const useHandleInput = (containerProperties) => {
   };
 };
 
-export function useCreateCanvasContext(containerWidth, canvasElement) {
+export function useCreateCanvasContext(
+  containerWidth: number,
+  canvasElement: any,
+) {
   const [ctx, setCtx] = useState(null);
   useEffect(() => {
     const canvas = canvasElement.current;
@@ -60,7 +72,7 @@ export function useCreateCanvasContext(containerWidth, canvasElement) {
   return ctx;
 }
 
-export function useContainerProperties(element) {
+export function useContainerProperties(element: any) {
   const [containerProperties, setContainerProperties] = useState({
     x: 0,
     y: 0,

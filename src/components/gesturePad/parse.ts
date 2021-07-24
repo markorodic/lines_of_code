@@ -3,7 +3,7 @@ import { validGestures } from "../../gesturesPatterns/gesturePatterns";
 import { MAX_PATH_LENGTH } from "./CONSTANTS";
 
 // should be a pure function - app handles state
-interface Position {
+export interface Position {
   x: number;
   y: number;
 }
@@ -20,7 +20,7 @@ interface GesturePattern extends Gesture {
   pattern: Pattern;
 }
 
-type Pattern = Position[];
+export type Pattern = Position[];
 
 export const parse = (
   previousPosition: Position,

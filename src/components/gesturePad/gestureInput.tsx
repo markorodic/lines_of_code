@@ -6,7 +6,7 @@ import { useHandleInput, useContainerProperties } from "./customHooks";
 
 const GestureInput = () => {
   const { mode } = useGestureState();
-  const inputElement = useRef(null);
+  const inputElement = useRef<HTMLElement>(null);
   const containerProperties = useContainerProperties(inputElement);
 
   const { position, onMove, onMoveEnd } = useHandleInput(containerProperties);
