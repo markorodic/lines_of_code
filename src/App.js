@@ -22,7 +22,6 @@ const App = () => {
   return (
     <div className={styles.interface}>
       <img className={styles["bg-logo"]} src={logo} alt="" />
-      {/* <InterfaceCountProvider> */}
       <InterfaceGestureProvider>
         <Header />
         <section className={styles.view}>
@@ -30,7 +29,6 @@ const App = () => {
           <GesturePad />
         </section>
       </InterfaceGestureProvider>
-      {/* </InterfaceCountProvider> */}
     </div>
   );
 };

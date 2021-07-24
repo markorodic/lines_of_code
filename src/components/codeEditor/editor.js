@@ -49,8 +49,6 @@ function Editor() {
       handleOperatorCommand(gesture, cursorPosition);
   }, [gesture, cursorPosition, gestureActive, handleOperatorCommand]);
 
-  // if (editor) console.log(editor.getCursor().line);
-
   return (
     <div className="code">
       <EditorView

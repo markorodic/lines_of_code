@@ -1,7 +1,7 @@
 import { writeGestures } from "./writePatterns";
-import { editGestures2 } from "./editPatterns";
+import { editGestures } from "./editPatterns";
 
 export const validGestures = {
   ...writeGestures,
-  ...editGestures2,
+  ...editGestures,
 };
