@@ -8,7 +8,6 @@ import {
   renderExpiredBoxes,
   clearCanvas,
   renderMatchedPattern,
-  renderBG,
 } from "./helpers/view";
 import { renderGiridPointGuides } from "./helpers/grid";
 import { useGesture } from "../../provider/customHooks";
@@ -27,7 +26,7 @@ interface ExpiredPosition {
   expired: boolean;
 }
 
-type ExpiredPositions = ExpiredPosition[];
+export type ExpiredPositions = ExpiredPosition[];
 
 const GestureView = ({ position, containerWidth, isOnPad }: Props) => {
   const canvasElement = React.useRef<HTMLCanvasElement>(null);
@@ -59,11 +58,10 @@ const GestureView = ({ position, containerWidth, isOnPad }: Props) => {
       const boxWidth = containerWidth / NUMBER_OF_BOXES.X;
 
       clearCanvas(ctx, containerWidth);
-      renderBG(ctx, containerWidth, mode);
       renderGrid(ctx, containerWidth, boxWidth, mode);
       renderGridPoints(ctx, boxWidth, mode);
       renderGiridPointGuides(ctx, position, boxWidth, gestureActive, mode);
-      renderCurrentBox(ctx, position, boxWidth, mode, isOnPad);
+      renderCurrentBox(ctx, position, boxWidth);
       renderMatchedPattern(ctx, boxWidth, gesture, mode, gestureActive);
       renderExpiredBoxes(ctx, boxWidth, expiredPositions, count, mode);
     }

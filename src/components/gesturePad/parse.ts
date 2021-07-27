@@ -7,9 +7,9 @@ export interface Position {
   y: number;
 }
 
-interface GesturePattern extends Gesture {
-  pattern: Pattern;
-}
+// export interface GesturePattern extends Gesture {
+//   pattern: Pattern;
+// }
 
 export type Pattern = Position[];
 
@@ -22,7 +22,7 @@ export const parse = (
   previousPosition: Position,
   newPosition: Position,
   pattern: Pattern,
-): { gesture: GesturePattern; newPattern: Pattern } => {
+): { gesture: Gesture; newPattern: Pattern } => {
   const newPattern = getNewPattern(previousPosition, newPosition, pattern);
   const gesture = getGesture(newPattern);
 

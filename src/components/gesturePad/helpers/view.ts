@@ -1,12 +1,16 @@
 import { renderInnerLine } from "./render";
 import { NUMBER_OF_BOXES } from "./gesture";
+import { Gesture, Mode } from "../../../provider/reducer";
+import { Position } from "../parse";
+import { ExpiredPositions } from "../view";
 
-export function renderGrid(ctx, containerWidth, boxWidth, mode) {
-  if (mode === "Insert") {
-    ctx.fillStyle = "#1e1e1e";
-  } else {
-    ctx.fillStyle = "#f7f7f7";
-  }
+export function renderGrid(
+  ctx: CanvasRenderingContext2D,
+  containerWidth: number,
+  boxWidth: number,
+  mode: Mode,
+) {
+  ctx.fillStyle = "#f7f7f7";
   let count = 0;
   while (NUMBER_OF_BOXES.X > count) {
     const x = count * boxWidth;
@@ -23,12 +27,13 @@ export function renderGrid(ctx, containerWidth, boxWidth, mode) {
   }
 }
 
-export function renderGridPoints(ctx, boxWidth, mode) {
-  if (mode === "Insert") {
-    ctx.fillStyle = "#545454";
-  } else {
-    ctx.fillStyle = "#a3a3a3";
-  }
+export function renderGridPoints(
+  ctx: CanvasRenderingContext2D,
+  boxWidth: number,
+  mode: Mode,
+) {
+  ctx.fillStyle = "#a3a3a3";
+
   let countX, countY;
   countY = 1;
   while (NUMBER_OF_BOXES.Y > countY) {
@@ -43,74 +48,56 @@ export function renderGridPoints(ctx, boxWidth, mode) {
   }
 }
 
-export function renderCurrentBox(ctx, position, boxWidth, mode, isOnPad) {
+export function renderCurrentBox(
+  ctx: CanvasRenderingContext2D,
+  position: Position,
+  boxWidth: number,
+) {
   if (position.x) {
     const x = (position.x - 1) * boxWidth;
     const y = (position.y - 1) * boxWidth;
-    if (mode === "Insert") {
-      ctx.fillStyle = "white";
-    } else {
-      ctx.fillStyle = "black";
-    }
+
+    ctx.fillStyle = "black";
     ctx.fillRect(x, y, boxWidth, boxWidth);
   }
 }
 
 export function renderExpiredBoxes(
-  ctx,
-  boxWidth,
-  expiringPositions,
-  count,
-  mode,
+  ctx: CanvasRenderingContext2D,
+  boxWidth: number,
+  expiringPositions: ExpiredPositions,
+  count: number,
+  mode: Mode,
 ) {
-  if (mode === "Insert") {
+  if (expiringPositions.length) {
     expiringPositions.forEach((box) => {
       const diff = count - box.timeAdded;
-      if (diff < 10) {
-        const alphaValue = 1 - diff / 20;
-        ctx.fillStyle = `rgba(255, 255, 255, ${alphaValue})`;
+      if (diff < 15) {
+        const alphaValue = 1 - diff / 25;
+        ctx.fillStyle = `rgba(0, 0, 0, ${alphaValue})`;
       } else {
-        ctx.fillStyle = "rgba(255,255,255,0)";
+        ctx.fillStyle = "rgba(0,0,0,0)";
       }
       const x = (box.position.x - 1) * boxWidth;
       const y = (box.position.y - 1) * boxWidth;
       ctx.fillRect(x, y, boxWidth, boxWidth);
     });
-  } else {
-    if (expiringPositions.length) {
-      expiringPositions.forEach((box) => {
-        const diff = count - box.timeAdded;
-        if (diff < 15) {
-          const alphaValue = 1 - diff / 25;
-          ctx.fillStyle = `rgba(0, 0, 0, ${alphaValue})`;
-        } else {
-          ctx.fillStyle = "rgba(0,0,0,0)";
-        }
-        const x = (box.position.x - 1) * boxWidth;
-        const y = (box.position.y - 1) * boxWidth;
-        ctx.fillRect(x, y, boxWidth, boxWidth);
-      });
-    }
   }
 }
 
-export function renderBG(ctx, containerWidth, mode) {
-  if (mode === "Insert") {
-    ctx.fillStyle = "rgba(0,0,0,1)";
-    ctx.fillRect(0, 0, containerWidth, containerWidth);
-  }
-}
-
-export function clearCanvas(ctx, containerWidth) {
+export function clearCanvas(
+  ctx: CanvasRenderingContext2D,
+  containerWidth: number,
+) {
   ctx.clearRect(0, 0, containerWidth, containerWidth);
 }
 
 export function renderMatchedPattern(
-  ctx,
-  boxWidth,
-  gesture,
-  mode,
-  gestureActive,
+  ctx: CanvasRenderingContext2D,
+  boxWidth: number,
+  gesture: Gesture,
+  mode: Mode,
+  gestureActive: boolean,
 ) {
   if (mode === "Operation" && gestureActive) {
     gesture.pattern.forEach((position, index) => {
