@@ -13,12 +13,7 @@ interface GesturePattern extends Gesture {
 
 export type Pattern = Position[];
 
-enum Direction {
-  Up = "Up",
-  Down = "Down",
-  Left = "Left",
-  Right = "Right",
-}
+export type Direction = "Up" | "Down" | "Left" | "Right";
 
 const MAX_PATH_LENGTH = 6;
 
@@ -78,16 +73,16 @@ const getDirectionsFrom = (pattern: Position[]) =>
 
 const getDirection = (position: Position, secondPosition: Position) => {
   if (position.x - secondPosition.x >= 1) {
-    return Direction.Left;
+    return "Left";
   } else if (position.x - secondPosition.x <= -1) {
-    return Direction.Right;
+    return "Right";
   } else if (position.y - secondPosition.y >= 1) {
-    return Direction.Up;
+    return "Up";
   } else if (position.y - secondPosition.y <= -1) {
-    return Direction.Down;
+    return "Down";
   }
 
-  return Direction.Up;
+  return "Up";
 };
 
 const trimPattern = (pattern: Position[], { path }: { path: string[] }) =>

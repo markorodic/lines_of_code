@@ -116,7 +116,6 @@ export function renderMatchedPattern(
     gesture.pattern.forEach((position, index) => {
       const prevDirection = gesture.path[index - 1];
       const direction = gesture.path[index];
-      const nextDirection = gesture.path[index + 1];
       const gestureLength = gesture.path.length;
 
       renderCurrentBox(ctx, position, boxWidth);
@@ -125,7 +124,6 @@ export function renderMatchedPattern(
         position,
         prevDirection,
         direction,
-        nextDirection,
         index,
         gestureLength,
         boxWidth,
