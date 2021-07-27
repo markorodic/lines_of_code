@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Canvas } from "./styles";
-import { useCreateCanvasContext } from "./customHooks";
+import { useCreateCanvasContext, useAnimationFrame } from "./customHooks";
 import {
   renderGrid,
   renderGridPoints,
@@ -11,9 +11,9 @@ import {
   renderBG,
 } from "./helpers/view";
 import { renderGiridPointGuides } from "./helpers/grid";
-import { NUMBER_OF_BOXES } from "./CONSTANTS";
-import { useGestureState, useAnimationFrame } from "../../provider/customHooks";
-import { Position, Pattern } from "./parse";
+import { useGesture } from "../../provider/customHooks";
+import { Position } from "./parse";
+import { NUMBER_OF_BOXES } from "./helpers/gesture";
 
 interface Props {
   position: Position;
@@ -32,7 +32,9 @@ type ExpiredPositions = ExpiredPosition[];
 const GestureView = ({ position, containerWidth, isOnPad }: Props) => {
   const canvasElement = React.useRef<HTMLCanvasElement>(null);
   const ctx = useCreateCanvasContext(containerWidth, canvasElement);
-  const { gestureActive, mode, gesture } = useGestureState();
+  const {
+    state: { gestureActive, mode, gesture },
+  } = useGesture();
 
   const [count, setCount] = React.useState<number>(0);
   const [expiredPositions, setExpiredPositions] =

@@ -1,19 +1,10 @@
 import { isEmpty, isEqual } from "lodash";
-import { validGestures } from "../../gesturesPatterns/gesturePatterns";
-import { MAX_PATH_LENGTH } from "./CONSTANTS";
+import { Gesture } from "../../provider/reducer";
+import { gesturePatterns } from "./patterns";
 
-// should be a pure function - app handles state
 export interface Position {
   x: number;
   y: number;
-}
-
-interface Gesture {
-  id: number;
-  length: number;
-  name: string;
-  path: string[];
-  type: "Motion" | "Operation" | "Inactive" | string;
 }
 
 interface GesturePattern extends Gesture {
@@ -22,6 +13,16 @@ interface GesturePattern extends Gesture {
 
 export type Pattern = Position[];
 
+enum Direction {
+  Up = "Up",
+  Down = "Down",
+  Left = "Left",
+  Right = "Right",
+}
+
+const MAX_PATH_LENGTH = 6;
+
+// should be a pure function - app handles state
 export const parse = (
   previousPosition: Position,
   newPosition: Position,
@@ -49,12 +50,10 @@ const getNewPattern = (
 };
 
 const getGesture = (pattern: Position[]) => {
-  const matchedGesture = validGestures.allPaths.find(
-    ({ path: gesturePath }) => {
-      const inputPath = getDirectionsFrom(pattern);
-      return findMatches(gesturePath, inputPath);
-    },
-  ) as Gesture;
+  const matchedGesture = gesturePatterns.find(({ path: gesturePath }) => {
+    const inputPath = getDirectionsFrom(pattern);
+    return findMatches(gesturePath, inputPath);
+  }) as Gesture;
   const gesturePattern = trimPattern(pattern, matchedGesture);
 
   return { ...matchedGesture, pattern: gesturePattern };
@@ -66,22 +65,15 @@ const findMatches = (gesturePath: string[], inputPath: string[]) =>
 const trimPath = (gesturePath: string[], inputPath: string[]) =>
   inputPath.slice(inputPath.length - gesturePath.length, inputPath.length);
 
-enum Direction {
-  Up = "Up",
-  Down = "Down",
-  Left = "Left",
-  Right = "Right",
-}
-
 const getDirectionsFrom = (pattern: Position[]) =>
-  pattern.reduce((acc: Direction[], position: Position, index) => {
-    if (pattern.length === index + 1) return acc;
+  pattern.reduce((directions: Direction[], position: Position, index) => {
+    if (pattern.length === index + 1) return directions;
 
     const secondPosition = pattern[index + 1];
     const direction = getDirection(position, secondPosition);
-    acc.push(direction);
+    directions.push(direction);
 
-    return acc;
+    return directions;
   }, []);
 
 const getDirection = (position: Position, secondPosition: Position) => {

@@ -1,11 +1,19 @@
-import { useState, useEffect, MouseEvent, TouchEvent } from "react";
+import {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useCallback,
+  MouseEvent,
+  TouchEvent,
+} from "react";
 import {
   getGridPosition,
   gridPositionHasChanged,
   ifInputIsIdle,
+  getDocumentPositionFrom,
 } from "./helpers/gesture";
-import { useGestureDispatch } from "../../provider/customHooks";
-import { MODE } from "./CONSTANTS";
+import { useGesture } from "../../provider/customHooks";
 import { parse } from "./parse";
 import { Position, Pattern } from "./parse";
 
@@ -16,18 +24,18 @@ export interface ContainerProperties {
   height: number;
 }
 
+export type Event = MouseEvent<HTMLElement> | TouchEvent;
+
 export const useHandleInput = (containerProperties: ContainerProperties) => {
-  // TODO: Remove mode state and just use gesture type instead
-  const { setGestureActive, setMode, setGesture } = useGestureDispatch();
+  const { setGestureActive, setMode, setGesture } = useGesture();
 
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
   const [pattern, setPattern] = useState<Pattern>([]);
   const [timer, setTimer] = useState(null);
 
-  type Event = MouseEvent<HTMLElement> | TouchEvent<HTMLElement>;
-
   const onMove = (event: Event) => {
-    const newPosition = getGridPosition(event, containerProperties);
+    const documentPosition = getDocumentPositionFrom(event);
+    const newPosition = getGridPosition(documentPosition, containerProperties);
 
     if (gridPositionHasChanged(position, newPosition)) {
       const { gesture, newPattern } = parse(position, newPosition, pattern);
@@ -40,7 +48,7 @@ export const useHandleInput = (containerProperties: ContainerProperties) => {
     }
 
     ifInputIsIdle(timer, setTimer, () => {
-      setMode(MODE.motion);
+      setMode("Motion");
       setGestureActive(false);
       setPattern([]);
     });
@@ -48,7 +56,7 @@ export const useHandleInput = (containerProperties: ContainerProperties) => {
 
   const onMoveEnd = () => {
     setPattern([]);
-    setMode(MODE.inactive);
+    setMode("Inactive");
   };
 
   return {
@@ -60,19 +68,18 @@ export const useHandleInput = (containerProperties: ContainerProperties) => {
 
 export function useCreateCanvasContext(
   containerWidth: number,
-  canvasElement: any,
-) {
-  const [ctx, setCtx] = useState(null);
+  canvasElement: React.RefObject<HTMLCanvasElement>,
+): CanvasRenderingContext2D {
+  const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
   useEffect(() => {
-    const canvas = canvasElement.current;
+    const canvas = canvasElement.current as HTMLCanvasElement;
     canvas.width = canvas.height = containerWidth;
     setCtx(canvas.getContext("2d"));
   }, [containerWidth, canvasElement]);
-
-  return ctx;
+  return ctx as CanvasRenderingContext2D;
 }
 
-export function useContainerProperties(element: any) {
+export function useContainerProperties(element: React.RefObject<HTMLElement>) {
   const [containerProperties, setContainerProperties] = useState({
     x: 0,
     y: 0,
@@ -80,13 +87,34 @@ export function useContainerProperties(element: any) {
     height: 0,
   });
   useEffect(() => {
-    const { x, y, width, height } = element.current.getBoundingClientRect();
-    setContainerProperties({
-      x,
-      y,
-      width,
-      height,
-    });
+    if (element.current) {
+      const { x, y, width, height } = element.current.getBoundingClientRect();
+      setContainerProperties({
+        x,
+        y,
+        width,
+        height,
+      });
+    }
   }, [element]);
   return containerProperties;
 }
+
+export const useAnimationFrame = (callback: () => void) => {
+  const callbackRef = useRef<any>(callback);
+  const frameRef = useRef<any>(null);
+
+  const loop = useCallback(() => {
+    frameRef.current = requestAnimationFrame(loop);
+    callbackRef.current();
+  }, [callbackRef]);
+
+  useEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
+
+  useLayoutEffect(() => {
+    frameRef.current = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(frameRef.current);
+  }, [loop]);
+};

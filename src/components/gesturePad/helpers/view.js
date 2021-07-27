@@ -1,5 +1,5 @@
-import { NUMBER_OF_BOXES } from "../CONSTANTS";
 import { renderInnerLine } from "./render";
+import { NUMBER_OF_BOXES } from "./gesture";
 
 export function renderGrid(ctx, containerWidth, boxWidth, mode) {
   if (mode === "Insert") {

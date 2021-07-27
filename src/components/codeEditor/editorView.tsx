@@ -13,7 +13,7 @@ import {
   addOperationCursor,
   highlightLine,
 } from "./helpers";
-import { useGestureState } from "../../provider/customHooks";
+import { useGesture } from "../../provider/customHooks";
 import { codeEditorText } from "./codeText";
 
 const options = {
@@ -23,18 +23,26 @@ const options = {
   gutters: ["CodeMirror-linenumbers", "position"],
 };
 
-const EditorView = ({ editor, setEditor, cursorPosition }) => {
-  const { mode, gestureActive, gesture } = useGestureState();
+// Typing the Codemirror editor as any as it doesn't have TS support currently
+interface Props {
+  editor: any;
+  setEditor: (value: any) => void;
+  cursorPosition: number;
+}
+
+const EditorView = ({ editor, setEditor, cursorPosition }: Props) => {
+  const {
+    state: { mode, gestureActive, gesture },
+  } = useGesture();
 
   useEffect(() => {
     setInitialCusor(editor);
   }, [editor]);
 
-  // TODO: Split these up as text cursor is being updated additonal times
   useEffect(() => {
     if (editor) {
       clearMarks(editor);
-      addTextCursor(editor, mode, cursorPosition);
+      addTextCursor(editor, mode);
       highlightLine(editor, cursorPosition, gesture, gestureActive);
       addOperationCursor(editor, cursorPosition);
     }

@@ -7,10 +7,8 @@ import logo from "./assets/logo.svg";
 import Header from "./components/header";
 import CodeEditor from "./components/codeEditor";
 import GesturePad from "./components/gesturePad";
-import { InterfaceGestureProvider } from "./provider/gestureContext";
-// import { InterfaceCountProvider } from "./provider/countContext";
+import { GestureProvider } from "./provider/gestureContext";
 
-// rework this to a function component with hooks
 const App = () => {
   useEffect(() => {
     // rework this function to not be a copy/paste job
@@ -22,13 +20,13 @@ const App = () => {
   return (
     <div className={styles.interface}>
       <img className={styles["bg-logo"]} src={logo} alt="" />
-      <InterfaceGestureProvider>
+      <GestureProvider>
         <Header />
         <section className={styles.view}>
           <CodeEditor />
           <GesturePad />
         </section>
-      </InterfaceGestureProvider>
+      </GestureProvider>
     </div>
   );
 };

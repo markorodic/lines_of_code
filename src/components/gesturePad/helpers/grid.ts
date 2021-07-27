@@ -1,9 +1,12 @@
+import { Mode } from "../../../provider/reducer";
+import { Position } from "../parse";
+
 export function renderGiridPointGuides(
-  ctx,
-  position,
-  boxWidth,
-  gestureActive,
-  mode,
+  ctx: CanvasRenderingContext2D,
+  position: Position,
+  boxWidth: number,
+  gestureActive: boolean,
+  mode: Mode,
 ) {
   if (position.x && gestureActive) {
     const guidePoints = [];
@@ -42,11 +45,7 @@ export function renderGiridPointGuides(
     guidePoints.push({ x, y });
 
     guidePoints.forEach((point) => {
-      if (mode === "Insert") {
-        ctx.fillStyle = "#707070";
-      } else {
-        ctx.fillStyle = "#969696";
-      }
+      ctx.fillStyle = "#969696";
       ctx.fillRect(point.x - 1, point.y - 1, 2, 2);
     });
   }

@@ -1,3 +1,3 @@
-import GestureInput from "./gestureInput";
+import GestureInput from "./input";
 
 export default GestureInput;

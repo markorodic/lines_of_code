@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./styles.css";
-import { useGestureState } from "../../provider/customHooks";
+import { useGesture } from "../../provider/customHooks";
 import { useGetCursorPosition } from "./customHooks";
 import EditorView from "./editorView";
 import { executeCommand, setCursorPosition } from "./helpers";
+import { Gesture } from "../../provider/reducer";
 
 function Editor() {
-  const { gestureActive, gesture } = useGestureState();
+  const {
+    state: { gestureActive, gesture },
+  } = useGesture();
   const [editor, setEditor] = useState(null);
   const cursorPosition = useGetCursorPosition(editor, gestureActive, gesture);
 
   const updateCursor = useCallback(
-    (cursorPosition) => {
+    (cursorPosition: number) => {
       setCursorPosition(editor, cursorPosition);
     },
     [editor],
@@ -20,7 +23,7 @@ function Editor() {
   // TODO: should skip over multi lines to the next operable line
   // it's CodeMirror bug
   const handleMotionCommand = useCallback(
-    (gesture) => {
+    (gesture: Gesture) => {
       executeCommand(editor, gesture);
     },
     [editor],
@@ -28,7 +31,7 @@ function Editor() {
 
   // TODO: Fix bug - cursor and text line are deleted/operate on
   const handleOperatorCommand = useCallback(
-    (gesture, cursorPosition) => {
+    (gesture: Gesture, cursorPosition: number) => {
       updateCursor(cursorPosition);
       executeCommand(editor, gesture);
     },

@@ -1,24 +1,26 @@
+// import { Mode } from "../../provider/reducer";
+import { Gesture, Mode } from "../../provider/reducer";
 import { gestureCommands } from "./commands";
 
-export const executeCommand = (editor, gesture) => {
+export const executeCommand = (editor: any, gesture: Gesture) => {
   const command = gestureCommands[gesture.name];
   editor.execCommand(command);
 };
 
-export const setCursorPosition = (editor, cursorPosition) =>
+export const setCursorPosition = (editor: any, cursorPosition: number) =>
   editor.setCursor({
     line: cursorPosition,
     ch: 0,
   });
 
-export const setInitialCusor = (editor) => {
+export const setInitialCusor = (editor: any) => {
   if (editor) {
     setCursorPosition(editor, 0);
     addOperationCursor(editor, 0);
   }
 };
 
-export const addOperationCursor = (editor, cursorPosition) => {
+export const addOperationCursor = (editor: any, cursorPosition: number) => {
   editor.clearGutter("position");
   editor.setGutterMarker(cursorPosition, "position", makeMarker());
 };
@@ -30,13 +32,13 @@ export const makeMarker = () => {
   return marker;
 };
 
-export const clearMarks = (editor) => {
+export const clearMarks = (editor: any) => {
   if (editor.getAllMarks()[0]) {
     editor.getAllMarks()[0].clear();
   }
 };
 
-export const addTextCursor = (editor, mode, cursorPosition) => {
+export const addTextCursor = (editor: any, mode: Mode) => {
   clearMarks(editor);
   const line = editor.getCursor().line;
   if (mode === "Motion" || mode === "Inactive") {
@@ -51,10 +53,10 @@ export const addTextCursor = (editor, mode, cursorPosition) => {
 };
 
 export const highlightLine = (
-  editor,
-  cursorPosition,
-  gesture,
-  gestureActive,
+  editor: any,
+  cursorPosition: number,
+  gesture: Gesture,
+  gestureActive: boolean,
 ) => {
   if (gestureActive && editor.getLine(cursorPosition)) {
     const lastCh = editor.getLine(cursorPosition).length;
@@ -67,5 +69,5 @@ export const highlightLine = (
 };
 
 // TODO: Fix bug - cursor is moved at the end of each motion command
-export const shouldUpdateCursor = (gestureActive, gesture) =>
-  !gestureActive && gesture.type !== "Operator";
+export const shouldUpdateCursor = (gestureActive: boolean, gesture: Gesture) =>
+  !gestureActive && gesture.type !== "Operation";
