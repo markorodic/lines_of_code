@@ -1,11 +1,4 @@
-// import { Mode } from "../../provider/reducer";
-import { Gesture, Mode } from "../../provider/reducer";
-import { gestureCommands } from "./commands";
-
-export const executeCommand = (editor: any, gesture: Gesture) => {
-  const command = gestureCommands[gesture.name];
-  editor.execCommand(command);
-};
+import { Gesture, Mode } from "../../../provider/types";
 
 export const setCursorPosition = (editor: any, cursorPosition: number) =>
   editor.setCursor({

@@ -64,10 +64,6 @@
   background: #5cb290;
 }
 
-/* .text-title {
-  background: black;
-} */
-
 @media (max-width: 600px) {
   .code {
     position: relative;

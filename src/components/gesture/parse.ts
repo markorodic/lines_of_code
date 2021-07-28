@@ -1,23 +1,9 @@
 import { isEmpty, isEqual } from "lodash";
-import { Gesture } from "../../provider/reducer";
+import { Direction, Gesture, Pattern, Position } from "../../provider/types";
 import { gesturePatterns } from "./patterns";
-
-export interface Position {
-  x: number;
-  y: number;
-}
-
-// export interface GesturePattern extends Gesture {
-//   pattern: Pattern;
-// }
-
-export type Pattern = Position[];
-
-export type Direction = "Up" | "Down" | "Left" | "Right";
 
 const MAX_PATH_LENGTH = 6;
 
-// should be a pure function - app handles state
 export const parse = (
   previousPosition: Position,
   newPosition: Position,
@@ -81,7 +67,6 @@ const getDirection = (position: Position, secondPosition: Position) => {
   } else if (position.y - secondPosition.y <= -1) {
     return "Down";
   }
-
   return "Up";
 };
 

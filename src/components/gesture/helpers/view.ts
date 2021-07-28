@@ -1,8 +1,7 @@
 import { renderInnerLine } from "./render";
 import { NUMBER_OF_BOXES } from "./gesture";
-import { Gesture, Mode } from "../../../provider/reducer";
-import { Position } from "../parse";
 import { ExpiredPositions } from "../view";
+import { Gesture, Mode, Position } from "../../../provider/types";
 
 export function renderGrid(
   ctx: CanvasRenderingContext2D,
@@ -100,7 +99,7 @@ export function renderMatchedPattern(
   gestureActive: boolean,
 ) {
   if (mode === "Operation" && gestureActive) {
-    gesture.pattern.forEach((position, index) => {
+    gesture.pattern.forEach((position: Position, index) => {
       const prevDirection = gesture.path[index - 1];
       const direction = gesture.path[index];
       const gestureLength = gesture.path.length;

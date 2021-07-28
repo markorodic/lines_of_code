@@ -27,22 +27,8 @@ Operations are performed on entire lines and will only be executed when you rele
  
 Valid gestures are displayed in the header when you begin moving. They are:
 - delete
-- copy
-- paste
-- cut
- 
+
 Try moving around the gesture pad to get a feel for how the cursor moves.
 
-Once you've got that, create an operation gesture but don't let go. When an operation gesture is matched, the line will be highlighted in the code and drawn in the gesture pad. Now let go and the operation will be executed.
- 
---------------
- 
-# Challenge 🎯
- 
-You will need to edit the text labeled START to match the END text. This is a timed challenge ⏳, so try and complete it as quickly as you can.
- 
-Restart the challenge by pressing: 🔄
-And once your code is correct press: ✔️
-Great! Press the ▶️ button in the header to get started.
- 
---------------`;
+Once you've got that, create an operation gesture. When an operation gesture is matched, the line will be highlighted in the code, drawn in the gesture pad, and executed after a short delay.
+ `;

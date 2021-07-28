@@ -1,4 +1,4 @@
-import { Position, Direction } from "../parse";
+import { Direction, Position } from "../../../provider/types";
 
 export function renderInnerLine(
   canvas: CanvasRenderingContext2D,
@@ -18,7 +18,6 @@ export function renderInnerLine(
   } else {
     startPoint = centerPoint;
   }
-  console.log(startPoint);
 
   if (direction) {
     endPoint = getBoxPointFromCurrentDirection(direction, boxWidth);

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { GestureContext } from "./gestureContext";
+import { GestureContext } from "./context";
 import { gestureActions } from "./actions";
 
 export function useGesture() {

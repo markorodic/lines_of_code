@@ -1,6 +1,6 @@
 import { isEqual } from "lodash";
-import { Position } from "../parse";
-import { Event, ContainerProperties } from "../customHooks";
+import { Event, ContainerProperties } from "../types";
+import { Position } from "../../../provider/types";
 
 const GESTURE_IDLE_TIME = 200;
 export const NUMBER_OF_BOXES = {

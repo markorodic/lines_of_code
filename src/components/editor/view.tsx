@@ -12,7 +12,7 @@ import {
   addTextCursor,
   addOperationCursor,
   highlightLine,
-} from "./helpers";
+} from "./helpers/cursor";
 import { useGesture } from "../../provider/customHooks";
 import { codeEditorText } from "./codeText";
 

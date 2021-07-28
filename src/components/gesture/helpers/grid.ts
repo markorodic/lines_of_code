@@ -1,5 +1,4 @@
-import { Mode } from "../../../provider/reducer";
-import { Position } from "../parse";
+import { Mode, Position } from "../../../provider/types";
 
 export function renderGiridPointGuides(
   ctx: CanvasRenderingContext2D,

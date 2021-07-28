@@ -2,9 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./styles.css";
 import { useGesture } from "../../provider/customHooks";
 import { useGetCursorPosition } from "./customHooks";
-import EditorView from "./editorView";
-import { executeCommand, setCursorPosition } from "./helpers";
-import { Gesture } from "../../provider/reducer";
+import EditorView from "./view";
+import { executeCommand } from "./helpers/commands";
+import { setCursorPosition } from "./helpers/cursor";
+import { Gesture } from "../../provider/types";
 
 function Editor() {
   const {
@@ -21,7 +22,7 @@ function Editor() {
   );
 
   // TODO: should skip over multi lines to the next operable line
-  // it's CodeMirror bug
+  // it's a CodeMirror bug
   const handleMotionCommand = useCallback(
     (gesture: Gesture) => {
       executeCommand(editor, gesture);

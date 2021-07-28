@@ -4,8 +4,6 @@ import {
   useLayoutEffect,
   useRef,
   useCallback,
-  MouseEvent,
-  TouchEvent,
 } from "react";
 import {
   getGridPosition,
@@ -15,16 +13,8 @@ import {
 } from "./helpers/gesture";
 import { useGesture } from "../../provider/customHooks";
 import { parse } from "./parse";
-import { Position, Pattern } from "./parse";
-
-export interface ContainerProperties {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
-export type Event = MouseEvent<HTMLElement> | TouchEvent;
+import { Canvas, ContainerProperties, Event } from "./types";
+import { Pattern, Position } from "../../provider/types";
 
 export const useHandleInput = (containerProperties: ContainerProperties) => {
   const { setGestureActive, setMode, setGesture } = useGesture();
@@ -69,14 +59,14 @@ export const useHandleInput = (containerProperties: ContainerProperties) => {
 export function useCreateCanvasContext(
   containerWidth: number,
   canvasElement: React.RefObject<HTMLCanvasElement>,
-): CanvasRenderingContext2D {
+): Canvas {
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
   useEffect(() => {
     const canvas = canvasElement.current as HTMLCanvasElement;
     canvas.width = canvas.height = containerWidth;
     setCtx(canvas.getContext("2d"));
   }, [containerWidth, canvasElement]);
-  return ctx as CanvasRenderingContext2D;
+  return ctx as Canvas;
 }
 
 export function useContainerProperties(element: React.RefObject<HTMLElement>) {

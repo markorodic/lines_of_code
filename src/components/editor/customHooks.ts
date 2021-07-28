@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Gesture } from "../../provider/reducer";
-import { shouldUpdateCursor } from "./helpers";
+import { Gesture } from "../../provider/types";
+import { shouldUpdateCursor } from "./helpers/cursor";
 
 export function useGetCursorPosition(
   editor: any,
